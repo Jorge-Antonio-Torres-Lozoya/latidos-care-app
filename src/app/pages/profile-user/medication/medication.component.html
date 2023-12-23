@@ -1,0 +1,206 @@
+<div class="container d-flex flex-column">
+    <h1 class="header text-center mb-4 py-4">Datos de los medicamentos recetados para la enfermedad
+        {{sickness?.sicknessName}}</h1>
+
+</div>
+<div class="container-root-table d-flex justify-content-center">
+    <div class=" table-container  mb-5">
+        <div class="container button d-flex justify-content-end gap-3">
+            <button class="btn btn-color py-2 mb-5 tooltext" (click)="OpenModalCreateMedication()">
+              Agregar Medicamento
+              <span class="tooltiptext" style="color: rgb(133, 220, 133);">
+                Este botón le permite agregar un nuevo medicamento a la enfermedad
+              </span>
+            </button>
+            <button class="btn btn-color py-2 mb-5 tooltext" (click)="goToTracking()">
+              Volver a seguimiento de enfermedades
+              <span class="tooltiptext" style="color: rgb(133, 220, 133);">
+                Este botón le permite volver a la página de seguimiento de enfermedades
+              </span>
+            </button>
+
+        </div>
+        <table class="table table-hover table-bordered">
+            <thead class="">
+                <tr class="table-light">
+                    <th class="text-center " scope="col ">Nombre</th>
+                    <th class="text-center" scope="col">Cada cuantas horas debe tomar el medicamento</th>
+                    <th class="text-center" scope="col">Acciones</th>
+
+                </tr>
+            </thead>
+            <tbody class="table-hover" *ngFor="let item of medications">
+                <tr>
+                    <td class="text-center  pt-3" scope="row">{{item.medicationName}}</td>
+                    <td class="text-center  pt-3">{{item.timeConsumption}}</td>
+                    <td class="text-center">
+                        <button class="btn btn-primary me-2 my-1 tooltext" (click)="openViewModal(item.medicationId!
+                        )">
+                        <i class="fa fa-eye"></i>
+                        <span class="tooltiptext" style="color: blue;">
+                          Este botón le permite ver los datos del medicamento.
+                        </span>
+                      </button>
+                        <button class="btn btn-secondary me-2 my-1 tooltext" (click)="openEditModal(item.medicationId!
+                        )">
+                        <i class="fa fa-pencil "></i>
+                        <span class="tooltiptext" style="color: grey;">
+                          Este botón le permite editar los datos del medicamento
+                        </span>
+                      </button>
+                        <button class="btn btn-danger me-2 my-1 tooltext" (click)="openDeleteModal(item.medicationId!
+                        )">
+                        <i class="fa fa-trash"></i>
+                        <span class="tooltiptext" style="color: red;">
+                          Este botón le permite borrar el medicamento
+                        </span>
+                      </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!--Delete  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayDeleteModal}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title header" id="create-material-header">Borrar Medicamento</h5>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="closeDeleteMedicationModal()"></button>
+            </div>
+            <div class="modal-body py-4">
+                <p class="text-center fw-bold  mb-2"> ¿Desea borrar el medicamento
+                    {{currentMedication ? currentMedication.medicationName : ''}}?</p>
+                <p class="text-body-delete px-3">Recuerde que al borrar el medicamento implica que ya no forma parte de
+                    su tratamiento, hacer sólo esto siguiendo las instrucciones de su médico. </p>
+            </div>
+            <div class="modal-footer d-flex justify-content-between px-3">
+                <button type="button" class="btn btn-danger text-center " (click)="deleteUserMedication()">Borrar
+                    medicamento</button>
+                <button type="button" class="btn btn-secondary close-confirmation-modal"
+                    (click)="closeDeleteMedicationModal()">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!--Create  Modal-->
+
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayCreateModal}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title header" id="create-material-header"> Añadir un medicamento a la enfermedad
+                    {{sickness?.sicknessName}}</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)=" closeCreateModal()"></button>
+            </div>
+            <div class="modal-body py-4">
+                <div class="alert alert-danger" (closed)="handleErrorMedication?.()" *ngIf="errorAlertMedication">
+                    {{errorAlertMedication}} </div>
+                <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmAddMedicine">
+                    <span>Enfermedad agregada satisfactoriamente!</span>
+                    <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmAddMedication()"></button>
+                </div>
+                <form #formDataAddMedication="ngForm"
+                    (ngSubmit)="AddMedication(sickness?.sicknessId!,formDataAddMedication)">
+                    <div class="mb-3">
+                        <label for="medicationName" class="form-label">Nombre de la medicina</label>
+                        <input type="text" class="form-control" id="medicationName"
+                            aria-describedby="nombre de la medicina" ngModel name="medicationName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="timeConsumption" class="form-label">¿Cada cuantas horas debe tomar el medicamento?</label>
+                        <input type="number" class="form-control" id="timeConsumption"
+                            aria-describedby="Cada cuantas horas debe tomar el medicamento" ngModel
+                            name="timeConsumption">
+                    </div>
+                    <button type="submit" class="btn btn-green">Agregar medicamento</button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-confirmation-modal"
+                    (click)=" closeCreateModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--Edit  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayEditMedicationModal}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title header" id="create-material-header"> Actualizar medicamento
+                    {{currentMedication?.medicationName}}</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)=" closeEditModal()"></button>
+            </div>
+            <div class="modal-body py-4">
+              <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmEditMedicine">
+                <span>Medicina actualizada satisfactoriamente!</span>
+                <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmEditMedicine()"></button>
+              </div>
+                <form #formDataUpdateUserSickness="ngForm" (ngSubmit)="updateMedication(formDataUpdateUserSickness)">
+                    <div class="mb-3">
+                        <label for="medicationName" class="form-label">Nombre de la medicina</label>
+                        <input type="text" class="form-control" id="medicationName"
+                            aria-describedby="nombre de la medicina" ngModel name="medicationName"
+                            [placeholder]="currentMedication?.medicationName ? currentMedication?.medicationName : '' ">
+                    </div>
+                    <div class="mb-3">
+                        <label for="timeConsumption" class="form-label">¿Cada cuantas horas debe tomar el medicamento?</label>
+                        <input type="number" class="form-control" id="timeConsumption"
+                            aria-describedby="Cada cuantas horas debe tomar el medicamento" ngModel
+                            name="timeConsumption"
+                            [placeholder]="currentMedication?.timeConsumption ? currentMedication?.timeConsumption : '' ">
+                    </div>
+                    <button type="submit" class="btn btn-green mb-5">Actualizar enfermedad</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-confirmation-modal"
+                    (click)=" closeEditModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Ver  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayViewMedicationModal}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title header" id="create-material-header">Datos del medicamento</h5>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="closeViewMedicationModal()"></button>
+            </div>
+
+            <div class="modal-body py-4">
+                <p class="text-center mb-2  header">Nombre:
+                    <span class="fw-medium text-black">{{currentMedication?.medicationName}}</span>
+                </p>
+                <p class="text-center mb-2  header">Valor actual:
+                    <span class="fw-medium text-black">{{currentMedication?.timeConsumption}}</span>
+                </p>
+                <p class="text-center mb-2  header">Cada cuantas horas debe tomar el medicamento:
+                <span class="fw-medium text-black">{{currentMedication?.timeConsumption}}</span>
+                </p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center  ">
+                <button type="button" class="btn btn-secondary close-confirmation-modal"
+                    (click)="closeViewMedicationModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="container d-flex flex-column">
+  <h1 class="header text-center mb-4 py-4">Tú  Codigo QR</h1>
+</div>
+<div class="container-root-table d-flex justify-content-center">
+  <div class=" table-container  mb-5 text-center">
+    <p class="mb-5"> Presente este código QR a su médico para que pueda observar su información y poder darle un mejor diagnóstico.</p>
+    <qrcode [qrdata]="'http://localhost:4200/user/' + userId + '/advanced-data?token=' + token" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+.logo {
+  max-width: 65%;
+  height: auto;
+}
+
+.footer-text {
+  color: rgb(133, 220, 133);
+  font-weight: 600;
+}
+
+.footer-title {
+  color: black;
+}
+
+.border-top {
+  border-color: black;
+  border: thick none none none;
+}

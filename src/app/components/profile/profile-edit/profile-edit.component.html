@@ -1,0 +1,57 @@
+<section class="container-fluid d-flex flex-column align-items-center container-profile-edit">
+    <div class="card border-0 rounded my-3 edit-card">
+      <h1 class="pb-4 text-center" id="signup-text">Actualizar Datos</h1>
+      <div class="alert alert-danger" (closed)="handleErrorEdit?.()" *ngIf="errorEdit"> {{errorEdit}} </div>
+      <form class="form-signin mb-2 px-5" #formData="ngForm" (ngSubmit)="editFun?.(formData)">
+          <div *ngFor="let item of inputForm" class="mb-3">
+            <label [for]="item.inputId" class="form-label fw-bold"> {{item.inputLabel}} </label>
+            <input [type]="item.inputType" [id]="item.inputId" [placeholder]="item.inputPlaceholder" class="form-control" required [(ngModel)]="item.inputValue" [name]="item.inputName">
+          </div>
+
+        <div class="text-center pt-3 pb-2">
+          <button type="submit" class="btn btn-sm" id="signup-button">Actualizar Información</button>
+        </div>
+      </form>
+    </div>
+    <div class="card border-0 rounded mb-3 edit-card">
+      <h4 class="pb-4 text-center" id="signup-text">Actualizar Contraseña</h4>
+      <div class="alert alert-danger" (closed)="handleErrorPassword?.()" *ngIf="errorPassword"> {{errorPassword}} </div>
+      <form class="form-signin" #passwordData="ngForm" (ngSubmit)="passwordEditFun?.(passwordData)">
+        <div class="row">
+          <div class="col input-group mb-3 pt-3 mx-3">
+            <button (click)="passwordFun()" class="btn btn-outline-secondary" type="button" id="button-addon1"><i class="fa-solid fa-eye"></i></button>
+            <input type="password" id="claveUsuarioLogin" class="form-control" placeholder="Actual Contraseña" required ngModel name="password"
+          [type]="showPassword.value ? 'text' : 'password'">
+          </div>
+          <div class="col input-group mb-3 pt-3 mx-3">
+            <button (click)="newPasswordFun()" class="btn btn-outline-secondary" type="button" id="button-addon1"><i class="fa-solid fa-eye"></i></button>
+            <input type="password" id="newPassword" class="form-control" placeholder="Nueva Contraseña" required ngModel name="newPassword"
+          [type]="newShowPassword.value ? 'text' : 'password'">
+          </div>
+        </div>
+        <div class="text-center py-3">
+          <button type="submit" class="btn btn-sm" id="signup-button">Actualizar Contraseña</button>
+        </div>
+      </form>
+    </div>
+
+     <!--Confirmation Modal-->
+ <div class="modal" tabindex="-1" [ngStyle]="{'display':editModal}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="create-material-header">Ha actualizado sus datos satisfactoriamente</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="editHideModal?.()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-center">
+          Puede cerrar esta ventana
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary login-button border-0" id="signup-button" (click)="editHideModal?.()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

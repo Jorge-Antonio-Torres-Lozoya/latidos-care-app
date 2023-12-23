@@ -1,0 +1,74 @@
+#container-signup {
+  min-height: 75vh;
+  margin: 0;
+  flex-direction: row;
+}
+
+#signup-button {
+  color: white;
+  font-size: medium;
+  background-color: rgb(133, 220, 133);
+  font-weight: 500;
+  padding: 10px 40px 10px 40px
+}
+
+#bg-signup{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+}
+
+#text-signup {
+  color: white;
+}
+
+#signup {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-service {
+  height: 50vh;
+  object-fit: contain;
+  position: relative;
+}
+
+#signup-text {
+  color: rgb(133, 220, 133);
+  font-weight: 600;
+}
+
+form.form-signup{
+  max-width: 480px;
+  width: 100%;
+  padding-bottom: 40px;
+}
+form.form-signup label {
+  font-size: 16px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+@media (max-width: 768px) {
+  .image-service {
+    height: 40vh;
+  }
+}
+
+@media (max-width: 1000px) {
+  .image-service {
+    height: 40vh;
+  }
+}
+
+@media (max-width: 575px) {
+  .image-service {
+    height: 40vh;
+  }
+}

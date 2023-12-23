@@ -1,0 +1,7 @@
+<app-navbar [logoSrc]="logo" [navItems]="navItems"></app-navbar>
+<app-signup-form
+[error]="errorMsg"
+[showPassword]="passwordVisible"
+[handleError]="myHandleErrorFunction.bind(this)"
+[signupFun]="mySignupFunction.bind(this)"
+[passwordFun]="myPasswordFunction.bind(this)">></app-signup-form>

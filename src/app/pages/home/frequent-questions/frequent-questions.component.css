@@ -1,0 +1,61 @@
+#container-questions {
+  padding: 20px;
+  height: auto;
+}
+
+.header-questions {
+  color: rgb(133, 220, 133);
+  text-align: center;
+}
+
+#question-text {
+  font-size: large;
+  color: rgb(133, 220, 133);
+}
+
+#answer-text {
+  font-size: large;
+}
+
+.hr {
+  width: 100%;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  #container-questions {
+    padding: 40px;
+  }
+
+  .header-questions {
+    font-size: larger;
+  }
+
+  #question-text {
+    font-size: larger;
+  }
+
+  #answer-text {
+    font-size: larger;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  #container-questions {
+    padding: 50px;
+  }
+
+  .header-questions {
+    font-size: x-large;
+  }
+
+  #question-text {
+    font-size: x-large;
+  }
+
+  #answer-text {
+    font-size: x-large;
+  }
+}
+

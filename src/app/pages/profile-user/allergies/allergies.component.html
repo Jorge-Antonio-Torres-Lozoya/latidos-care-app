@@ -1,0 +1,168 @@
+<div class="container d-flex flex-column">
+  <h1 class="header text-center mb-4 py-4">Realiza el seguimiento a tus alergias</h1>
+
+</div>
+<div class="container-root-table d-flex justify-content-center">
+  <div class=" table-container  mb-5">
+    <div class="container button d-flex justify-content-end">
+      <button class="btn btn-color py-2 mb-4 me-2 tooltext" (click)="OpenModalCreate()">
+        Añadir alergia
+        <span class="tooltiptext" style="color: rgb(133, 220, 133);">
+          Este botón le permite agregar una nueva alergia para realizar seguimiento
+        </span>
+      </button>
+    </div>
+      <table class="table table-hover table-bordered">
+          <thead class="">
+              <tr class="table-light">
+                  <th class="text-center " scope="col ">Nombre</th>
+                  <th class="text-center" scope="col">Acciones</th>
+
+              </tr>
+          </thead>
+          <tbody class="table-hover" *ngFor="let item of allergies">
+              <tr>
+                  <td class="text-center  pt-3" scope="row">{{item.allergyName}}</td>
+                  <td class="text-center">
+                      <button class="btn btn-primary me-2 my-1 tooltext" (click)="openViewModal(item.allergyId!
+                      )">
+                      <i class="fa fa-eye"></i>
+                      <span class="tooltiptext" style="color: blue;">
+                        Este botón le permite ver todos los datos de una alergia
+                      </span>
+                    </button>
+                      <button class="btn btn-secondary me-2  my-1 tooltext" (click)="openEditModal(item.allergyId!
+                      )">
+                      <i class="fa fa-pencil "></i>
+                      <span class="tooltiptext" style="color: grey;">
+                        Este botón le permite editar una alergia
+                      </span>
+                    </button>
+                      <button class="btn btn-danger me-2 my-1 tooltext" (click)="openDeleteModal(item.allergyId!
+                      )">
+                      <i class="fa fa-trash"></i>
+                      <span class="tooltiptext" style="color: red;">
+                        Este botón le permite eliminar una alergia
+                      </span>
+                    </button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
+
+
+<!--Delete  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayDeleteModal}">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title header" id="create-material-header">Borrar Alergia</h5>
+              <button type="button" class="btn-close" aria-label="Close"
+                  (click)="closeDeleteAllergyModal()"></button>
+          </div>
+          <div class="modal-body py-4">
+              <p class="text-center fw-bold  mb-2"> ¿Desea borrar la alergia
+                  {{allergyById?.allergyName}}?</p>
+              <p class="text-body-delete px-3">Recuerde que al borrar la alergia implica que usted ya concluyó su
+                  tratamiento, asegúrese de cumplir con su tratamiento tal y como lo indicó su médico antes de
+                  seleccionar esta opción. También tenga en cuenta que todos los datos sobre esta alergia se
+                  borrarán de su cuenta.</p>
+          </div>
+          <div class="modal-footer d-flex justify-content-between px-3">
+              <button type="button" class="btn btn-danger text-center " (click)="deleteAllergy()">Borrar
+                  alergia</button>
+              <button type="button" class="btn btn-secondary close-confirmation-modal"
+                  (click)="closeDeleteAllergyModal()">Cerrar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<!--create Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayCreateModal}">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title header" id="create-material-header">Agregar Alergia</h5>
+              <button type="button" class="btn-close" aria-label="Close" (click)="closeCreateModal()"></button>
+          </div>
+          <div class="modal-body py-4">
+            <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmAddedAllergy">
+              <span>Alergia agregada satisfactoriamente!</span>
+              <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmAddAllergy()"></button>
+            </div>
+              <div class="alert alert-danger" (closed)="handleError?.()" *ngIf="errorAlert"> {{errorAlert}} </div>
+              <form #formData="ngForm" (ngSubmit)="addAllergy(formData)">
+                  <div class="mb-3">
+                      <label for="allergyName" class="form-label">Nombre de la alergia</label>
+                      <input ngModel name="allergyName" type="text" class="form-control" id="allergyName">
+                  </div>
+                  <div class="container-button d-flex justify-content-center">
+                      <button type="submit" class="btn btn-green w-25">Agregar</button>
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close-confirmation-modal"
+                  (click)="closeCreateModal()">Cerrar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!--Ver  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayViewModal}">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title header" id="create-material-header">Datos de la Alergia</h5>
+              <button type="button" class="btn-close" aria-label="Close" (click)="closeViewModal()"></button>
+          </div>
+
+          <div class="modal-body py-4">
+              <p class="text-center mb-2  header">Nombre:
+                  <span class="fw-medium text-black">{{allergyById?.allergyName}}</span>
+              </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary close-confirmation-modal"
+                (click)="closeViewModal()">Cerrar</button>
+        </div>
+      </div>
+  </div>
+</div>
+
+<!--Edit  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayEditModal}">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title header" id="create-material-header"> Actualización de información de la Alergia {{allergyById?.allergyName}}</h4>
+              <button type="button" class="btn-close" aria-label="Close" (click)=" closeEditModal()"></button>
+          </div>
+          <div class="modal-body py-4">
+            <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmUpdatedAllergy">
+              <span class="text-start">Alergia actualizada satisfactoriamente!</span>
+               <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmAllergyUpdate()"></button>
+              </div>
+              <form #formDataUpdateAllergy="ngForm"
+                  (ngSubmit)="updateAllergy(formDataUpdateAllergy)">
+                  <div class="mb-3">
+                      <label for="allergyName" class="form-label">Nombre de la alergia</label>
+                      <input type="text" class="form-control" id="allergyName" aria-describedby="Nombre del valor"
+                          ngModel name="allergyName" [placeholder]="currentAllergy?.allergyName ? currentAllergy?.allergyName : '' ">
+                  </div>
+                  <button type="submit" class="btn btn-green mb-5">Actualizar alergia</button>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary close-confirmation-modal"
+                (click)="closeEditModal()">Cerrar</button>
+        </div>
+      </div>
+  </div>
+</div>
+

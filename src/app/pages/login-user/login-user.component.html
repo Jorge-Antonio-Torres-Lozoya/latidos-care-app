@@ -1,0 +1,20 @@
+<app-navbar [logoSrc]="logo" [navItems]="navItems"></app-navbar>
+<app-login-form
+  [error]="errorMsg"
+  [showPassword]="passwordVisible"
+  [handleError]="myHandleErrorFunction.bind(this)"
+  [loginFun]="myLoginFunction.bind(this)"
+  [passwordFun]="myPasswordFunction.bind(this)"
+  [openRecoverPassword]="showRecoverPassword.bind(this)"
+  [displayPasswordModal]="displayRecoverModal"
+  [closePasswordModal]="handlePasswordModal.bind(this)"
+  [recoverFun]="myRecoverFunction.bind(this)"
+  [handleErrorRecover]="myHandleErrorRecoverFunction.bind(this)"
+  [errorRecover]="myErrorRecover"
+  [displayRecoverPasswordConfirmation]="myDisplayRecoverPasswordConfirmation"
+  [closeRecoverPasswordConfirmation]="myCloseRecoverPasswordConfirmation.bind(this)"
+  >
+</app-login-form>
+
+
+

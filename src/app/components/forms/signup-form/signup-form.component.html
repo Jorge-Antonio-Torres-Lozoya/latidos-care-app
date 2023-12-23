@@ -1,0 +1,55 @@
+<section class="container-fluid mt-lg-auto row" id="container-signup">
+  <div class="col-md-6" id="bg-signup">
+    <img class="rounded float-start image-service mb-3" src="../../../../assets/images/Medics2.svg" alt="Medics2">
+  </div>
+  <div class="col-md-5 pt-4" id="signup">
+    <h1 class="pb-4">Crea tu cuenta</h1>
+    <div class="alert alert-danger" (closed)="handleError?.()" *ngIf="error"> {{error}} </div>
+    <form class="form-signin" #formData="ngForm" (ngSubmit)="signupFun?.(formData)">
+      <div class="row">
+        <div class="col input-group mb-3">
+          <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-user"></i></span>
+          <input type="text" id="nombresUsuarioSignup" class="form-control" placeholder="Nombres" required ngModel name="firstName">
+        </div>
+        <div class="col input-group mb-3">
+          <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-user"></i></span>
+          <input type="text" class="form-control" id="apellidosUsuarioSignup" placeholder="Apellidos" aria-label="lastName"
+          required ngModel name="lastName">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col input-group mb-3 pt-3">
+            <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-phone"></i></span>
+            <input type="number" id="numeroUsuarioSignup" class="form-control" placeholder="Número celular" required ngModel name="phoneNumber">
+        </div>
+        <div class="col input-group mb-3 pt-3">
+          <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-envelope"></i></span>
+          <input type="email" id="correoUsuarioSignup" class="form-control" placeholder="Correo electrónico" required ngModel name="email">
+       </div>
+      </div>
+      <div class="row">
+        <div class="col input-group mb-3 pt-3">
+          <button (click)="passwordFun()" class="btn btn-outline-secondary" type="button" id="button-addon1"><i class="fa-solid fa-eye"></i></button>
+          <input type="password" id="claveUsuarioLogin" class="form-control" placeholder="Contraseña" required ngModel name="password"
+        [type]="showPassword.value ? 'text' : 'password'">
+        </div>
+      </div>
+
+      <div class="text-center pt-3">
+        <button type="submit" class="btn btn-sm" id="signup-button">Registrarse</button>
+      </div>
+
+      <hr class="my-4">
+      <div class="form-group link-group">
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <p class="nav-link text-black" >¿Ya tienes cuenta?</p>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/login" class="nav-link" id="signup-text">Iniciar Sesion</a>
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
+</section>

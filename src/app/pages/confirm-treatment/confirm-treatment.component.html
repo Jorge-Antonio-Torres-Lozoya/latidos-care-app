@@ -1,0 +1,44 @@
+<section class="container-fluid d-flex flex-column align-items-center container-profile-edit">
+  <div class="card border-0 rounded my-3 edit-card">
+    <h2 class="pb-4 text-center" id="signup-text">
+      {{medication?.medicationName ? "¿Tomó su medicina " + medication?.medicationName + " ?" : "¿Tomó su medicina?" }}
+    </h2>
+    <div class="text-center">
+      <div class="mb-2">
+        <input class="form-check-input me-2" type="radio" name="inlineRadioOptions" id="yes" [(ngModel)]="selectedRadio" value="yes">
+        <label class="form-check-label" for="yes">
+            Sí
+        </label>
+      </div>
+      <div class="ms-2">
+        <input class="form-check-input me-2" type="radio" name="inlineRadioOptions" id="no" [(ngModel)]="selectedRadio" value="no">
+        <label class="form-check-label" for="no">
+          No
+        </label>
+      </div>
+    </div>
+    <div class="text-center pt-3 pb-2">
+      <button type="button" class="btn btn-sm" id="signup-button" (click)="createTreatment()">Confirmar</button>
+    </div>
+  </div>
+
+       <!--Confirmation Modal-->
+ <div class="modal" tabindex="-1" [ngStyle]="{'display':confirmationModal}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signup-text">Ha enviado los datos satisfactoriamente</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="confirmationHideModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-center">
+          Puede cerrar esta ventana y la página también.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary border-0" id="signup-button" (click)="confirmationHideModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

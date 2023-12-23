@@ -1,0 +1,50 @@
+.container-services {
+  height: auto;
+  background-color: rgb(179, 250, 227);
+}
+
+.about-text {
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  font-weight: normal;
+}
+
+.services-start {
+  font-size: 20px;
+  font-weight: normal;
+  color: rgb(133, 220, 133);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn-app {
+  background-color: rgb(133, 220, 133);
+  color: white;
+}
+
+/* For tablets and medium-sized devices */
+@media (max-width: 992px) {
+  .about-text {
+    font-size: 20px;
+  }
+
+  .services-start {
+    font-size: 18px;
+  }
+
+  .container-services .d-flex {
+    flex-wrap: wrap;
+  }
+}
+
+/* For mobile phones */
+@media (max-width: 576px) {
+  .about-text {
+    font-size: 16px;
+  }
+
+  .services-start {
+    font-size: 14px;
+  }
+}
+

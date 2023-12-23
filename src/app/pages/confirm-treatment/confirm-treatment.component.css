@@ -1,0 +1,50 @@
+.container-profile-edit {
+  background-color: rgb(179, 250, 227);
+}
+
+.edit-card {
+  width: 130vh;
+}
+
+#signup-button {
+  color: white;
+  font-size: medium;
+  background-color: rgb(133, 220, 133);
+  font-weight: 500;
+  padding: 10px 40px 10px 40px
+}
+
+#signup-text {
+  color: rgb(133, 220, 133);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .image-service {
+    height: 40vh;
+  }
+
+  .edit-card {
+    width: 60vh;
+  }
+}
+
+@media (max-width: 1000px) {
+  .image-service {
+    height: 40vh;
+  }
+
+  .edit-card {
+    width: 70vh;
+  }
+}
+
+@media (max-width: 575px) {
+  .image-service {
+    height: 40vh;
+  }
+
+  .edit-card {
+    width: 50vh;
+  }
+}

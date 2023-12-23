@@ -1,0 +1,39 @@
+<div class="container-root-form d-flex  justify-content-center  py-5 ">
+  <div class="container-form py-5 px-5 ">
+    <div class="header text-center">
+      <h1 class="mb-5 header">{{headerText}} </h1>
+    </div>
+    <div class="form">
+      <div class="alert alert-danger" (closed)="handleError?.()" *ngIf="errorAlert"> {{errorAlert}} </div>
+      <form class="form-signin mb-2 px-5" #formData="ngForm" (ngSubmit)="sicknessFun?.(formData)">
+        <div *ngFor="let item of inputForm" class="mb-3">
+          <label [for]="item.inputId" class="form-label fw-bold"> {{item.inputLabel}} </label>
+          <input [type]="item.inputType" [id]="item.inputId" [placeholder]="item.inputPlaceholder" class="form-control" required [(ngModel)]="item.inputValue" [name]="item.inputName">
+        </div>
+        <div class=" d-flex justify-content-center mt-5">
+          <button  type="submit"
+            class="btn button  w-75  p-3">{{buttonText}}</button>
+        </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div  class="modal" tabindex="-1" [ngStyle]="{'display':displayModal}">
+  <div class=" modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header header">
+        <h1 class="modal-title header-text fs-5" id="exampleModalLabel">Se guardaron los datos satisfactoriamente.</h1>
+        <button type="button" class="btn-close"  aria-label="Close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        Puede cerrar esta ventana.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  (click)="closeModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

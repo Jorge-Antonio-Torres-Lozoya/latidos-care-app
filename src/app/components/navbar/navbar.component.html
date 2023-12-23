@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg sticky-top" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-5" routerLink="/">
+      <img [src]="logoSrc" alt="Logo" class="d-inline-block align-text-top navbar-logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" (click)="collapsed = !collapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="overlay" [class.show]="!collapsed">
+      <button type="button" class="close-btn" (click)="collapsed = !collapsed">x</button>
+      <div class="collapse navbar-collapse" id="navbarNav" [ngClass]="{'show': !collapsed}" (window:resize)="collapsed = true">
+        <ul class="navbar-nav me-auto"></ul>
+        <ul class="navbar-nav me-5" routerLinkActive="active">
+          <li class="nav-item" *ngFor="let item of navItems" routerLinkActive="active">
+            <a class="nav-link header-link" [routerLink]="item.routerLink" (click)="item?.clickFunction()" style="cursor: pointer;">
+              {{item.content}}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+
+

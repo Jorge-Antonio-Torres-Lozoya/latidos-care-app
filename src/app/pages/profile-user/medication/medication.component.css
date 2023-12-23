@@ -1,0 +1,121 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.tooltext {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltext .tooltiptext {
+  visibility: hidden;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position the tooltip above the text */
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Show tooltip text when hovering */
+.tooltext:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.header {
+    color: rgb(133, 220, 133);
+}
+
+#create-material-header {
+  color: rgb(133, 220, 133);
+}
+
+.btn-color {
+    background-color: rgb(133, 220, 133);
+    color: white;
+}
+.text-body-delete{
+    text-align: justify;
+
+}
+.btn-color:hover {
+    background-color: rgb(133, 220, 133);
+    opacity: 0.8;
+    color: white;
+}
+
+.btn-color:active {
+    background-color: rgb(133, 220, 133);
+    color: white;
+
+}
+
+button{
+    font-weight: 500
+}
+
+.table-container{
+    box-shadow: 0px 0px 139px 0px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    padding: 60px 60px ;
+}
+.btn-green,.btn-green:focus {
+    border: 0;
+    color: white;
+    font-weight: 500;
+    background-color:rgb(133, 220, 133) ;
+
+}
+.btn-green:hover, .btn-green:active{
+    background-color: rgb(133, 220, 133);
+    opacity: .9;
+}
+
+td{
+    vertical-align: middle;
+}
+
+
+
+
+@media (max-width: 1000px) {
+    .btn-color{
+        width: 30%;
+    }
+}
+@media (max-width: 768px) {
+.table-container{
+    width: 95%;
+}
+
+}
+
+@media (max-width: 600px) {
+    .btn-color{
+        width: 45%;
+    }
+
+
+
+}
+@media (max-width: 520px) {
+.table-container{
+    padding: 20px 20px ;
+}
+tr th, tr td {
+    font-size: 13px;
+   }
+}
+
+@media (max-width: 390px) {
+    tr th, tr td {
+        font-size: 12px;
+       }
+}

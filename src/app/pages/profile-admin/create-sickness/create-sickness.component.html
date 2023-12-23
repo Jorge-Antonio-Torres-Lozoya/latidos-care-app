@@ -1,0 +1,11 @@
+<app-sickness-form
+  [headerText]="headerText"
+  [sicknessFun]="mySicknessCreateFunction.bind(this)"
+  [handleError]="myHandleErrorFunction.bind(this)"
+  [buttonText]="buttonText"
+  [inputForm]="createSicknessInputForm"
+  [closeModal]="closeModal.bind(this)"
+  [displayModal]="displayCreateModal"
+  [errorAlert]="errorAlert"
+  [handleError]="myHandleErrorFunction.bind(this)"
+></app-sickness-form>

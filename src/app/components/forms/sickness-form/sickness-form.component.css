@@ -1,0 +1,44 @@
+.container-form {
+    
+    background:white ;
+    box-shadow: 0px 0px 139px 0px rgba(0, 0, 0, 0.1);
+    width: 50%;
+}
+.container-root-form{
+background-color: rgb(179, 250, 227);
+}
+
+.header{
+color: rgb(133, 220, 133);
+}
+button{
+    border: 0;
+    color: white;
+    font-weight: 500;
+    background-color:rgb(133, 220, 133) ;
+}
+button:hover{
+    background-color: rgb(133, 220, 133);
+    opacity: 0.8;
+    color: white;
+}
+button:focus{
+    background-color: rgb(133, 220, 133);
+    color: white;
+}
+
+.button:active{
+    background-color: rgb(133, 220, 133);
+    color: white;
+    
+}
+
+label, button,.header{
+    font-family : Arial, Helvetica, sans-serif;
+}
+
+@media  (max-width: 1100px) {
+    .container-form {
+        width: 80%;
+    }
+}

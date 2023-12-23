@@ -1,0 +1,58 @@
+
+<div class="container my-3">
+    <h1 class="text-center fw-bold pb-4 header" id="read-material-header">Enfermedades</h1>
+    <div class="row flex-wrap">
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3 cards-container " *ngFor="let sickness of sicknesses">
+        <div class="card" style="cursor: pointer;" (click)="openModalSickness(sickness.sicknessId!
+        )">
+          <div class="card-body d-flex align-items-center justify-content-center flex-column gap-2">
+            <h5 class="card-title text-center fw-bold"> {{sickness.sicknessName}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+     <!--Selection Reading Material Modal-->
+     <div class="modal" tabindex="-1" [ngStyle]="{'display':sicknessModal}">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header px-4 header">
+              <h5 class="modal-title" id="create-material-header">Seleccione lo que necesita hacer con esta enfermedad</h5>
+              <button type="button" class="btn-close  " aria-label="Close"  (click)="closeSicknessModal()"></button>
+            </div>
+            <div class="modal-body d-flex flex-row justify-content-center gap-3 ">
+              <button type="button" class="btn btn-secondary btn-green btn-sm close-confirmation-modal me-1" (click)="editSickness(currentSicknessId!)">Editar enfermedad</button>
+              <button type="button" class="btn btn-danger btn-sm close-confirmation-modal me-1" (click)="openDeleteSicknessModal()" >Borrar enfermedad</button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close-confirmation-modal  "  (click)="closeSicknessModal()" >Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    <!--Delete  Modal-->
+    <div class="modal" tabindex="-1" [ngStyle]="{'display':deleteSicknessModal}">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header header">
+            <h5 class="modal-title" id="create-material-header">¿Está seguro que desea borrar la enfermedad?</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteSicknessModal()"></button>
+          </div>
+          <div class="modal-body py-4">
+            <p class="text-center mb-2">La enfermedad junto con sus respectivos datos serán borrados</p>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-danger text-center mt-3" (click)="deleteSickness()">Borrar enfermedad</button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary close-confirmation-modal" (click)="closeDeleteSicknessModal()">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
