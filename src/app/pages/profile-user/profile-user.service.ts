@@ -358,7 +358,7 @@ validateVerificationTokenUser(idUser:string, token:string):Observable<ValidatedV
 }
 
 generateVerificationTokenUser(idUser:string):Observable<VerificationTokenInterface>{
-  return this.http.put<any>(`${environment.apiUrl}user/${idUser}/verification-token`, null, {headers: this.headers}).pipe(catchError(this.errorHandlingService.handleError))
+  return this.http.get<any>(`${environment.apiUrl}user/${idUser}/generate-verification-token`, {headers: this.headers}).pipe(catchError(this.errorHandlingService.handleError))
 }
 
 }

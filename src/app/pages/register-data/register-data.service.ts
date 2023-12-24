@@ -19,6 +19,6 @@ export class RegisterDataService {
   constructor(private http:HttpClient, private errorHandlingService:ErrorHandlingService, private cookieService: SsrCookieService) {}
 
   updateRegisterDataUser(userId:string):Observable<UserInterface>{
-    return this.http.put<any>(`${environment.apiUrl}user/register-data/${userId}`, null, {headers: this.headers}).pipe(catchError(this.errorHandlingService.handleError));
+    return this.http.get<any>(`${environment.apiUrl}user/register-data/${userId}`, {headers: this.headers}).pipe(catchError(this.errorHandlingService.handleError));
   }
 }
