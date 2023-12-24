@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,9 +12,13 @@ export class NavbarComponent implements OnInit {
 
   collapsed: boolean = true;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  navigateToHome() {
+    this.router.navigateByUrl(`/`);
   }
 }
 

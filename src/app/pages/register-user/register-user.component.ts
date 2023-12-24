@@ -10,7 +10,7 @@ import { SignupUserService } from './register-user.service';
   styleUrls: ['./register-user.component.css']
 })
 export class RegisterUserComponent implements OnInit {
-  logo = '../../../assets/images/logo-healthtech.svg';
+  logo = '../../../assets/images/logo-color-svg.svg';
   navItems = [
     {
       content: 'Nosotros',

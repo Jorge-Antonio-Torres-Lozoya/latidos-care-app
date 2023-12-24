@@ -6,12 +6,7 @@
 }
 
 .navbar-logo {
-  width: auto;
-  height: 200px;
-  object-fit: contain;
-  position: relative;
-  top: -10px;
-  left: -5px;
+  max-width: 170px;
 }
 
 .brand-name {

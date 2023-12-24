@@ -1,8 +1,6 @@
 <nav class="navbar navbar-expand-lg sticky-top" id="navbar">
   <div class="container-fluid">
-    <a class="navbar-brand ms-5" routerLink="/">
-      <img [src]="logoSrc" alt="Logo" class="d-inline-block align-text-top navbar-logo">
-    </a>
+      <img [src]="logoSrc" style="cursor: pointer;" alt="Logo" class="navbar-logo ms-2" (click)="navigateToHome()">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" (click)="collapsed = !collapsed">
       <span class="navbar-toggler-icon"></span>
     </button>

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./libro-reclamaciones.component.css']
 })
 export class LibroReclamacionesComponent implements OnInit {
-  logo = '../../../assets/images/logo-healthtech.svg';
+  logo = '../../../assets/images/logo-color-svg.svg';
   navItems = [
     {
       content: 'Nosotros',

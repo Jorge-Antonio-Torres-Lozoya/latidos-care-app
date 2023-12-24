@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./terms-conditions.component.css']
 })
 export class TermsConditionsComponent implements OnInit {
-  logo = '../../../assets/images/logo-healthtech.svg';
+  logo = '../../../assets/images/logo-color-svg.svg';
   navItems = [
     {
       content: 'Nosotros',

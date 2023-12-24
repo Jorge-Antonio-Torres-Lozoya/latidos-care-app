@@ -10,7 +10,7 @@ import { LoginInterface } from '../../shared/interfaces/login.interface';
   styleUrls: ['./login-admin.component.css']
 })
 export class LoginAdminComponent implements OnInit {
-  logo = '../../../assets/images/logo-healthtech.svg';
+  logo = '../../../assets/images/logo-color-svg.svg';
   navItems = [
     {
       content: 'Nosotros',

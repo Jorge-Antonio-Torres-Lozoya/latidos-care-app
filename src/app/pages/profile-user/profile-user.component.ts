@@ -11,7 +11,7 @@ import { SsrCookieService } from 'ngx-cookie-service-ssr';
   styleUrls: ['./profile-user.component.css']
 })
 export class ProfileUserComponent implements OnInit, OnDestroy {
-  logo = '../../../assets/images/logo-healthtech.svg';
+  logo = '../../../assets/images/logo-color-svg.svg';
   navItems?: NavItem[];
   userId?:string;
   logoutModal:string = 'none';

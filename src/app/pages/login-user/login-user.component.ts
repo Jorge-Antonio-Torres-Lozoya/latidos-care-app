@@ -11,7 +11,7 @@ import { ForgotPasswordInterface } from '../../shared/interfaces/forgot-password
   styleUrls: ['./login-user.component.css']
 })
 export class LoginUserComponent implements OnInit {
-  logo = '../../../assets/images/logo-healthtech.svg';
+  logo = '../../../assets/images/logo-color-svg.svg';
   navItems = [
     {
       content: 'Nosotros',

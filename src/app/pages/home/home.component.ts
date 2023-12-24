@@ -11,7 +11,7 @@ import { SsrCookieService } from 'ngx-cookie-service-ssr';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  logo = '../../../assets/images/logo-healthtech.svg';
+  logo = '../../../assets/images/logo-color-svg.svg';
   navItems = [
     {
       content: 'Nosotros',
