@@ -14,10 +14,11 @@ export class QrAccessGuard implements CanActivate {
     const token = route.queryParams['token'];
 
     if (!token) {
+      console.log('no validado')
       this.router.navigate(['unauthorized']);
       return false;
     }
-
+    console.log('validado')
     return true;
   }
 }
