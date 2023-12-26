@@ -10,6 +10,8 @@ import { RecoverPasswordGuard } from './shared/guards/recover-password.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'pacient/:userId', canActivate: [QrAccessGuard],
+  loadChildren:() => import('./pages/data-pacient/data-pacient.module').then(m => m.DataPacientModule)},
   {path: 'register-user',
   loadChildren:() => import('./pages/register-user/register-user.module').then(m => m.RegisterUserModule) },
   {path: 'protected/login-admin',
@@ -32,8 +34,8 @@ const routes: Routes = [
   loadChildren:() => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule) },
   {path: 'user/:userId/confirm-treatment/:medicationId',
   loadChildren:() => import('./pages/confirm-treatment/confirm-treatment.module').then(m => m.ConfirmTreatmentModule)},
-  {path: 'medic/:userId/advanced-data', canActivate: [QrAccessGuard],
-  loadChildren:() => import('./pages/advanced-data-user/advanced-data-user.module').then(m => m.AdvancedDataUserModule)},
+  /*{path: 'medic/:userId/advanced-data', canActivate: [QrAccessGuard],
+  loadChildren:() => import('./pages/advanced-data-user/advanced-data-user.module').then(m => m.AdvancedDataUserModule)},*/
   {path: 'unauthorized',
   loadChildren:() => import('./pages/unauthorized/unauthorized.module').then(m => m.UnauthorizedModule)},
   {path: 'time-out',

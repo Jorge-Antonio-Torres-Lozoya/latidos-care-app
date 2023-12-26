@@ -22,7 +22,7 @@ export class MyQrcodeComponent implements OnInit {
   }
 
   toAdvancedData() {
-    this.router.navigateByUrl(`medic/${this.userId}/advanced-data?token=${this.token}`)
+    this.router.navigateByUrl(`pacient/${this.userId}?token=${this.token}`)
   }
 
 
