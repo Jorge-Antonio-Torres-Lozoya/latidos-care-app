@@ -3,7 +3,7 @@ export interface AdminInterface {
   firstName: string;
   lastName?: string;
   email: string;
-  phoneNumber?: number;
+  phoneNumber?: string;
   createdAt: Date;
   tokenUser: string;
   isLogin?: boolean;

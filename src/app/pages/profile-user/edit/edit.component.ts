@@ -39,7 +39,7 @@ export class EditComponent implements OnInit {
       updatedData['email'] = formData.value.email;
     }
     if (formData.value.phoneNumber) {
-      updatedData['phoneNumber'] = Number(formData.value.phoneNumber);
+      updatedData['phoneNumber'] = formData.value.phoneNumber;
     }
     if (formData.value.dni) {
       updatedData['dni'] = formData.value.dni;
@@ -51,7 +51,7 @@ export class EditComponent implements OnInit {
       updatedData['tutorLastName'] = formData.value.tutorLastName;
     }
     if (formData.value.tutorPhoneNumber) {
-      updatedData['tutorPhoneNumber'] = Number(formData.value.tutorPhoneNumber);
+      updatedData['tutorPhoneNumber'] = formData.value.tutorPhoneNumber;
     }
     this.profileUserService.editUser(updatedData, this.userId!).subscribe(response => {
       this.confirmationModal = 'block';

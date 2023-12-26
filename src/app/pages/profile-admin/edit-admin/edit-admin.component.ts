@@ -39,7 +39,7 @@ export class EditAdminComponent implements OnInit {
       updatedData['email'] = formData.value.email;
     }
     if (formData.value.phoneNumber) {
-      updatedData['phoneNumber'] = Number(formData.value.phoneNumber);
+      updatedData['phoneNumber'] = formData.value.phoneNumber;
     }
     this.profileAdminService.editAdmin(updatedData, this.adminId!).subscribe(response => {
       this.confirmationModal = 'block';

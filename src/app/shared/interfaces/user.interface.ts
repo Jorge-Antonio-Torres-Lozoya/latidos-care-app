@@ -3,11 +3,11 @@ export interface UserInterface {
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber: number;
+  phoneNumber: string;
   dni: string;
   tutorFirstName: string;
   tutorLastName: string;
-  tutorPhoneNumber: number;
+  tutorPhoneNumber: string;
   createdAt: Date;
   tokenUser: string;
   registerData: boolean;

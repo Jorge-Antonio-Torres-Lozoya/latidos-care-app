@@ -1,7 +1,7 @@
 export interface SignupUserInterface {
   firstName: string;
   lastName: string;
-  phoneNumber: number;
+  phoneNumber: string;
   email: string;
   password: string;
 }
