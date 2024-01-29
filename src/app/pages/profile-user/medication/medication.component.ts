@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { ProfileUserService } from '../profile-user.service';
 import { ActivatedRoute,Router } from '@angular/router';
 import { MedicationInterface } from '../../../shared/interfaces/medication.interface';
-import { CreateMedicationInterface } from '../../../shared/interfaces/create-medication.interface';
+import { CreateMedicationInterface } from '../../profile-admin/interfaces/create-medication.interface';
 import { NgForm } from '@angular/forms';
 import { UpdateMedicationInterface } from '../../../shared/interfaces/update-medication.interface';
 import { SicknessInterface } from '../../../shared/interfaces/sickness.interface';

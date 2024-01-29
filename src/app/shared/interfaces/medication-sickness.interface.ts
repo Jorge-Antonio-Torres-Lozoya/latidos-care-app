@@ -1,8 +1,6 @@
-export interface TreatmentInterface {
-  taken: boolean;
-  createdAt: Date;
+export interface MedicationSicknessInterface {
   medicationSicknessId: number;
-  medicationSicknessCreatedAt: Date;
+  createdAt: Date;
   timeConsumption: number;
   accountId: number;
   firstName: string;

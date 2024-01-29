@@ -12,12 +12,12 @@ import { TreatmentInterface } from '../../shared/interfaces/new-treatment.interf
 import { SicknessInterface } from '../../shared/interfaces/sickness.interface';
 import { AllergyInterface } from '../../shared/interfaces/allergy.interface';
 import { TrackingValueInterface } from '../../shared/interfaces/tracking-value.interface';
-import { CreateSicknessInterface } from '../../shared/interfaces/create-sickness.interface';
+import { CreateSicknessInterface } from '../profile-admin/interfaces/create-sickness.interface';
 import { UpdateSicknessInterface } from '../../shared/interfaces/update-sickness.interface';
-import { CreateMedicationInterface } from '../../shared/interfaces/create-medication.interface';
-import { CreateAllergyInterface } from '../../shared/interfaces/create-allergy.interface';
+import { CreateMedicationInterface } from '../profile-admin/interfaces/create-medication.interface';
+import { CreateAllergyInterface } from '../profile-admin/interfaces/create-allergy.interface';
 import { UpdateAllergyInterface } from '../../shared/interfaces/update-allergy.interface';
-import { CreateTrackingValueInterface } from '../../shared/interfaces/create-tracking-value.interface';
+import { CreateTrackingValueInterface } from '../profile-admin/interfaces/create-tracking-value.interface';
 import { UpdateTrackingValueInterface } from '../../shared/interfaces/update-tracking-value.interface';
 import { UpdateCurrentValueInterface } from '../../shared/interfaces/update-current-value.interface';
 import { UpdateMedicationInterface } from '../../shared/interfaces/update-medication.interface';

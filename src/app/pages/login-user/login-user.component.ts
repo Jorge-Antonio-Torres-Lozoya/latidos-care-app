@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginInterface } from '../../shared/interfaces/login.interface';
 import { LoginUserService } from './login-user.service';
-import { ForgotPasswordInterface } from '../../shared/interfaces/forgot-password.interface';
+import { ForgotPasswordInterface } from '../recover-password-user/interfaces/forgot-password.interface';
 
 @Component({
   selector: 'app-login-user',

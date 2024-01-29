@@ -1,4 +1,4 @@
 export interface CreateTreatmentInterface {
-  medicationId: number;
+  medicationSicknessId: number;
   taken: boolean;
 }

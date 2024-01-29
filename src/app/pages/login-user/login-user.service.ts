@@ -6,7 +6,7 @@ import { ErrorHandlingService } from '../../shared/error-handling.service';
 import { UserModel } from './user.model';
 import { UserInterface } from '../../shared/interfaces/user.interface';
 import { LoginInterface } from '../../shared/interfaces/login.interface';
-import { ForgotPasswordInterface } from '../../shared/interfaces/forgot-password.interface';
+import { ForgotPasswordInterface } from '../recover-password-user/interfaces/forgot-password.interface';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 
 @Injectable({

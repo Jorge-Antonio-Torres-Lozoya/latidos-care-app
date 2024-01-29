@@ -1,6 +1,6 @@
-export interface CurrentValueInterface {
-  currentNumber: number;
-  createdAt: Date;
+import { CurrentValueInterface } from "./current-value.interface";
+
+export interface UserTrackingValueInterface {
   userTrackingValueId: number;
   minLimit: number;
   maxLimit: number;
@@ -10,11 +10,12 @@ export interface CurrentValueInterface {
   maxValueAlertActivated: boolean;
   personalizedAlertMinValue: string;
   personalizedAlertMaxValue: string;
-  userTrackingValueCreatedAt: Date;
-  userId: number;
+  createdAt: Date;
+  accountId: number;
   firstName: string;
   lastName?: string;
   trackingValueId: number;
   trackingValueName: string;
   trackingValueCreatedAt: Date;
+  currentValues: CurrentValueInterface[];
 }

@@ -4,8 +4,8 @@ import { ProfileUserService } from '../profile-user.service';
 import { Observable, Subscription, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { CreateMedicationInterface } from '../../../shared/interfaces/create-medication.interface';
-import { CreateSicknessInterface } from '../../../shared/interfaces/create-sickness.interface';
+import { CreateMedicationInterface } from '../../profile-admin/interfaces/create-medication.interface';
+import { CreateSicknessInterface } from '../../profile-admin/interfaces/create-sickness.interface';
 import { UpdateSicknessInterface } from '../../../shared/interfaces/update-sickness.interface';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 

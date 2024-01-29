@@ -4,7 +4,7 @@ import { AllergyInterface } from '../../../shared/interfaces/allergy.interface';
 import { ProfileUserService } from '../profile-user.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { CreateAllergyInterface } from '../../../shared/interfaces/create-allergy.interface';
+import { CreateAllergyInterface } from '../../profile-admin/interfaces/create-allergy.interface';
 import { UpdateAllergyInterface } from '../../../shared/interfaces/update-allergy.interface';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 

@@ -6,7 +6,7 @@ import { environment } from "../../../environments/environment";
 import { UserInterface } from "../../shared/interfaces/user.interface";
 import { UpdateCurrentValueInterface } from "../../shared/interfaces/update-current-value.interface";
 import { MedicationInterface } from "../../shared/interfaces/medication.interface";
-import { CreateMedicationInterface } from "../../shared/interfaces/create-medication.interface";
+import { CreateMedicationInterface } from "../profile-admin/interfaces/create-medication.interface";
 import { UpdateMedicationInterface } from "../../shared/interfaces/update-medication.interface";
 import { SicknessInterface } from "../../shared/interfaces/sickness.interface";
 import { CurrentValues } from "../../shared/interfaces/current-values.interface";
@@ -14,13 +14,13 @@ import { TreatmentInterface } from "../../shared/interfaces/new-treatment.interf
 import { ValidatedVerificationTokenInterface } from "../../shared/interfaces/validated-verification-token.interface";
 import { VerificationTokenInterface } from "../../shared/interfaces/verification-token.interface";
 import { TrackingValueInterface } from "../../shared/interfaces/tracking-value.interface";
-import { CreateTrackingValueInterface } from "../../shared/interfaces/create-tracking-value.interface";
+import { CreateTrackingValueInterface } from "../profile-admin/interfaces/create-tracking-value.interface";
 import { UpdateTrackingValueInterface } from "../../shared/interfaces/update-tracking-value.interface";
 import { UpdateTrackingAlertsInterface } from "../../shared/interfaces/update-tracking-alerts.interface";
 import { UpdateSicknessInterface } from "../../shared/interfaces/update-sickness.interface";
-import { CreateSicknessInterface } from "../../shared/interfaces/create-sickness.interface";
+import { CreateSicknessInterface } from "../profile-admin/interfaces/create-sickness.interface";
 import { AllergyInterface } from "../../shared/interfaces/allergy.interface";
-import { CreateAllergyInterface } from "../../shared/interfaces/create-allergy.interface";
+import { CreateAllergyInterface } from "../profile-admin/interfaces/create-allergy.interface";
 import { UpdateAllergyInterface } from "../../shared/interfaces/update-allergy.interface";
 import { SsrCookieService } from "ngx-cookie-service-ssr";
 @Injectable({

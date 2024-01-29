@@ -1,4 +1,4 @@
-export interface UserEditInterface {
+export interface AccountUpdateInterface {
   firstName?: string;
   lastName?: string;
   email?: string;

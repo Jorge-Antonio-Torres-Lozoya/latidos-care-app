@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RecoverPasswordUser } from '../../shared/interfaces/recover-password-user.interface';
+import { RecoverPasswordUser } from './interfaces/recover-password-user.interface';
 import { RecoverPasswordUserService } from './recover-password-user.service';
 
 @Component({

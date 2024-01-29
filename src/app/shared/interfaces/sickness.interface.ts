@@ -1,7 +1,9 @@
-import { MedicationInterface } from "./medication.interface";
+import { UserSicknessInterface } from "./user-sickness.interface";
 
 export interface SicknessInterface{
-    sicknessId?:number;
-    sicknessName?:string;
-    medications?: MedicationInterface[]
+  sicknessId: number;
+  sicknessName: string;
+  slug: string;
+  createdAt: Date;
+  userSicknesses?: UserSicknessInterface[];
 }

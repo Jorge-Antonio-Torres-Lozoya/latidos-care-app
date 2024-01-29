@@ -4,7 +4,7 @@ import { TrackingValueInterface } from '../../../shared/interfaces/tracking-valu
 import { ProfileUserService } from '../profile-user.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { CreateTrackingValueInterface } from '../../../shared/interfaces/create-tracking-value.interface';
+import { CreateTrackingValueInterface } from '../../profile-admin/interfaces/create-tracking-value.interface';
 import { UpdateTrackingValueInterface } from '../../../shared/interfaces/update-tracking-value.interface';
 import { UpdateCurrentValueInterface } from '../../../shared/interfaces/update-current-value.interface';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';

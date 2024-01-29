@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserInterface } from '../../shared/interfaces/user.interface';
 import { HttpClient } from '@angular/common/http';
 import { ErrorHandlingService } from '../../shared/error-handling.service';
-import { RecoverPasswordUser } from '../../shared/interfaces/recover-password-user.interface';
+import { RecoverPasswordUser } from './interfaces/recover-password-user.interface';
 import { environment } from '../../../environments/environment';
 import { Observable, catchError } from 'rxjs';
 import { ValidatedVerificationTokenInterface } from '../../shared/interfaces/validated-verification-token.interface';

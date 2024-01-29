@@ -1,4 +1,3 @@
-export interface UpdateMedicationInterface {    
+export interface UpdateMedicationInterface {
     medicationName?: string;
-    timeConsumption?: number
 }
