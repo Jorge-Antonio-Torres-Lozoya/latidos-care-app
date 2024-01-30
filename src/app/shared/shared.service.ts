@@ -6,6 +6,10 @@ import { AccountInterface } from "./interfaces/account.interface";
 import { Observable, catchError } from "rxjs";
 import { environment } from "../../environments/environment";
 import { UpdateAccountInterface } from "./interfaces/update-account.interface";
+import { TrackingValueInterface } from "./interfaces/tracking-value.interface";
+import { SicknessInterface } from "./interfaces/sickness.interface";
+import { MedicationInterface } from "./interfaces/medication.interface";
+import { AllergyInterface } from "./interfaces/allergy.interface";
 
 
 @Injectable({
@@ -56,6 +60,22 @@ export class SharedService {
         headers: this.getHeaders(),
       })
       .pipe(catchError(this.errorHandlingService.handleError));
+  }
+
+  getAllTrackingValues():Observable<TrackingValueInterface[]>{
+    return this.http.get<any>(`${environment.apiUrl}tracking-value`).pipe(catchError(this.errorHandlingService.handleError))
+  }
+
+  getAllSickness():Observable<SicknessInterface[]>{
+    return this.http.get<any>(`${environment.apiUrl}sickness`).pipe(catchError(this.errorHandlingService.handleError))
+  }
+
+  getAllMedication():Observable<MedicationInterface[]>{
+    return this.http.get<any>(`${environment.apiUrl}medication`).pipe(catchError(this.errorHandlingService.handleError))
+  }
+
+  getAllAllergy():Observable<AllergyInterface[]>{
+    return this.http.get<any>(`${environment.apiUrl}allergy`).pipe(catchError(this.errorHandlingService.handleError))
   }
 
 }

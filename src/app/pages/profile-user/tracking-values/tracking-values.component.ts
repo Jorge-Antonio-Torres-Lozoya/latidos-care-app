@@ -1,217 +1,191 @@
-import { Component } from '@angular/core';
-import { Observable, Subscription, switchMap } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { TrackingValueInterface } from '../../../shared/interfaces/tracking-value.interface';
 import { ProfileUserService } from '../profile-user.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { CreateTrackingValueInterface } from '../../profile-admin/interfaces/create-tracking-value.interface';
-import { UpdateTrackingValueInterface } from '../../../shared/interfaces/update-tracking-value.interface';
-import { UpdateCurrentValueInterface } from '../../../shared/interfaces/update-current-value.interface';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
+import { UserTrackingValueInterface } from '../../../shared/interfaces/user-tracking-value.interface';
+import { SharedService } from '../../../shared/shared.service';
+import { CreateUserTrackingValueInterface } from '../interfaces/create-user-tracking-value.interface';
+import { UpdateUserTrackingValueInterface } from '../interfaces/update-user-tracking-value.interface';
+import * as e from 'express';
 
 @Component({
   selector: 'app-tracking-values',
   templateUrl: './tracking-values.component.html',
   styleUrls: ['./tracking-values.component.css']
 })
-export class TrackingValuesComponent {
-  userId?: string;
-  userUsb?: Subscription;
+export class TrackingValuesComponent implements OnInit, OnDestroy {
   trackingValues?: TrackingValueInterface[];
   trackingValuesUsb?: Subscription;
-  trackingValueById?: TrackingValueInterface
+  userTrackingValues?: UserTrackingValueInterface[];
+  userTrackingValuesUsb?: Subscription;
   displayDeleteModal: string = 'none';
+
   displayCreateModal: string = 'none';
-  displayViewModal: string = 'none';
-  displayEditModal: string = 'none';
-  currentTrackingValueId?: number;
-  currentTrackingValue?: TrackingValueInterface;
   confirmAddedTrackingValue:boolean = false;
+  errorCreate:string = '';
+  displayErrorCreate:boolean = false;
+
+  displayEditModal: string = 'none';
   confirmUpdatedTrackingValue:boolean = false;
-  confirmUpdatedCurrentValue:boolean = false;
-  confirmAddCurrentValue:boolean = false;
-  errorAlertCurrentValue?: string = undefined;
-  errorAlert?: string = undefined;
+  errorUpdated:string = '';
+  displayErrorUpdate:boolean = false;
+
+  currentUserTrackingValue?: UserTrackingValueInterface;
+  currentTrackingValue?: TrackingValueInterface;
+
 
   constructor(
     private profileUserService: ProfileUserService,
+    private sharedService: SharedService,
     private router: Router,
     private cookieService: SsrCookieService
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.cookieService.get('user_id')!;
-    this.userUsb = this.profileUserService
-      .getTrackingValuesByUser(this.userId!)
+    this.userTrackingValuesUsb = this.profileUserService
+      .getUserTrackingValuesByAccount(this.getAccountId())
       .subscribe((trackingValues) => {
-        this.trackingValues = trackingValues;
+        this.userTrackingValues = trackingValues;
       });
+    this.trackingValuesUsb = this.sharedService.getAllTrackingValues().subscribe(trackingValues => {
+      this.trackingValues = trackingValues;
+    })
   }
 
-  handleError?() {
-    this.errorAlert = undefined;
-  }
-  handleErrorCurrentValue?() {
-    this.errorAlertCurrentValue = undefined;
+  getAccountId() {
+    return this.cookieService.get('account_id');
   }
 
-  getTrackingValueById(idTrackingValue: number): Observable<any> {
-    this.currentTrackingValueId = idTrackingValue;
-    return this.profileUserService
-      .getTrackingValueById(this.currentTrackingValueId!.toString())
-      .pipe(
-        switchMap((trackingValueById) => {
-          this.trackingValueById = trackingValueById;
-          return new Observable((observer) => {
-            observer.next();
-            observer.complete();
-          });
-        })
-      );
+  //Delete
+
+  openDeleteModal(userTrackingValue: UserTrackingValueInterface) {
+    this.currentUserTrackingValue = userTrackingValue;
+    this.displayDeleteModal = 'block';
   }
 
   deleteTrackingValue() {
     this.profileUserService
-      .deleteTrackingValue(this.currentTrackingValueId!.toString())
+      .deleteUserTrackingValue(this.currentUserTrackingValue!.userTrackingValueId.toString(), this.getAccountId())
       .subscribe((response) => {
-        this.trackingValues = this.trackingValues!.filter(
-          (trackingValue) =>
-          trackingValue.trackingValueId !== this.currentTrackingValueId
+        this.userTrackingValues! = this.userTrackingValues!.filter(
+          (userTrackingValue) =>
+          userTrackingValue.userTrackingValueId !== this.currentUserTrackingValue!.userTrackingValueId
         );
+        this.currentUserTrackingValue = undefined;
         this.displayDeleteModal = 'none';
       });
   }
 
+  closeDeleteTrackingValueModal() {
+    this.currentUserTrackingValue = undefined;
+    this.displayDeleteModal = 'none';
+  }
+
+  //Create
+
+  setCurrentTrackingValue(trackingValue: TrackingValueInterface) {
+    this.currentTrackingValue = trackingValue;
+  }
+
+  openModalCreate() {
+    this.displayCreateModal = 'block';
+  }
+
   addTrackingValue(form: NgForm) {
-    const trackingValueData: CreateTrackingValueInterface = form.value;
-    trackingValueData.userId = Number(this.userId!);
-    this.profileUserService.createTrackingValue(trackingValueData).subscribe(
+    const trackingValueData: CreateUserTrackingValueInterface = form.value;
+    trackingValueData.accountId = parseInt(this.getAccountId());
+    trackingValueData.trackingValueId = this.currentTrackingValue!.trackingValueId
+    this.profileUserService.createUserTrackingValue(trackingValueData, this.getAccountId()).subscribe(
       (response) => {
+        this.currentTrackingValue = response;
+        this.userTrackingValues?.push(response);
         this.confirmAddedTrackingValue = true;
-        this.profileUserService
-          .getTrackingValuesByUser(this.userId!)
-          .subscribe((trackingValues) => {
-            this.trackingValues = trackingValues;
-          });
       },
       (errorMessage) => {
         console.log(errorMessage);
-        this.errorAlert = errorMessage;
+        this.errorCreate = errorMessage;
+        this.displayErrorCreate = true;
+        this.errorCreate = errorMessage;
       }
     );
     form.reset();
   }
-  updateTrackingValue: ( formData: NgForm) => void = (
-    formData
-  ) => {
-    if (!formData.value) {
-      return;
-    }
-    const updatedData: UpdateTrackingValueInterface = {};
-    if (formData.value.trackingValueName) {
-      updatedData['trackingValueName'] = formData.value.trackingValueName;
-    }
-    if (formData.value.minLimit) {
-      updatedData['minLimit'] = Number(formData.value.minLimit);
-    }
-    if (formData.value.maxLimit) {
-      updatedData['maxLimit'] = Number(formData.value.maxLimit);
-    }
-    this.profileUserService
-      .updateTrackingValue(updatedData, this.currentTrackingValueId!.toString())
-      .subscribe((response) => {
-        this.confirmUpdatedTrackingValue = true;
-        this.profileUserService
-        .getTrackingValuesByUser(this.userId!)
-        .subscribe((trackingValues) => {
-          this.trackingValues = trackingValues;
-          this.profileUserService.getTrackingValueById(this.currentTrackingValueId!.toString()).subscribe((response)=>{
-            this.currentTrackingValue = response;
-          });
-        });
-      });
-  };
 
-  AddCurrentValue(trackingValueId: number, formData: NgForm) {
-    if (!formData.value) {
-      return;
-    }
-    const currentValueData: UpdateCurrentValueInterface = formData.value;
-    currentValueData.userId = Number(this.userId!);
-    this.profileUserService.updateCurrentValue(trackingValueId.toString(), currentValueData).subscribe(
-      (response) => {
-        this.confirmAddCurrentValue = true;
-        this.profileUserService
-          .getTrackingValuesByUser(this.userId!)
-          .subscribe((trackingValues) => {
-            this.trackingValues = trackingValues;
-            this.profileUserService.getTrackingValueById(this.currentTrackingValueId!.toString()).subscribe((response)=>{
-              this.currentTrackingValue = response;
-            });
-          });
-      },
-      (errorMessage) => {
-        console.log(errorMessage);
-        this.errorAlertCurrentValue = errorMessage;
-      }
-    );
-    formData.reset();
-  }
-
-  closeDeleteTrackingValueModal() {
-    this.displayDeleteModal = 'none';
-  }
-  closeViewModal() {
-    this.displayViewModal = 'none';
-  }
-  closeEditModal() {
-    this.displayEditModal = 'none';
-  }
   closeCreateModal() {
+    this.currentTrackingValue = undefined;
     this.displayCreateModal = 'none';
-  }
-  OpenModalCreate() {
-    this.displayCreateModal = 'block';
-  }
-
-  openDeleteModal(idTrackingValue: number) {
-    this.currentTrackingValueId = idTrackingValue;
-    this.getTrackingValueById(idTrackingValue).subscribe(() => {
-      this.displayDeleteModal = 'block';
-    });
-  }
-  openViewModal(idTrackingValue: number) {
-    this.currentTrackingValueId = idTrackingValue;
-    this.getTrackingValueById(idTrackingValue).subscribe(() => {
-      this.displayViewModal = 'block';
-    });
-  }
-  openEditModal(idTrackingValue: number) {
-    this.currentTrackingValueId = idTrackingValue;
-    this.profileUserService.getTrackingValueById(idTrackingValue.toString()).subscribe((response)=>{
-      this.currentTrackingValue = response;
-      this.displayEditModal = 'block';
-    });
-  }
-
-  closeConfirmTrackingValueUpdate() {
-    this.confirmUpdatedTrackingValue = false;
-  }
-
-  closeConfirmCurrentValueUpdate() {
-    this.confirmUpdatedCurrentValue = false;
-  }
-
-  closeConfirmAddCurrentValue() {
-    this.confirmAddCurrentValue = false;
+    this.confirmAddedTrackingValue = false;
+    this.displayErrorCreate = false;
+    this.errorCreate = '';
   }
 
   closeConfirmAddTrackingValue() {
     this.confirmAddedTrackingValue = false;
   }
 
+  closeErrorCreate() {
+    this.displayErrorCreate = false;
+  }
+
+  //Update
+
+  openEditModal(userTrackingValue: UserTrackingValueInterface) {
+    this.currentUserTrackingValue = userTrackingValue;
+    this.displayEditModal = 'block';
+  }
+
+  updateTrackingValue(form: NgForm) {
+    const updatedData: UpdateUserTrackingValueInterface = form.value;
+
+    this.profileUserService
+      .updateUserTrackingValue(this.currentUserTrackingValue!.userTrackingValueId.toString(), updatedData, this.getAccountId())
+      .subscribe((response) => {
+        this.confirmUpdatedTrackingValue = true;
+        this.profileUserService
+        this.currentUserTrackingValue = response;
+        this.ngOnInit();
+      },
+      (errorMessage) => {
+        console.log(errorMessage);
+        this.errorUpdated = errorMessage;
+        this.displayErrorUpdate = true;
+        this.errorUpdated = errorMessage;
+      }
+    );
+  };
+
+  closeEditModal() {
+    this.currentTrackingValue = undefined;
+    this.currentUserTrackingValue = undefined;
+    this.displayEditModal = 'none';
+    this.confirmUpdatedTrackingValue = false;
+    this.displayErrorUpdate = false;
+    this.errorUpdated = '';
+  }
+
+  closeConfirmTrackingValueUpdate() {
+    this.confirmUpdatedTrackingValue = false;
+  }
+
+  closeErrorUpdate() {
+    this.displayErrorUpdate = false;
+  }
+
   toAdvancedData() {
-    this.router.navigateByUrl(`profile-user/${this.userId}/advanced-data-values`)
+    this.router.navigateByUrl(`perfil-paciente/datos-avanzados`)
+  }
+
+  ngOnDestroy(): void {
+    if(this.userTrackingValuesUsb) {
+      this.userTrackingValuesUsb.unsubscribe();
+    }
+
+    if(this.trackingValuesUsb) {
+      this.trackingValuesUsb.unsubscribe();
+    }
   }
 
 }

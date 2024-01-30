@@ -1,205 +1,235 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SicknessInterface } from '../../../shared/interfaces/sickness.interface';
 import { ProfileUserService } from '../profile-user.service';
-import { Observable, Subscription, switchMap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { CreateMedicationInterface } from '../../profile-admin/interfaces/create-medication.interface';
-import { CreateSicknessInterface } from '../../profile-admin/interfaces/create-sickness.interface';
-import { UpdateSicknessInterface } from '../../../shared/interfaces/update-sickness.interface';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
+import { UserSicknessInterface } from '../../../shared/interfaces/user-sickness.interface';
+import { MedicationInterface } from '../../../shared/interfaces/medication.interface';
+import { SharedService } from '../../../shared/shared.service';
+import { MedicationSicknessInterface } from '../../../shared/interfaces/medication-sickness.interface';
+import { CreateUserSicknessInterface } from '../interfaces/create-user-sickness.interface';
+import { CreateMedicationSicknessInterface } from '../interfaces/create-medication-sickness.interface';
 
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.component.html',
   styleUrls: ['./tracking.component.css'],
 })
-export class TrackingComponent implements OnInit {
-  userId?: string;
-  userUsb?: Subscription;
+export class TrackingComponent implements OnInit, OnDestroy {
   sicknesses?: SicknessInterface[];
   sicknessesUsb?: Subscription;
-  sicknessById?: SicknessInterface
-  displayDeleteModal: string = 'none';
-  displayCreateModal: string = 'none';
-  displayViewModal: string = 'none';
-  displayEditModal: string = 'none';
-  currentSicknessId?: number;
   currentSickness?: SicknessInterface;
+
+  userSicknesses?: UserSicknessInterface[];
+  userSicknessesUsb?: Subscription;
+  currentUserSickness?: UserSicknessInterface;
+
+  medications?: MedicationInterface[];
+  medicationsUsb?: Subscription;
+  currentMedication?: MedicationInterface;
+
+  currentMedicationSicknesses?: MedicationSicknessInterface[];
+
+  displayDeleteModal: string = 'none';
+
+  displayCreateModal: string = 'none';
   confirmAddedSickness:boolean = false;
-  confirmUpdatedSickness:boolean = false;
-  confirmUpdatedCurrentValue:boolean = false;
+  errorCreate:string = '';
+  displayErrorCreate:boolean = false;
+
+  displayEditModal: string = 'none';
   confirmAddMedicine:boolean = false;
-  errorAlertMedication?: string = undefined;
-  errorAlert?: string = undefined;
+  errorAddMedication?: string = undefined;
+  confirmDeleteMedicine:boolean = false;
+  errorDeleteMedication?: string = undefined;
 
   constructor(
     private profileUserService: ProfileUserService,
+    private sharedService: SharedService,
     private router: Router,
     private cookieService: SsrCookieService
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.cookieService.get('user_id')!;
-    this.userUsb = this.profileUserService
-      .getAllSicknessByUser(this.userId!)
+    this.userSicknessesUsb = this.profileUserService
+      .getAllUserSicknessByAccount(this.getAccountId())
       .subscribe((sicknesses) => {
-        this.sicknesses = sicknesses;
+        this.userSicknesses = sicknesses;
       });
+
+    this.sicknessesUsb = this.sharedService.getAllSickness().subscribe(sicknesses => {
+      this.sicknesses = sicknesses;
+    });
+
+    this.medicationsUsb = this.sharedService.getAllMedication().subscribe(medications => {
+      this.medications = medications;
+    })
   }
 
-  handleError?() {
-    this.errorAlert = undefined;
-  }
-  handleErrorMedication?() {
-    this.errorAlertMedication = undefined;
+  getAccountId() {
+    return this.cookieService.get('account_id');
   }
 
-  getSicknessById(idSickness: number): Observable<any> {
-    this.currentSicknessId = idSickness;
-    return this.profileUserService
-      .getSicknessById(this.currentSicknessId!.toString())
-      .pipe(
-        switchMap((sicknessById) => {
-          this.sicknessById = sicknessById;
-          return new Observable((observer) => {
-            observer.next();
-            observer.complete();
-          });
-        })
-      );
+  openDeleteModal(userSickness: UserSicknessInterface) {
+    this.currentUserSickness = userSickness;
+    this.displayDeleteModal = 'block';
   }
 
   deleteSickness() {
     this.profileUserService
-      .deleteSickness(this.currentSicknessId!.toString())
+      .deleteUserSickness(this.currentUserSickness!.userSicknessId.toString(), this.getAccountId())
       .subscribe((response) => {
-        this.sicknesses = this.sicknesses!.filter(
-          (sickness) =>
-            sickness.sicknessId !== this.currentSicknessId
+        this.userSicknesses! = this.userSicknesses!.filter(
+          (userSickness) =>
+          userSickness.userSicknessId !== this.currentUserSickness!.userSicknessId
         );
+        this.currentUserSickness = undefined;
         this.displayDeleteModal = 'none';
       });
   }
 
-  addPersonalizedSickness(form: NgForm) {
-    const sicknessData: CreateSicknessInterface = form.value;
-    sicknessData.userId = Number(this.userId!);
-    this.profileUserService.createSickness(sicknessData).subscribe(
+  closeDeleteSicknessModal() {
+    this.currentUserSickness = undefined;
+    this.displayDeleteModal = 'none';
+  }
+
+  setCurrentSickness(sickness: SicknessInterface) {
+    this.currentSickness = sickness;
+  }
+
+  openCreateModal() {
+    this.displayCreateModal = 'block';
+  }
+
+  addSickness(form: NgForm) {
+    const sicknessData: CreateUserSicknessInterface = form.value;
+    sicknessData.accountId = parseInt(this.getAccountId());
+    sicknessData.sicknessId
+    this.profileUserService.createUserSickness(sicknessData, this.getAccountId()).subscribe(
       (response) => {
+        this.userSicknesses?.push(response);
+        this.currentSickness = undefined;
         this.confirmAddedSickness = true;
-        this.profileUserService
-          .getAllSicknessByUser(this.userId!)
-          .subscribe((sicknesses) => {
-            this.sicknesses = sicknesses;
-          });
       },
       (errorMessage) => {
         console.log(errorMessage);
-        this.errorAlert = errorMessage;
+        this.errorCreate = errorMessage;
+        this.displayErrorCreate = true;
+        this.errorCreate = errorMessage;
+      }
+    );
+  }
+
+  closeCreateModal() {
+    this.currentSickness = undefined;
+    this.displayCreateModal = 'none';
+    this.confirmAddedSickness = false;
+    this.displayErrorCreate = false;
+    this.errorCreate = '';
+  }
+
+  closeConfirmCreate() {
+    this.confirmAddedSickness = false;
+  }
+
+  closeErrorCreate() {
+    this.displayErrorCreate = false;
+  }
+
+  setCurrentMedication(medication: MedicationInterface) {
+    this.currentMedication = medication;
+  }
+
+  openEditModal(userSickness: UserSicknessInterface) {
+    this.currentUserSickness = userSickness;
+    this.currentMedicationSicknesses = userSickness.medicationSicknesses;
+    this.displayEditModal = 'block';
+}
+
+  AddMedication(form: NgForm) {
+    const medicationData: CreateMedicationSicknessInterface= form.value;
+    medicationData.accountId = parseInt(this.getAccountId());
+    medicationData.medicationId = this.currentMedication!.medicationId;
+    medicationData.userSicknessId =  this.currentUserSickness!.userSicknessId;
+    this.profileUserService.createMedicationSickness(medicationData, this.getAccountId()).subscribe(
+      (response) => {
+        this.currentUserSickness!.medicationSicknesses.push(response);
+        this.currentMedicationSicknesses!.push(response);
+        this.currentMedication = undefined;
+        this.ngOnInit();
+        this.confirmAddMedicine = true;
+      },
+      (errorMessage) => {
+        console.log(errorMessage);
+        this.errorAddMedication = errorMessage;
       }
     );
     form.reset();
   }
-  updateSickness: ( formData: NgForm) => void = (
-    formData
-  ) => {
-    if (!formData.value) {
-      return;
-    }
-    const updatedData: UpdateSicknessInterface = formData.value;
-    this.profileUserService
-      .editSickness(updatedData, this.currentSicknessId!.toString())
-      .subscribe((response) => {
-        this.confirmUpdatedSickness = true;
-        this.profileUserService
-        .getAllSicknessByUser(this.userId!)
-        .subscribe((sicknesses) => {
-          this.sicknesses = sicknesses;
-          this.profileUserService.getSicknessById(this.currentSicknessId!.toString()).subscribe((response)=>{
-            this.currentSickness = response;
-          });
-        });
-      });
-      formData.reset();
-  };
 
-  AddMedication(sicknessId: number, formData: NgForm) {
-    if (!formData.value) {
-      return;
-    }
-    const medicationData: CreateMedicationInterface = formData.value;
-    medicationData.sicknessId = sicknessId;
-    medicationData.userId = Number(this.userId!);
-    this.profileUserService.createMedication(medicationData).subscribe(
-      (response) => {
-        this.confirmAddMedicine = true;
-        this.profileUserService
-          .getAllSicknessByUser(this.userId!)
-          .subscribe((sicknesses) => {
-            this.sicknesses = sicknesses;
-          });
-      },
-      (errorMessage) => {
-        console.log(errorMessage);
-        this.errorAlertMedication = errorMessage;
-      }
-    );
-    formData.reset();
-  }
-  goToMedications(sicknessId: number) {
-    this.router.navigateByUrl(`profile-user/${this.userId}/medication/${sicknessId}`);
-  }
-
-  closeDeleteSicknessModal() {
-    this.displayDeleteModal = 'none';
-  }
-  closeViewModal() {
-    this.displayViewModal = 'none';
-  }
-  closeEditModal() {
-    this.displayEditModal = 'none';
-  }
-  closeCreateModal() {
-    this.displayCreateModal = 'none';
-  }
-  OpenModalCreate() {
-    this.displayCreateModal = 'block';
-  }
-
-  openDeleteModal(idSickness: number) {
-    this.currentSicknessId = idSickness;
-    this.getSicknessById(idSickness).subscribe(() => {
-      this.displayDeleteModal = 'block';
-    });
-  }
-  openViewModal(idSickness: number) {
-    this.currentSicknessId = idSickness;
-    this.getSicknessById(idSickness).subscribe(() => {
-      this.displayViewModal = 'block';
-    });
-  }
-  openEditModal(idSickness: number) {
-    this.currentSicknessId = idSickness;
-    this.profileUserService.getSicknessById(idSickness.toString()).subscribe((response)=>{
-      this.currentSickness = response;
-      this.displayEditModal = 'block';
-    });
-  }
-
-  closeConfirmSicknesUpdate() {
-    this.confirmUpdatedSickness = false;
-  }
-
-  closeConfirmValueUpdate() {
-    this.confirmUpdatedCurrentValue = false;
+  handleErrorAddMedication() {
+    this.errorAddMedication = undefined;
   }
 
   closeConfirmAddMedication() {
     this.confirmAddMedicine = false;
   }
 
-  closeConfirmAddSickness() {
-    this.confirmAddedSickness = false;
+  deleteMedication(medicationSicknessId: number) {
+    this.profileUserService.deleteMedicationSickness(medicationSicknessId.toString(), this.getAccountId()).subscribe(
+      (response) => {
+        this.currentUserSickness!.medicationSicknesses = this.currentUserSickness!.medicationSicknesses.filter(medicationSickness => {
+          medicationSickness.medicationSicknessId !== medicationSicknessId;
+        });
+        this.currentMedicationSicknesses! = this.currentMedicationSicknesses!.filter(medicationSickness => {
+          medicationSickness.medicationSicknessId !== medicationSicknessId;
+        });
+        this.ngOnInit();
+        this.confirmDeleteMedicine = true;
+      },
+      (errorMessage) => {
+        console.log(errorMessage);
+        this.errorDeleteMedication = errorMessage;
+      }
+    );
+  }
+
+  handleErrorDeleteMedication() {
+    this.errorDeleteMedication = undefined;
+  }
+
+  closeConfirmDeleteMedication() {
+    this.confirmDeleteMedicine = false;
+  }
+
+  closeEditModal() {
+    this.currentMedicationSicknesses = undefined;
+    this.currentMedication = undefined;
+    this.currentUserSickness = undefined;
+    this.displayEditModal = 'none';
+    this.confirmAddMedicine = false;
+    this.errorDeleteMedication = undefined;
+    this.errorAddMedication = undefined;
+    this.confirmDeleteMedicine = false;
+  }
+
+  goToMedications(slug: string) {
+    this.router.navigateByUrl(`perfil-paciente/medicina/${slug}`);
+  }
+
+  ngOnDestroy(): void {
+    if(this.userSicknessesUsb) {
+      this.userSicknessesUsb.unsubscribe();
+    }
+
+    if(this.sicknessesUsb) {
+      this.sicknessesUsb.unsubscribe();
+    }
+
+    if(this.medicationsUsb) {
+      this.medicationsUsb.unsubscribe();
+    }
   }
 }

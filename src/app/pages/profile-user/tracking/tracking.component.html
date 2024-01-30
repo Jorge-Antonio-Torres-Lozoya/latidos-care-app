@@ -130,11 +130,6 @@
                 <p class="text-center mb-2  header">Nombre:
                     <span class="fw-medium text-black">{{sicknessById?.sicknessName}}</span>
                 </p>
-                <p class="text-center mb-2  header">Medicamentos:
-                    <span class="fw-medium text-black" *ngFor="let value of sicknessById?.medications ;let last = last">
-                        {{value.medicationName}}{{ !last ? ', ' : '' }}
-                    </span>
-                </p>
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 <button type="button" class="btn  btn-green tooltext" (click)="goToMedications(sicknessById?.sicknessId!)">

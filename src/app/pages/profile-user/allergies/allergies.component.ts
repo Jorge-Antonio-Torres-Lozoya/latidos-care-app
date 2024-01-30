@@ -1,166 +1,131 @@
-import { Component } from '@angular/core';
-import { Observable, Subscription, switchMap } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AllergyInterface } from '../../../shared/interfaces/allergy.interface';
 import { ProfileUserService } from '../profile-user.service';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import { CreateAllergyInterface } from '../../profile-admin/interfaces/create-allergy.interface';
-import { UpdateAllergyInterface } from '../../../shared/interfaces/update-allergy.interface';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
+import { UserAllergyInterface } from '../../../shared/interfaces/user-allergy.interface';
+import { SharedService } from '../../../shared/shared.service';
+import { CreateUserAllergyInterface } from '../interfaces/create-user-allergy.interface';
 
 @Component({
   selector: 'app-allergies',
   templateUrl: './allergies.component.html',
   styleUrls: ['./allergies.component.css']
 })
-export class AllergiesComponent {
-  userId?: string;
-  userUsb?: Subscription;
+export class AllergiesComponent implements OnInit, OnDestroy {
   allergies?: AllergyInterface[];
   allergiesUsb?: Subscription;
-  allergyById?: AllergyInterface
+  currentAllergy?: AllergyInterface
+
+  userAllergies?: UserAllergyInterface[];
+  userAllergiesUsb?: Subscription;
+  currentUserAllergy?: UserAllergyInterface;
+
   displayDeleteModal: string = 'none';
+
   displayCreateModal: string = 'none';
-  displayViewModal: string = 'none';
-  displayEditModal: string = 'none';
-  currentAllergyId?: number;
-  currentAllergy?: AllergyInterface;
   confirmAddedAllergy:boolean = false;
-  confirmUpdatedAllergy:boolean = false;
-  errorAlert?: string = undefined;
+  errorCreate:string = '';
+  displayErrorCreate:boolean = false;
 
   constructor(
     private profileUserService: ProfileUserService,
+    private sharedService: SharedService,
     private router: Router,
     private cookieService: SsrCookieService
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.cookieService.get('user_id')!;
-    this.userUsb = this.profileUserService
-      .getAllergiesByUser(this.userId!)
+    this.userAllergiesUsb = this.profileUserService
+      .getUserAllergiesByAccount(this.getAccountId())
       .subscribe((allergies) => {
+        this.userAllergies = allergies;
+      });
+
+      this.allergiesUsb = this.sharedService.getAllAllergy().subscribe(allergies => {
         this.allergies = allergies;
       });
   }
 
-  handleError?() {
-    this.errorAlert = undefined;
+  getAccountId() {
+    return this.cookieService.get('account_id');
   }
 
-  getAllergyById(idAllergy: number): Observable<any> {
-    this.currentAllergyId = idAllergy;
-    return this.profileUserService
-      .getAllergyById(this.currentAllergyId!.toString())
-      .pipe(
-        switchMap((allergyById) => {
-          this.allergyById = allergyById;
-          return new Observable((observer) => {
-            observer.next();
-            observer.complete();
-          });
-        })
-      );
+  openDeleteModal(userAllergy: UserAllergyInterface) {
+    this.currentUserAllergy = userAllergy;
+    this.displayDeleteModal = 'block';
   }
 
   deleteAllergy() {
     this.profileUserService
-      .deleteAllergy(this.currentAllergyId!.toString())
+      .deleteAllergy(this.currentUserAllergy!.userAllergyId.toString(), this.getAccountId())
       .subscribe((response) => {
-        this.allergies = this.allergies!.filter(
-          (allergy) =>
-          allergy.allergyId !== this.currentAllergyId
+        this.userAllergies! = this.userAllergies!.filter(
+          (userAllergy) =>
+          userAllergy.userAllergyId !== this.currentUserAllergy!.userAllergyId
         );
+        this.currentUserAllergy = undefined;
         this.displayDeleteModal = 'none';
       });
   }
 
-  addAllergy(form: NgForm) {
-    const allergyData: CreateAllergyInterface = form.value;
-    allergyData.userId = Number(this.userId!);
-    this.profileUserService.createAllergy(allergyData).subscribe(
-      (response) => {
-        this.confirmAddedAllergy = true;
-        this.profileUserService
-          .getAllergiesByUser(this.userId!)
-          .subscribe((allergies) => {
-            this.allergies = allergies;
-          });
-      },
-      (errorMessage) => {
-        console.log(errorMessage);
-        this.errorAlert = errorMessage;
-      }
-    );
-    form.reset();
-  }
-  updateAllergy: ( formData: NgForm) => void = (
-    formData
-  ) => {
-    if (!formData.value) {
-      return;
-    }
-    const updatedData: UpdateAllergyInterface = {};
-    if (formData.value.allergyName) {
-      updatedData['allergyName'] = formData.value.allergyName;
-    }
-    this.profileUserService
-      .updateAllergy(updatedData, this.currentAllergyId!.toString())
-      .subscribe((response) => {
-        this.confirmUpdatedAllergy = true;
-        this.profileUserService
-        .getAllergiesByUser(this.userId!)
-        .subscribe((allergies) => {
-          this.allergies = allergies;
-          this.profileUserService.getAllergyById(this.currentAllergyId!.toString()).subscribe((response)=>{
-            this.currentAllergy = response;
-          });
-        });
-      });
-  };
-
   closeDeleteAllergyModal() {
+    this.currentUserAllergy = undefined;
     this.displayDeleteModal = 'none';
   }
-  closeViewModal() {
-    this.displayViewModal = 'none';
+
+  setCurrentAllergy(allergy: AllergyInterface) {
+    this.currentAllergy = allergy;
   }
-  closeEditModal() {
-    this.displayEditModal = 'none';
-  }
-  closeCreateModal() {
-    this.displayCreateModal = 'none';
-  }
-  OpenModalCreate() {
+
+  openModalCreate() {
     this.displayCreateModal = 'block';
   }
 
-  openDeleteModal(idAllergy: number) {
-    this.currentAllergyId = idAllergy;
-    this.getAllergyById(idAllergy).subscribe(() => {
-      this.displayDeleteModal = 'block';
-    });
-  }
-  openViewModal(idAllergy: number) {
-    this.currentAllergyId = idAllergy;
-    this.getAllergyById(idAllergy).subscribe(() => {
-      this.displayViewModal = 'block';
-    });
-  }
-  openEditModal(idAllergy: number) {
-    this.currentAllergyId = idAllergy;
-    this.profileUserService.getAllergyById(idAllergy.toString()).subscribe((response)=>{
-      this.currentAllergy = response;
-      this.displayEditModal = 'block';
-    });
+  addAllergy() {
+    const allergyData: CreateUserAllergyInterface = {
+      accountId: parseInt(this.getAccountId()),
+      allergyId: this.currentAllergy!.allergyId
+    }
+    this.profileUserService.createUserAllergy(allergyData, this.getAccountId()).subscribe(
+      (response) => {
+        this.userAllergies?.push(response);
+        this.currentAllergy = undefined;
+        this.confirmAddedAllergy = true;
+      },
+      (errorMessage) => {
+        console.log(errorMessage);
+        this.errorCreate = errorMessage;
+        this.displayErrorCreate = true;
+        this.errorCreate = errorMessage;
+      }
+    );
   }
 
-  closeConfirmAllergyUpdate() {
-    this.confirmUpdatedAllergy = false;
+  closeCreateModal() {
+    this.currentAllergy = undefined;
+    this.displayCreateModal = 'none';
+    this.confirmAddedAllergy = false;
+    this.displayErrorCreate = false;
+    this.errorCreate = '';
   }
 
   closeConfirmAddAllergy() {
     this.confirmAddedAllergy = false;
   }
 
+  closeErrorCreate() {
+    this.displayErrorCreate = false;
+  }
+
+  ngOnDestroy(): void {
+    if(this.allergiesUsb) {
+      this.allergiesUsb.unsubscribe();
+    }
+
+    if(this.userAllergiesUsb) {
+      this.userAllergiesUsb.unsubscribe();
+    }
+  }
 }
