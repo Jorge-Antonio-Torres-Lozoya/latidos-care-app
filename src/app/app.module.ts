@@ -13,8 +13,6 @@ import { FrequentQuestionsComponent } from './pages/home/frequent-questions/freq
 import { ViewportScroller } from '@angular/common';
 import { Router, Scroll } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { LoginAdminModule } from './pages/login-admin/login-admin.module';
-import { LoginUserModule } from './pages/login-user/login-user.module';
 import { RegisterUserModule } from './pages/register-user/register-user.module';
 import { SharedModule } from './components/shared/shared.module';
 import { ProfileAdminModule } from './pages/profile-admin/profile-admin.module';
@@ -28,6 +26,7 @@ import { UnauthorizedModule } from './pages/unauthorized/unauthorized.module';
 import { AdvancedDataUserModule } from './pages/advanced-data-user/advanced-data-user.module';
 import { NotFoundModule } from './pages/not-found/not-found.module';
 import { TimeOutModule } from './pages/time-out/time-out.module';
+import { LoginModule } from './pages/login/login.module';
 
 
 @NgModule({
@@ -45,8 +44,6 @@ import { TimeOutModule } from './pages/time-out/time-out.module';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    LoginAdminModule,
-    LoginUserModule,
     RegisterUserModule,
     SharedModule,
     ProfileAdminModule,
@@ -58,7 +55,8 @@ import { TimeOutModule } from './pages/time-out/time-out.module';
     UnauthorizedModule,
     AdvancedDataUserModule,
     NotFoundModule,
-    TimeOutModule
+    TimeOutModule,
+    LoginModule
   ],
   providers: [],
   bootstrap: [AppComponent]

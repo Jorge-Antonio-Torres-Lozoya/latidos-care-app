@@ -5,7 +5,6 @@ import { SharedModule } from '../../components/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { TrackingComponent } from './tracking/tracking.component';
 import { EditComponent } from './edit/edit.component';
-import { SicknessComponent } from './sickness/sickness.component';
 import { SicknessDataComponent } from './sickness-data/sickness-data.component';
 import { FormsModule } from '@angular/forms';
 import { MedicationComponent } from './medication/medication.component';
@@ -23,7 +22,6 @@ import { AllergiesComponent } from './allergies/allergies.component';
     ProfileUserComponent,
     TrackingComponent,
     EditComponent,
-    SicknessComponent,
     SicknessDataComponent,
     MedicationComponent,
     AdvancedDataSicknessComponent,
@@ -37,16 +35,15 @@ import { AllergiesComponent } from './allergies/allergies.component';
     NgxChartsModule,
     QRCodeModule,
     RouterModule.forChild([{path: '', component:ProfileUserComponent, children: [
-      {path: '', redirectTo: 'tracking-values', pathMatch:'full'},
-      {path: 'tracking', component: TrackingComponent},
-      {path: 'edit-profile', component: EditComponent},
-      {path: 'sickness/:sicknessId', component: SicknessComponent},
-      {path: 'sickness-data/:sicknessId', component: SicknessDataComponent},
-      {path: 'medication/:sicknessId', component: MedicationComponent},
-      {path: 'advanced-data-values', component: AdvancedDataSicknessComponent},
-      {path: 'my-qr-code', component: MyQrcodeComponent},
-      {path: 'tracking-values', component: TrackingValuesComponent},
-      {path: 'allergies', component: AllergiesComponent}
+      {path: '', redirectTo: 'valores-laboratorio', pathMatch:'full'},
+      {path: 'enfermedades', component: TrackingComponent},
+      {path: 'ajustes', component: EditComponent},
+      {path: 'informacion-enfermedad/:enfermedadSlug', component: SicknessDataComponent},
+      {path: 'medicina/:enfermedadSlug', component: MedicationComponent},
+      {path: 'datos-avanzados', component: AdvancedDataSicknessComponent},
+      {path: 'mi-qr', component: MyQrcodeComponent},
+      {path: 'valores-laboratorio', component: TrackingValuesComponent},
+      {path: 'alergias', component: AllergiesComponent}
     ]}]),
     FormsModule
   ]

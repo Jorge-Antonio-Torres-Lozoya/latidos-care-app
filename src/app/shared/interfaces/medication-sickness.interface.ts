@@ -2,6 +2,7 @@ export interface MedicationSicknessInterface {
   medicationSicknessId: number;
   createdAt: Date;
   timeConsumption: number;
+  slug: string;
   accountId: number;
   firstName: string;
   lastName?: string;

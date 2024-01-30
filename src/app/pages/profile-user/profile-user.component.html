@@ -1,22 +1,2 @@
-<app-navbar [logoSrc]="logo" [navItems]="navItems"></app-navbar>
- <!--Logout Modal-->
- <div class="modal" tabindex="-1" [ngStyle]="{'display':logoutModal}">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="create-material-header">Esta seguro que desea iniciar sesión?</h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="logoutHideModal()"></button>
-      </div>
-      <div class="modal-body">
-        <div class="d-flex justify-content-center">
-          <button type="button" class="btn btn-danger text-center" (click)="logoutUser()">Cerrar Sesión</button>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary login-button border-0" (click)="logoutHideModal()">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+<app-navbar></app-navbar>
 <router-outlet></router-outlet>

@@ -102,7 +102,7 @@ export class RegisterDataComponent implements OnInit {
   }
 
   toDashboard() {
-    this.router.navigateByUrl(`profile-user/${this.userId}`);
+    this.router.navigateByUrl(`/perfil-paciente`);
   }
 
   setCurrentMedication(medication:MedicationInterface) {

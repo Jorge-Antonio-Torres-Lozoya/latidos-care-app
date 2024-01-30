@@ -23,3 +23,8 @@
 }
 
 *{scroll-behavior: smooth;}
+
+body {
+  overflow: visible !important;
+  padding-right: 0px !important;
+}

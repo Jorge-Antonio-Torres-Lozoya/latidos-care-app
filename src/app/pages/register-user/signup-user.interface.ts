@@ -4,4 +4,5 @@ export interface SignupUserInterface {
   phoneNumber: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }

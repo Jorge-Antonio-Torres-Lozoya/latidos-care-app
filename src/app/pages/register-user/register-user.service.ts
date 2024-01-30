@@ -13,6 +13,6 @@ export class SignupUserService {
   constructor(private http:HttpClient, private handleErrorService: ErrorHandlingService) { }
 
   signupUser(signupData: SignupUserInterface):Observable<any>{
-    return this.http.post<any>(`${environment.apiUrl}user/signup`, signupData).pipe(catchError(this.handleErrorService.handleError))
+    return this.http.post<any>(`${environment.apiUrl}account/signup-user`, signupData).pipe(catchError(this.handleErrorService.handleError))
   }
 }

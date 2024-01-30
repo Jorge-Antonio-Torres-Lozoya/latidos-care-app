@@ -1,0 +1,90 @@
+<app-navbar></app-navbar>
+<div class=" gap-3 my-5 py-5 container-login">
+  <div class="bg-login ">
+    <img class=" image-service mb-3 w-100" src="../../../assets/images/Medics.svg" alt="login-image">
+  </div>
+  <div class="login px-3 ">
+    <h1 class="pb-4 login-header fw-light text-center">Iniciar Sesión</h1>
+    <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayError">
+      <span>{{error}}</span>
+      <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeError()"></button>
+    </div>
+    <form class="form-signin" #formData="ngForm" (ngSubmit)="loginFun(formData)">
+      <div class="input-group mb-3 pt-3">
+        <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+        <input type="text" id="correoUsuarioLogin" class="form-control" placeholder="Correo electrónico" required
+          ngModel name="email">
+      </div>
+      <div class="input-group mb-3 pt-3">
+        <button (click)="passwordFun()" class="btn btn-outline-secondary" type="button"><i
+            class="fa-solid fa-eye"></i></button>
+        <input type="password" id="claveUsuarioLogin" class="form-control" placeholder="Contraseña" required ngModel
+          name="password" [type]="showPassword ? 'text' : 'password'">
+      </div>
+
+      <div class="text-center pt-2">
+        <button type="submit" class="btn btn-sm login-button">Iniciar Sesión</button>
+      </div>
+
+      <hr class="my-4">
+      <div class="form-group link-group">
+        <a class="text-center d-block nav-link login-text" style="cursor: pointer;"
+          (click)=" openRecoverPassword()">¿Olvidaste tu contraseña?</a>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Forgot Password Modal -->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayPasswordModal}">
+  <div class=" modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header header">
+        <h1 class="modal-title header-text fs-5 login-text">¿Olvidaste tu contraseña?</h1>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closePasswordModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p class="fw-bold">Ingrese su correo para que podamos enviarle un enlace para recuperar su cuenta</p>
+        <form #recoverData="ngForm" (ngSubmit)="recoverFun(recoverData)">
+          <div class="container">
+            <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayRecoverPasswordError">
+              <span>{{recoverPasswordError}}</span>
+              <button type="button" class="btn-close text-end" aria-label="Close"
+                (click)="closeRecoverPasswordError()"></button>
+            </div>
+            <div class="row mx-3 my-2">
+              <input type="email" class="form-control" placeholder="Your email" id="email" required ngModel
+                name="email">
+            </div>
+            <div class="row d-flex justify-content-center mx-2 mb-2">
+              <button type="submit" class="btn boton-publicacion login-button">Recuperar cuenta</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closePasswordModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Recover Password Modal Confirmation-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayRecoverPasswordConfirmation}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title create-material-header">Le hemos enviado un correo electrónico con un enlace para que
+          recupere su cuenta</h5>
+        <button type="button" class="btn-close" aria-label="Close"
+          (click)="closeRecoverPasswordConfirmation()"></button>
+      </div>
+      <div class="modal-body">
+        <p class="fw-bold">Puede cerrar esta ventana</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary close-confirmation-modal"
+          (click)="closeRecoverPasswordConfirmation()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
