@@ -23,7 +23,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QRCodeModule } from 'angularx-qrcode';
 import { UnauthorizedModule } from './pages/unauthorized/unauthorized.module';
-import { AdvancedDataUserModule } from './pages/advanced-data-user/advanced-data-user.module';
 import { NotFoundModule } from './pages/not-found/not-found.module';
 import { TimeOutModule } from './pages/time-out/time-out.module';
 import { LoginModule } from './pages/login/login.module';
@@ -53,7 +52,6 @@ import { LoginModule } from './pages/login/login.module';
     BrowserAnimationsModule,
     QRCodeModule,
     UnauthorizedModule,
-    AdvancedDataUserModule,
     NotFoundModule,
     TimeOutModule,
     LoginModule

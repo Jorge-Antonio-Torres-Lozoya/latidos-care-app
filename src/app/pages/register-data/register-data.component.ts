@@ -489,7 +489,7 @@ ngOnDestroy(): void {
   if(this.trackingValuesUsb) {
     this.trackingValuesUsb.unsubscribe();
   }
-  this.registerDataService.updateRegisterDataUser(this.userId!).subscribe();
+  this.registerDataService.updateRegisterDataAccount(this.accountId!).subscribe();
 }
 
 }

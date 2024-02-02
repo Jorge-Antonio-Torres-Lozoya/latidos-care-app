@@ -11,7 +11,7 @@ export interface CurrentValueInterface {
   personalizedAlertMinValue: string;
   personalizedAlertMaxValue: string;
   userTrackingValueCreatedAt: Date;
-  userId: number;
+  accountId: number;
   firstName: string;
   lastName?: string;
   trackingValueId: number;

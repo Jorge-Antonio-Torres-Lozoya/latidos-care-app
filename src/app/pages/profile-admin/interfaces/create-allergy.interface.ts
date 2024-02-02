@@ -1,4 +1,4 @@
 export interface CreateAllergyInterface {
-  userId: number;
+  accountId: number;
   allergyName: string;
 }

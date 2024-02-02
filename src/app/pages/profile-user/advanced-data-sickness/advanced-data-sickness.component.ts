@@ -4,13 +4,13 @@ import { ProfileUserService } from '../profile-user.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { Color, ScaleType, LegendPosition } from '@swimlane/ngx-charts';
-import { CurrentValues } from '../../../shared/interfaces/current-values.interface';
 import { MedicationInterface } from '../../../shared/interfaces/medication.interface';
 import { SearchCurrentValuesInterface } from '../../../shared/interfaces/search-current-values.interface';
-import { TreatmentInterface } from '../../../shared/interfaces/new-treatment.interface';
 import { formatDate } from '../../../shared/helpers/helperFunctions';
 import { SicknessInterface } from '../../../shared/interfaces/sickness.interface';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
+import { CurrentValueInterface } from '../../../shared/interfaces/current-value.interface';
+import { TreatmentInterface } from '../../../shared/interfaces/treatment.interface';
 @Component({
   selector: 'app-advanced-data-sickness',
   templateUrl: './advanced-data-sickness.component.html',
@@ -30,7 +30,7 @@ export class AdvancedDataSicknessComponent implements OnInit, OnDestroy {
   id:string = this.cookieService.get('user_id')!
   sickness?: SicknessInterface[];
   sicknessUsb?: Subscription;
-  currentValues?:CurrentValues[];
+  currentValues?:CurrentValueInterface[];
   currentValuesUsb?:Subscription;
   medications?:MedicationInterface[];
   currentMedication?:MedicationInterface;

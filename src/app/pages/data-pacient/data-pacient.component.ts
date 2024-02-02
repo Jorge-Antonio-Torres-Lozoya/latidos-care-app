@@ -135,12 +135,12 @@ export class DataPacientComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private profileUserService: ProfileUserService, private router: Router) {}
 
   ngOnInit(): void {
-    this.profileUserService.validateVerificationTokenUser(this.id!, this.token!).subscribe((response) => {
+    /*this.profileUserService.validateVerificationTokenUser(this.id!, this.token!).subscribe((response) => {
       if(response.validated === false) {
         this.router.navigate(['unauthorized']);
       }
 
-    })
+    })*/
     this.sicknessUsb = this.profileUserService.getAllSicknessByUser(this.id!, this.token!).subscribe((response) => {
       this.sicknesses = response;
     });

@@ -18,7 +18,7 @@ const routes: Routes = [
   loadChildren:() => import('./pages/login/login.module').then(m => m.LoginModule) },
   {path: 'verificacion', loadChildren:() => import('./pages/verification-user/verification-user.module').then(m => m.VerificationUserModule)},
   {path: 'recuperar-cuenta/:slug', canActivate: [RecoverPasswordGuard], loadChildren:() => import('./pages/recover-password-user/recover-password-user.module').then(m => m.RecoverPasswordUserModule)},
-  {path: 'registro-informacion/:slug', canActivate: [UserGuard],
+  {path: 'registro-informacion', canActivate: [UserGuard],
   loadChildren:() => import('./pages/register-data/register-data.module').then(m => m.RegisterDataModule) },
   {path: 'privado/administrador', canActivate: [AdminGuard],
   loadChildren:() => import('./pages/profile-admin/profile-admin.module').then(m => m.ProfileAdminModule) },

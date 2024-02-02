@@ -1,5 +1,5 @@
 export interface CreateTrackingValueInterface {
-    userId: number;
+    accountId: number;
     trackingValueName: string;
     minLimit: number;
     maxLimit: number;

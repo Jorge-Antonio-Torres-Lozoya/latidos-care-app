@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.accountId = this.cookieService.get('account_id');
         this.accountUsb = this.sharedService.getAccountById(this.getAccountId()).subscribe((account) => {
           this.account = account;
-          this.router.navigate([`/perfil-paciente`])
         });
       }
     });
@@ -67,7 +66,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginService.login(loginData).subscribe(response => {
       this.displayLoginModal = 'block';
       this.account = response;
-      this.router.navigate([`/perfil-paciente`])
+      if(response.registerData === true) {
+        this.router.navigate([`/perfil-paciente`])
+      } else if(response.registerData === false) {
+        this.router.navigate([`/registro-informacion`])
+      }
     }, errorMessage => {
       console.log(errorMessage)
       this.displayError = true;

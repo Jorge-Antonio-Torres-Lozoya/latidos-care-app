@@ -16,9 +16,9 @@ export class MyQrcodeComponent implements OnInit {
   constructor(private profileUserService:ProfileUserService, private cookieService: SsrCookieService, private router: Router) {}
 
   ngOnInit(): void {
-    this.profileUserService.generateVerificationTokenUser(this.userId).subscribe((token) => {
+    /*this.profileUserService.generateVerificationTokenUser(this.userId).subscribe((token) => {
       this.token = token.verificationToken;
-    });
+    });*/
   }
 
   toAdvancedData() {
