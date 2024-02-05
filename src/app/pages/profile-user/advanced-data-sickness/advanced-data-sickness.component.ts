@@ -109,23 +109,23 @@ export class AdvancedDataSicknessComponent implements OnInit, OnDestroy {
     const startDateString:string = startDate.toISOString();
     const endDateString:string = endDate.toISOString();
     if(this.currentMedicationId) {
-      this.treatmentsUsb = this.profileUserService.getTreatmentsByDate(this.currentMedicationId!, startDateString, endDateString)
-      .subscribe((response) => {
-        if(response.length > 0) {
-          this.treatments = response;
-          this.single = this.transformDataTreatment(response);
-          this.timeFrameOfTreatment = `Este gráfico representa la cantidad de veces que el usuario a tomado su
-          medicina desde ${startDate} al ${endDate}`
-          this.isLoadingTreatments = false;
-        } else {
-          this.treatmentsDisplay = false;
-          this.isLoadingTreatments = false;
-          this.treatmentsEmpty = true;
-        }
-      }, errorMessage => {
-        console.log(errorMessage);
-        this.errorTreatment = errorMessage;
-      })
+      // this.treatmentsUsb = this.profileUserService.getTreatmentsByDate(this.currentMedicationId!, startDateString, endDateString)
+      // .subscribe((response) => {
+      //   if(response.length > 0) {
+      //     this.treatments = response;
+      //     this.single = this.transformDataTreatment(response);
+      //     this.timeFrameOfTreatment = `Este gráfico representa la cantidad de veces que el usuario a tomado su
+      //     medicina desde ${startDate} al ${endDate}`
+      //     this.isLoadingTreatments = false;
+      //   } else {
+      //     this.treatmentsDisplay = false;
+      //     this.isLoadingTreatments = false;
+      //     this.treatmentsEmpty = true;
+      //   }
+      // }, errorMessage => {
+      //   console.log(errorMessage);
+      //   this.errorTreatment = errorMessage;
+      // })
     }
     form.reset();
   }

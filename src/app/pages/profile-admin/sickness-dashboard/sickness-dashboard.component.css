@@ -2,25 +2,6 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.btn-green{
-    border: 0;
-    color: white;
-    font-weight: 500;
-    background-color:rgb(133, 220, 133) ;
-
-}
-.btn-green:hover{
-    background-color: rgb(133, 220, 133);
-    opacity: .9;
-}
-
-.card{
-    height: 190px;
-}
-
-#create-material-header {
-  color: rgb(133, 220, 133);
-}
 
 .header{
    color:rgb(133, 220, 133) ;
@@ -28,5 +9,11 @@
 
 button{
     font-weight: 500
-
 }
+
+
+
+.button{
+  background-color:rgb(133, 220, 133)
+}
+

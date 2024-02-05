@@ -1,4 +1,4 @@
 export interface CreateSicknessInterface{
-    accountId:number;
+    // accountId:number;
     sicknessName:string;
 }

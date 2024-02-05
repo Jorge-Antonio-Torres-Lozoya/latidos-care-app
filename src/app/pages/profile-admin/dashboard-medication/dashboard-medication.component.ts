@@ -1,21 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SicknessInterface } from '../../../shared/interfaces/sickness.interface';
-import { ProfileAdminService } from '../profile-admin.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MedicationInterface } from '../../../shared/interfaces/medication.interface';
 import { NgForm } from '@angular/forms';
-import { CreateSicknessInterface } from '../interfaces/create-sickness.interface';
-import { UpdateSicknessInterface } from '../../../shared/interfaces/update-sickness.interface';
+import { UpdateMedicationInterface } from '../../../shared/interfaces/update-medication.interface';
+import { ProfileAdminService } from '../profile-admin.service';
+import { Router } from '@angular/router';
+import { CreateMedicationInterface } from '../interfaces/create-medication.interface';
 
 @Component({
-  selector: 'app-sickness-dashboard',
-  templateUrl: './sickness-dashboard.component.html',
-  styleUrls: ['./sickness-dashboard.component.css'],
+  selector: 'app-dashboard-medication',
+  templateUrl: './dashboard-medication.component.html',
+  styleUrls: ['./dashboard-medication.component.css']
 })
-export class SicknessDashboardComponent implements OnInit, OnDestroy {
-  sicknessUsb?: Subscription;
-  currentSickness?:SicknessInterface
-  noSickness: boolean = false;
+export class DashboardMedicationComponent implements OnInit, OnDestroy {
+  medicationUsb?: Subscription;
+  currentMedication?:MedicationInterface
+  noMedication: boolean = false;
 
 
   showEditModal: string = 'none';
@@ -36,9 +36,9 @@ export class SicknessDashboardComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
-  filteredItems?: SicknessInterface[];
-  allItems?: SicknessInterface[];
-  paginatedItems: SicknessInterface[] = [];
+  filteredItems?: MedicationInterface[];
+  allItems?: MedicationInterface[];
+  paginatedItems: MedicationInterface[] = [];
   searchText: string = '';
 
   constructor(
@@ -47,40 +47,40 @@ export class SicknessDashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.sicknessUsb = this.adminProfileService
-      .getAllSickness()
-      .subscribe((sicknesses) => {
-        this.filteredItems = sicknesses;
-        this.allItems = sicknesses;
+    this.medicationUsb = this.adminProfileService
+      .getAllMedications()
+      .subscribe((medicines) => {
+        this.filteredItems = medicines;
+        this.allItems = medicines;
         this.totalItems = this.allItems.length;
         if(this.totalItems === 0){
-          this.noSickness = true;
+          this.noMedication = true;
         }
         else{
-          this.noSickness = false;
+          this.noMedication = false;
         }
         this.paginateItems();
       });
   }
 
-  defaultSicknesses() {
+  defaultMedications() {
     this.ngOnInit();
-    this.noSickness = false;
+    this.noMedication = false;
   }
 
   // edit
-  displayEditSickness(sickness: SicknessInterface) {
+  displayEditMedication(Medication: MedicationInterface) {
     this.displayConfirmEdit = false;
     this.displayErrorEdit = false;
-    this.currentSickness = sickness;
+    this.currentMedication = Medication;
     this.showEditModal = 'block'
   }
 
-  editSickness(formEdit:NgForm){
-    const sickness:UpdateSicknessInterface = {
-      sicknessName: formEdit.value.sicknessName
+  editMedication(formEdit:NgForm){
+    const Medication:UpdateMedicationInterface = {
+      medicationName: formEdit.value.medicationName
     }
-    this.adminProfileService.editSickness(sickness, this.currentSickness!.sicknessId.toString()).subscribe(
+    this.adminProfileService.editMedication(Medication, this.currentMedication!.medicationId.toString()).subscribe(
       (response) => {
         this.displayConfirmEdit = true;
         this.displayErrorEdit = false;
@@ -105,13 +105,13 @@ export class SicknessDashboardComponent implements OnInit, OnDestroy {
 
 
   // delete
-  displayDeleteSicknessModal(sickness: SicknessInterface) {
+  displayDeleteMedicationModal(Medication: MedicationInterface) {
     this.displayErrorDelete = false;
     this.showDeleteModal = 'block'
-    this.currentSickness = sickness;
+    this.currentMedication = Medication;
   }
-  deleteSickness(){
-    this.adminProfileService.deleteSickness(this.currentSickness!.sicknessId.toString()).subscribe(
+  deleteMedication(){
+    this.adminProfileService.deleteMedication(this.currentMedication!.medicationId.toString()).subscribe(
       (response) => {
         this.showDeleteModal = 'none';
         this.showDeleteConfirmationModal = 'block';
@@ -127,7 +127,7 @@ export class SicknessDashboardComponent implements OnInit, OnDestroy {
   }
 
 
-  closeDeleteSickness(){
+  closeDeleteMedication(){
     this.showDeleteModal = 'none';
   }
   closeErrorDelete(){
@@ -139,17 +139,17 @@ export class SicknessDashboardComponent implements OnInit, OnDestroy {
 
 
   // create
-  displayCreateSicknessModal() {
+  displayCreateMedicationModal() {
     this.showCreateModal = 'block'
     this.displayConfirmCreate = false;
     this.displayErrorCreate = false;
   }
 
-  createSickness(form:NgForm){
-    const sickness:CreateSicknessInterface = {
-      sicknessName: form.value.sicknessName
+  createMedication(form:NgForm){
+    const Medication:CreateMedicationInterface = {
+      medicationName: form.value.medicationName
     }
-    this.adminProfileService.createSickness(sickness).subscribe(
+    this.adminProfileService.createMedication(Medication).subscribe(
       (response) => {
         this.displayConfirmCreate = true;
         this.ngOnInit();
@@ -176,14 +176,14 @@ export class SicknessDashboardComponent implements OnInit, OnDestroy {
 
   filter(form: NgForm) {
     this.searchText = form.value.searchText.toLowerCase();
-    this.filteredItems = this.allItems!.filter((sickness) => {
-      return sickness.sicknessName!.toLowerCase().includes(this.searchText);
+    this.filteredItems = this.allItems!.filter((medication) => {
+      return medication.medicationName!.toLowerCase().includes(this.searchText);
     });
 
     if (this.filteredItems.length === 0) {
-      this.noSickness = true;
+      this.noMedication = true;
     } else {
-      this.noSickness = false;
+      this.noMedication = false;
     }
 
     this.totalItems = this.filteredItems.length;
@@ -236,10 +236,12 @@ export class SicknessDashboardComponent implements OnInit, OnDestroy {
     }
 
   ngOnDestroy(): void{
-    if(this.sicknessUsb){
-      this.sicknessUsb.unsubscribe();
+    if(this.medicationUsb){
+      this.medicationUsb.unsubscribe();
     }
 
   }
 
 }
+
+

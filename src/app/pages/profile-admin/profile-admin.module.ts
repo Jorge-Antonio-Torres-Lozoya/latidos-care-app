@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ProfileAdminComponent } from './profile-admin.component';
 import { SharedModule } from '../../components/shared/shared.module';
 import { RouterModule } from '@angular/router';
@@ -8,6 +8,8 @@ import { DashboardAllergiesComponent } from './dashboard-allergies/dashboard-all
 import { DashboardTrackingValuesComponent } from './dashboard-tracking-values/dashboard-tracking-values.component';
 import { DashboardAccountsComponent } from './dashboard-accounts/dashboard-accounts.component';
 import { RegisterAdminComponent } from './register-admin/register-admin.component';
+import { FormsModule } from '@angular/forms';
+import { DashboardMedicationComponent } from './dashboard-medication/dashboard-medication.component';
 
 
 
@@ -19,11 +21,13 @@ import { RegisterAdminComponent } from './register-admin/register-admin.componen
     DashboardTrackingValuesComponent,
     DashboardAccountsComponent,
     RegisterAdminComponent,
+    DashboardMedicationComponent
 
   ],
   imports: [
     CommonModule,
     SharedModule,
+    FormsModule,
     RouterModule.forChild([{path: '', component: ProfileAdminComponent, children: [
       {path: '', redirectTo: 'panel-cuentas', pathMatch:'full'},
       {path: 'panel-cuentas', component: DashboardAccountsComponent},
@@ -31,7 +35,10 @@ import { RegisterAdminComponent } from './register-admin/register-admin.componen
       {path: 'panel-valores-laboratorio', component: DashboardTrackingValuesComponent},
       {path: 'panel-enfermedades', component: SicknessDashboardComponent},
       {path: 'panel-alergias', component: DashboardAllergiesComponent},
+      {path:'panel-medicinas',component:DashboardMedicationComponent}
+
     ]}])
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class ProfileAdminModule { }

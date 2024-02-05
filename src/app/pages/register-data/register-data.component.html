@@ -13,14 +13,14 @@
         y eliminar la información.
       </p>
       <div class="container button d-flex justify-content-end">
-        <button class="btn btn-color py-2 mb-4 me-2 tooltext" (click)="OpenModalCreate()">
+        <!-- <button class="btn btn-color py-2 mb-4 me-2 tooltext" (click)="OpenModalCreate()">
           Añadir enfermedad
           <span class="tooltiptext" style="color: rgb(133, 220, 133);">
             Este botón le permite agregar una nueva enfermedad para realizar seguimiento
           </span>
-        </button>
+        </button> -->
       </div>
-        <table class="table table-hover table-bordered">
+        <!-- <table class="table table-hover table-bordered">
             <thead class="">
                 <tr class="table-light">
                     <th class="text-center " scope="col ">Nombre</th>
@@ -60,7 +60,7 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
     </div>
 </div>
 
@@ -71,8 +71,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title header" id="create-material-header">Borrar Enfermedad</h5>
-                <button type="button" class="btn-close" aria-label="Close"
-                    (click)="closeDeleteSicknessModal()"></button>
+                <!-- <button type="button" class="btn-close" aria-label="Close"
+                    (click)="closeDeleteSicknessModal()"></button> -->
             </div>
             <div class="modal-body py-4">
                 <p class="text-center fw-bold  mb-2"> ¿Desea borrar la enfermedad
@@ -83,10 +83,10 @@
                     borrarán de su cuenta, incluido los medicamentos.</p>
             </div>
             <div class="modal-footer d-flex justify-content-between px-3">
-                <button type="button" class="btn btn-danger text-center " (click)="deleteSickness()">Borrar
+                <!-- <button type="button" class="btn btn-danger text-center " (click)="deleteSickness()">Borrar
                     enfermedad</button>
                 <button type="button" class="btn btn-secondary close-confirmation-modal"
-                    (click)="closeDeleteSicknessModal()">Cerrar</button>
+                    (click)="closeDeleteSicknessModal()">Cerrar</button> -->
             </div>
         </div>
     </div>
@@ -94,7 +94,7 @@
 
 
 <!--create Modal-->
-<div class="modal" tabindex="-1" [ngStyle]="{'display':displayCreateModal}">
+<!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayCreateModal}">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -123,10 +123,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!--Ver  Modal-->
-<div class="modal" tabindex="-1" [ngStyle]="{'display':displayViewModal}">
+<!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayViewModal}">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -155,10 +155,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!--Edit  Modal-->
-<div class="modal" tabindex="-1" [ngStyle]="{'display':displayEditModal}">
+<!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayEditModal}">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -207,11 +207,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- Medications -->
 <!--Options Modal-->
-<div class="modal" tabindex="-1" [ngStyle]="{'display':displayMedicationOptionsModal}">
+<!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayMedicationOptionsModal}">
   <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
           <div class="modal-header">
@@ -242,10 +242,10 @@
           </div>
       </div>
   </div>
-</div>
+</div> -->
 
 <!--Delete  Modal-->
-<div class="modal" tabindex="-1" [ngStyle]="{'display':displayMedicationDeleteModal}">
+<!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayMedicationDeleteModal}">
   <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
           <div class="modal-header">
@@ -268,10 +268,10 @@
 
       </div>
   </div>
-</div>
+</div> -->
 
 <!--Edit  Modal-->
-<div class="modal" tabindex="-1" [ngStyle]="{'display':displayMedicationEditModal}">
+<!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayMedicationEditModal}">
   <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
           <div class="modal-header">
@@ -307,11 +307,11 @@
           </div>
       </div>
   </div>
-</div>
+</div> -->
 
 
 <!--Ver  Modal-->
-<div class="modal" tabindex="-1" [ngStyle]="{'display':displayMedicationViewModal}">
+<!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayMedicationViewModal}">
   <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
           <div class="modal-header">
@@ -337,11 +337,11 @@
           </div>
       </div>
   </div>
-</div>
+</div> -->
 
 
 <!--Allergies-->
-<div class="card border-0 rounded my-3 edit-card">
+<!-- <div class="card border-0 rounded my-3 edit-card">
   <div class="p-5">
     <h2 class="pb-4 text-center" id="signup-text">¿Usted padece de algúna alergia a algún medicamento? Por ejemplo: alergia a la penicilina, alergia al ibuprofeno, etc.</h2>
     <p class=" pb-4 text-center" style="color: rgb(133, 220, 133);">
@@ -394,11 +394,11 @@
           </tbody>
       </table>
   </div>
-</div>
+</div> -->
 
 
 <!--Delete  Modal-->
-<div class="modal" tabindex="-1" [ngStyle]="{'display':displayAllergyDeleteModal}">
+<!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayAllergyDeleteModal}">
   <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
           <div class="modal-header">
@@ -422,11 +422,11 @@
           </div>
       </div>
   </div>
-</div>
+</div> -->
 
 
 <!--create Modal-->
-<div class="modal" tabindex="-1" [ngStyle]="{'display':displayAllergyCreateModal}">
+<!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayAllergyCreateModal}">
   <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
           <div class="modal-header">
@@ -455,10 +455,10 @@
           </div>
       </div>
   </div>
-</div>
+</div> -->
 
 <!--Ver  Modal-->
-<div class="modal" tabindex="-1" [ngStyle]="{'display':displayAllergyViewModal}">
+<!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayAllergyViewModal}">
   <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
           <div class="modal-header">
@@ -477,10 +477,10 @@
         </div>
       </div>
   </div>
-</div>
+</div> -->
 
 <!--Edit  Modal-->
-<div class="modal" tabindex="-1" [ngStyle]="{'display':displayAllergyEditModal}">
+<!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayAllergyEditModal}">
   <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
           <div class="modal-header">
@@ -508,9 +508,9 @@
         </div>
       </div>
   </div>
-</div>
+</div> -->
 
-<div class="card border-0 rounded my-3 edit-card">
+<!-- <div class="card border-0 rounded my-3 edit-card">
   <div class="p-5">
     <h4 class="pb-4 text-center" id="signup-text">Si terminó de llenar toda la información sobre sus enfermedades y alergia, puede hacer click en el siguiente
       botón para ir a su perfil.
@@ -521,6 +521,6 @@
       </button>
     </div>
   </div>
-</div>
+</div> -->
 
 </section>

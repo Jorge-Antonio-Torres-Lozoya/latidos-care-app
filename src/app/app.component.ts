@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from './pages/login/login.service';
 //import { LoginAdminService } from './pages/login-admin/login-admin.service';
-import { LoginUserService } from './pages/login-user/login-user.service';
+
 
 @Component({
   selector: 'app-root',
@@ -10,12 +11,12 @@ import { LoginUserService } from './pages/login-user/login-user.service';
 export class AppComponent implements OnInit {
   constructor(
     //private adminLoginService: LoginAdminService,
-    private userLoginService: LoginUserService
+    private loginService: LoginService
   ) {}
 
   ngOnInit():void {
     //this.adminLoginService.adminAutoLogin();
-    this.userLoginService.userAutoLogin();
+    this.loginService.accountAutoLogin();
   }
   title = 'LatidosCare';
 }

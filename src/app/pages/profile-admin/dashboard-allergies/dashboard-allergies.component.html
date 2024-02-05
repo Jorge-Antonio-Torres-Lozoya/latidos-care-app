@@ -1,1 +1,201 @@
-<p>dashboard-allergies works!</p>
+<div class="container d-flex flex-column">
+  <h1 class="header text-center mb-4 py-4 title">Alergias </h1>
+</div>
+
+<div class="container my-5">
+  <div class="container  d-flex flex-column justify-content-center mb-3">
+    <div class="row mb-4">
+      <form #formDataSearch="ngForm" (ngSubmit)="filter(formDataSearch)"
+        class="d-flex flex-row justify-content-between">
+        <div class="input-group">
+          <input type="text" class="form-control border-0 rounded-1 bg-light"
+            placeholder="Escriba el nombre de la alergia " aria-label="Search" aria-describedby="Search" ngModel
+            name="searchText">
+        </div>
+        <button type="submit" class="btn btn-success button  fw-bold">Buscar</button>
+      </form>
+    </div>
+
+    <div class="d-flex buttons-menu justify-content-between mb-4">
+      <button class="btn btn-success button fw-bold py-2  me-2" (click)="displayCreateAllergyModal()">
+        Crear nueva alergia
+      </button>
+      <button class="btn btn-success button fw-bold py-2  me-2" (click)="defaultAllergies()">
+        Obtener todas las alergias
+      </button>
+    </div>
+  </div>
+  <div *ngIf="noAllergies">
+    <p>No se encontró ninguna alergia</p>
+  </div>
+  <div *ngIf="!noAllergies" class="container-table table-responsive">
+    <table class="table table-hover table-bordered py-5">
+      <thead>
+        <tr class="table-light">
+          <th class="text-center">Nombre de la alergia</th>
+          <th class="text-center">Fecha de creación</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="table-hover">
+        <tr *ngFor="let  item of paginatedItems">
+          <td style="vertical-align: middle;" class="table-bordered text-center">{{ item.allergyName }}</td>
+          <td style="vertical-align: middle;" class="table-bordered text-center">{{ item.createdAt | date:'dd/MM/yyyy'
+            }}</td>
+          <td class="d-flex justify-content-center gap-2">
+            <button class="btn btn-secondary me-2" (click)="displayEditAllergy(item)"><i
+                class="fa fa-pencil "></i></button>
+            <button class="btn btn-danger" (click)="displayDeleteAllergyModal(item)"><i
+                class="fa fa-trash "></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<nav *ngIf="!noAllergies" class="mb-5 d-flex justify-content-center bg-transparent px-4" aria-label="pagination item history">
+  <ul class="pagination">
+    <li class="page-item" [class.disabled]="currentPage! === 1">
+      <a class="page-link" href="javascript:void(0);" (click)="changePage(1, $event)">Primera</a>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" href="javascript:void(0);" (click)="changePage(currentPage! - 1, $event)">Anterior</a>
+    </li>
+    <li class="page-item" *ngFor="let page of displayedPages!" [class.active]="page === currentPage!">
+      <a class="page-link" href="javascript:void(0);" (click)="changePage(page, $event)">{{ page }}</a>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link" href="javascript:void(0);" (click)="changePage(currentPage! + 1, $event)">Siguiente</a>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === totalPages!">
+      <a class="page-link" href="javascript:void(0);" (click)="changePage(totalPages!, $event)">Última</a>
+    </li>
+  </ul>
+</nav>
+
+
+<!--Create Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':showCreateModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title header">Crear Alergia</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeCreateModal()"></button>
+      </div>
+      <div class="modal-body py-4 scrollable-modal-body">
+        <div class="alert alert-success d-flex justify-content-between" *ngIf="displayConfirmCreate">
+          <span>¡La alergia fue creada satisfactoriamente!</span>
+          <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmCreate()"></button>
+        </div>
+        <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayErrorCreate">
+          <span>{{errorCreate}}</span>
+          <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorCreate()"></button>
+        </div>
+        <form #formData="ngForm" (ngSubmit)="createAllergy(formData)">
+          <div class="mb-3">
+            <label for="allergyName" class="form-label">Nombre de la alergia</label>
+            <input ngModel name="allergyName" type="text" class="form-control" id="allergyName">
+          </div>
+          <div class="container-button d-flex justify-content-center">
+            <button type="submit" class="btn btn-success button fw-bold ">Crear Alergia</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary close-confirmation-modal" (click)="closeCreateModal()">Cerrar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+  <!--Edit Modal-->
+  <div class="modal" tabindex="-1" [ngStyle]="{'display':showEditModal}">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title header">Editar Alergia</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeEditModal()"></button>
+        </div>
+        <div class="modal-body py-4 scrollable-modal-body">
+          <div class="alert alert-success d-flex justify-content-between" *ngIf="displayConfirmEdit">
+            <span>¡La alergia fue editada satisfactoriamente!</span>
+            <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmEdit()"></button>
+          </div>
+          <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayErrorEdit">
+            <span>{{errorEdit}}</span>
+            <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorEdit()"></button>
+          </div>
+          <form #formDataEdit="ngForm" (ngSubmit)="editAllergy(formDataEdit)">
+            <div class="mb-3">
+              <label for="allergyName" class="form-label">Nombre de la alergia</label>
+              <input [ngModel]="currentAllergy?.allergyName" ngModel name="allergyName" type="text" class="form-control"
+                id="allergyName">
+            </div>
+            <div class="container-button d-flex justify-content-center">
+              <button type="submit" class="btn btn-success button fw-bold ">Editar Alergia</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary close-confirmation-modal" (click)="closeEditModal()">Cerrar
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <!--Delete  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':showDeleteModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title header" id="create-material-header">Eliminar Alergia</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteAllergy()"></button>
+      </div>
+      <div class="modal-body py-4 scrollable-modal-body">
+        <div class="alert alert-danger d-flex justify-content-between " *ngIf="displayErrorDelete">
+          <span>{{errorDelete}}</span>
+          <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorDelete()"></button>
+        </div>
+        <p class="text-center fw-bold  mb-2"> ¿Estás seguro que deseas borrar la alergia
+          {{currentAllergy?.allergyName}}?</p>
+        <p class="text-body-delete px-3">
+          La alergia junto con sus datos serán borrados
+        </p>
+      </div>
+      <div class="modal-footer d-flex justify-content-between px-3">
+        <button type="button" class="btn btn-danger fw-bold" (click)="deleteAllergy()">Eliminar Alergia</button>
+        <button type="button" class="btn btn-secondary close-confirmation-modal"
+          (click)="closeDeleteAllergy()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Delete Confirmation  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':showDeleteConfirmationModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title header" id="create-material-header">¡Alergia borrada satisfactoriamente!</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeConfirmDelete()"></button>
+      </div>
+      <div class="modal-body py-4 scrollable-modal-body">
+        <p class="text-body-delete px-3">La alergia <span class="fw-bold">{{currentAllergy?.allergyName}}</span>  fue borrada satisfactoriamente <br>
+          Puede cerrar esta ventana.</p>
+      </div>
+      <div class="modal-footer px-3">
+        <button type="button" class="btn btn-secondary close-confirmation-modal"
+          (click)="closeConfirmDelete()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
