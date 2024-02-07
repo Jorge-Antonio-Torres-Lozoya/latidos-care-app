@@ -8,18 +8,18 @@ import { SsrCookieService } from "ngx-cookie-service-ssr";
 import { AccountInterface } from "../../shared/interfaces/account.interface";
 import { ChangePasswordInterface } from "./interfaces/change-password.interface";
 import { UserTrackingValueInterface } from "../../shared/interfaces/user-tracking-value.interface";
-import { CreateUserTrackingValueInterface } from "./interfaces/create-user-tracking-value.interface";
-import { UpdateUserTrackingValueInterface } from "./interfaces/update-user-tracking-value.interface";
 import { UserAllergyInterface } from "../../shared/interfaces/user-allergy.interface";
-import { CreateUserAllergyInterface } from "./interfaces/create-user-allergy.interface";
 import { MedicationSicknessInterface } from "../../shared/interfaces/medication-sickness.interface";
-import { CreateMedicationSicknessInterface } from "./interfaces/create-medication-sickness.interface";
-import { UpdateMedicationSicknessInterface } from "./interfaces/update-medication-sickness.interface";
 import { UserSicknessInterface } from "../../shared/interfaces/user-sickness.interface";
-import { CreateUserSicknessInterface } from "./interfaces/create-user-sickness.interface";
 import { CurrentValueInterface } from "../../shared/interfaces/current-value.interface";
 import { TreatmentInterface } from "../../shared/interfaces/treatment.interface";
 import { ValidatedVerificationTokenInterface } from "../../shared/interfaces/validate-verification-token.interface";
+import { CreateMedicationSicknessInterface } from "../../shared/interfaces/create-medication-sickness.interface";
+import { UpdateMedicationSicknessInterface } from "../../shared/interfaces/update-medication-sickness.interface";
+import { CreateUserAllergyInterface } from "../../shared/interfaces/create-user-allergy.interface";
+import { CreateUserSicknessInterface } from "../../shared/interfaces/create-user-sickness.interface";
+import { CreateUserTrackingValueInterface } from "../../shared/interfaces/create-user-tracking-value.interface";
+import { UpdateUserTrackingValueInterface } from "../../shared/interfaces/update-user-trackin-value.interface";
 @Injectable({
   providedIn: 'root'
 })
@@ -115,6 +115,19 @@ getUserAllergiesByAccount(accountId:string, token?:string):Observable<UserAllerg
   return this.http.get<any>(`${environment.apiUrl}user-allergy/by-account?accountId=${accountId}`, options).pipe(catchError(this.errorHandlingService.handleError))
 }
 
+getUserAllergyById(userAllergyId:string, accountId: string, token?:string):Observable<UserAllergyInterface>{
+  let params = new HttpParams();
+  if(token) {
+    params = params.append('token', token);
+    params = params.append('accountId', accountId);
+  }
+  const options = {
+    headers: this.getHeaders(),
+    params: params
+  };
+  return this.http.get<any>(`${environment.apiUrl}user-allergy/${userAllergyId}`, options).pipe(catchError(this.errorHandlingService.handleError))
+
+}
 createUserAllergy(allergyData:CreateUserAllergyInterface, accountId: string, token?:string):Observable<UserAllergyInterface>{
   let params = new HttpParams();
   if(token) {
@@ -128,7 +141,7 @@ createUserAllergy(allergyData:CreateUserAllergyInterface, accountId: string, tok
   return this.http.post<any>(`${environment.apiUrl}user-allergy`, allergyData, options).pipe(catchError(this.errorHandlingService.handleError))
 }
 
-deleteAllergy(userAllergyId:string, accountId: string, token?:string):Observable<UserAllergyInterface>{
+deleteUserAllergy(userAllergyId:string, accountId: string, token?:string):Observable<UserAllergyInterface>{
   let params = new HttpParams();
   if(token) {
     params = params.append('token', token);
@@ -180,6 +193,7 @@ createMedicationSickness(medicationData:CreateMedicationSicknessInterface, accou
   return this.http.post<any>(`${environment.apiUrl}medication-sickness`, medicationData, options).pipe(catchError(this.errorHandlingService.handleError))
 
 }
+
 updateMedicationSickness(medicationSicknessId:string, medicationData:UpdateMedicationSicknessInterface, accountId: string, token?:string):Observable<MedicationSicknessInterface>{
   let params = new HttpParams();
   if(token) {
@@ -216,7 +230,7 @@ getAllUserSicknessByAccount(accountId:string, token?:string):Observable<UserSick
     headers: this.getHeaders(),
     params: params
   };
-  return this.http.get<any>(`${environment.apiUrl}user-sickness/by-account?accountId=${accountId}`, options).pipe(catchError(this.errorHandlingService.handleError))
+  return this.http.get<any>(`${environment.apiUrl}user-sickness/by-user?accountId=${accountId}`, options).pipe(catchError(this.errorHandlingService.handleError))
 }
 createUserSickness(sicknessData:CreateUserSicknessInterface, accountId: string, token?:string):Observable<UserSicknessInterface>{
   let params = new HttpParams();

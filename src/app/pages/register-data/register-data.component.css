@@ -211,20 +211,8 @@ td{
 }
 
 
-@media (max-width: 1000px) {
-  .btn-color{
-      width: 30%;
-  }
-}
-
-@media (max-width: 600px) {
-  .btn-color{
-      width: 45%;
-  }
 
 
-
-}
 @media (max-width: 520px) {
 tr th, tr td {
   font-size: 13px;

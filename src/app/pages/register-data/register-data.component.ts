@@ -8,106 +8,169 @@ import { Observable, Subscription, switchMap } from 'rxjs';
 import { TrackingValueInterface } from '../../shared/interfaces/tracking-value.interface';
 // import { CurrentValues } from '../../shared/interfaces/current-values.interface';
 import { ProfileUserService } from '../profile-user/profile-user.service';
-import { CreateSicknessInterface } from '../profile-admin/interfaces/create-sickness.interface';
-import { UpdateSicknessInterface } from '../../shared/interfaces/update-sickness.interface';
-import { CreateMedicationInterface } from '../profile-admin/interfaces/create-medication.interface';
-import { UpdateMedicationInterface } from '../../shared/interfaces/update-medication.interface';
-import { CreateAllergiesInterface } from '../profile-admin/interfaces/create-allergies.interface';
-import { UpdateAllergyInterface } from '../../shared/interfaces/update-allergy.interface';
 import { RegisterDataService } from './register-data.service';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
+import { UserSicknessInterface } from '../../shared/interfaces/user-sickness.interface';
+import { SharedService } from '../../shared/shared.service';
+import { CreateMedicationSicknessInterface } from '../../shared/interfaces/create-medication-sickness.interface';
+import { MedicationSicknessInterface } from '../../shared/interfaces/medication-sickness.interface';
+import { UpdateMedicationSicknessInterface } from '../../shared/interfaces/update-medication-sickness.interface';
+import { UserAllergyInterface } from '../../shared/interfaces/user-allergy.interface';
+import { CreateUserAllergyInterface } from '../../shared/interfaces/create-user-allergy.interface';
+import { CreateUserSicknessInterface } from '../../shared/interfaces/create-user-sickness.interface';
+import { UserTrackingValueInterface } from '../../shared/interfaces/user-tracking-value.interface';
 
 @Component({
   selector: 'app-register-data',
   templateUrl: './register-data.component.html',
-  styleUrls: ['./register-data.component.css']
+  styleUrls: ['./register-data.component.css'],
 })
 export class RegisterDataComponent implements OnInit {
-  userId?:string;
-  errorCurrentValue?:string;
-  errorTreatment?:string;
+  accountId?: string;
+  errorCurrentValue?: string;
+  errorTreatment?: string;
   displayConfirmation: string = 'none';
-  isLoadingValues:boolean = true;
-  valuesDisplays:boolean = false;
-  valuesEmpty:boolean = false;
-  treatmentsDisplay:boolean = false;
-  isLoadingTreatments:boolean = true;
-  treatmentsEmpty:boolean = false;
+  isLoadingValues: boolean = true;
+  valuesDisplays: boolean = false;
+  valuesEmpty: boolean = false;
+  treatmentsDisplay: boolean = false;
+  isLoadingTreatments: boolean = true;
+  treatmentsEmpty: boolean = false;
+  sicknessesByUser?: UserSicknessInterface[];
+  userSicknessesUsb?: Subscription;
   sicknesses?: SicknessInterface[];
   sicknessUsb?: Subscription;
-  allergies?: AllergyInterface[]
-  allergiesUsb?:Subscription
+  allergies?: AllergyInterface[];
+  allergiesUsb?: Subscription;
   trackingValues?: TrackingValueInterface[];
   trackingValuesUsb?: Subscription;
   // currentValues?:CurrentValues[];
-  currentValuesUsb?:Subscription;
-  treatments?:any[];
-  treatmentsUsb?:Subscription;
-  timeFrameOfTreatment?:string;
+  currentValuesUsb?: Subscription;
+  treatments?: any[];
+  treatmentsUsb?: Subscription;
+  timeFrameOfTreatment?: string;
 
   //medications
-  medications?:MedicationInterface[];
-  currentMedication?:MedicationInterface;
-  currentMedicationId?:string;
-  displayMedicationOptionsModal:string = 'none';
-  displayMedicationViewModal:string = 'none';
-  displayMedicationEditModal:string = 'none';
-  displayMedicationDeleteModal:string = 'none';
-  confirmEditMedicine:boolean = false;
+  currentMedication?: MedicationInterface;
+  currentMedicationSickness?: MedicationSicknessInterface;
+  medications?: MedicationInterface[];
+  medicationsUsb?: Subscription;
+  currentMedicationSicknessId?: number;
+
+  // currentMedication?:MedicationInterface;
+  currentMedicationId?: string;
+  displayMedicationOptionsModal: string = 'none';
+  displayMedicationViewModal: string = 'none';
+  displayMedicationEditModal: string = 'none';
+  displayMedicationDeleteModal: string = 'none';
+  confirmEditMedicine: boolean = false;
 
   //sickness
-  sicknessById?: SicknessInterface
+  userSicknessById?: UserSicknessInterface;
   displayDeleteModal: string = 'none';
   displayCreateModal: string = 'none';
   displayViewModal: string = 'none';
   displayEditModal: string = 'none';
   currentSicknessId?: number;
   currentSickness?: SicknessInterface;
-  confirmAddedSickness:boolean = false;
-  confirmUpdatedSickness:boolean = false;
-  confirmUpdatedCurrentValue:boolean = false;
-  confirmAddMedicine:boolean = false;
+  currentUserSickness?: UserSicknessInterface;
+  currentUserSicknessId?: number;
+  confirmAddedSickness: boolean = false;
+  confirmUpdatedSickness: boolean = false;
+  confirmUpdatedCurrentValue: boolean = false;
+  confirmAddMedicine: boolean = false;
   errorAlertMedication?: string = undefined;
   errorAlert?: string = undefined;
 
   //allergies
-  allergyById?: AllergyInterface
   displayAllergyDeleteModal: string = 'none';
   displayAllergyCreateModal: string = 'none';
   displayAllergyViewModal: string = 'none';
   displayAllergyEditModal: string = 'none';
   currentAllergyId?: number;
   currentAllergy?: AllergyInterface;
-  confirmAddedAllergy:boolean = false;
-  confirmUpdatedAllergy:boolean = false;
+  confirmAddedAllergy: boolean = false;
+  confirmUpdatedAllergy: boolean = false;
   errorAllergyAlert?: string = undefined;
 
+  userAllergiesUsb?: Subscription;
+  userAllergies?: UserAllergyInterface[];
+  userAllergyById?: UserAllergyInterface;
+  currentUserAllergyId?: number;
+  currentUserAllergy?: UserAllergyInterface;
+
+  //  user-Tracking-Values
+  displayTrackingValuesDeleteModal: string = 'none';
+  displayTrackingValuesCreateModal: string = 'none';
+  displayTrackingValuesEditModal: string = 'none';
+
+  confirmAddedUserTrackingValue: boolean = false;
+  confirmUpdatedUserTrackingValue: boolean = false;
+  errorUserTrackingValue?: string = undefined;
+  userTrackingValueById?: UserTrackingValueInterface;
+  userTrackingValues?: UserTrackingValueInterface[];
+  userTrackingValuesUsb?: Subscription;
+  currentUserTrackingValue?: UserTrackingValueInterface;
+  currentUserTrackingValueId?: number;
+  currentTrackingValue?: TrackingValueInterface;
+  currentTrackingValueId?: number;
 
   constructor(
     private profileUserService: ProfileUserService,
     private route: ActivatedRoute,
+    private sharedService: SharedService,
     private router: Router,
     private registerDataService: RegisterDataService,
     private cookieService: SsrCookieService
-    ) {}
+  ) {}
 
   ngOnInit(): void {
-    this.userId = this.cookieService.get('user_id')!;
-    // this.sicknessUsb = this.profileUserService.getAllSicknessByUser(this.userId).subscribe((response) => {
-    //   this.sicknesses = response;
-    // });
-    // this.allergiesUsb = this.profileUserService.getAllergiesByUser(this.userId).subscribe((response) => {
-    //   this.allergies = response;
-    // });
+    this.accountId = this.cookieService.get('account_id')!;
+    this.userSicknessesUsb = this.profileUserService
+      .getAllUserSicknessByAccount(this.accountId)
+      .subscribe((response) => {
+        this.sicknessesByUser = response;
+        console.log(this.sicknessesByUser);
+      });
+
+    this.sicknessUsb = this.sharedService
+      .getAllSickness()
+      .subscribe((response) => {
+        this.sicknesses = response;
+      });
+    this.medicationsUsb = this.sharedService
+      .getAllMedication()
+      .subscribe((response) => {
+        this.medications = response;
+      });
+
+    this.userAllergiesUsb = this.profileUserService
+      .getUserAllergiesByAccount(this.accountId)
+      .subscribe((response) => {
+        this.userAllergies = response;
+      });
+
+    this.allergiesUsb = this.sharedService
+      .getAllAllergy()
+      .subscribe((response) => {
+        this.allergies = response;
+      });
+
+    this.userTrackingValuesUsb = this.profileUserService
+      .getUserTrackingValuesByAccount(this.accountId!)
+      .subscribe((response) => {
+        this.userTrackingValues = response;
+      });
+
+    this.trackingValuesUsb = this.sharedService
+      .getAllTrackingValues()
+      .subscribe((response) => {
+        this.trackingValues = response;
+      });
   }
 
   toDashboard() {
     this.router.navigateByUrl(`/perfil-paciente`);
-  }
-
-  setCurrentMedication(medication:MedicationInterface) {
-    this.currentMedication = medication;
-    this.currentMedicationId = medication.medicationId!.toString();
   }
 
   handleErrorCurrentValue() {
@@ -117,379 +180,503 @@ export class RegisterDataComponent implements OnInit {
   handleErrorTreatment() {
     this.errorTreatment = undefined;
   }
-//Sickness
-handleError?() {
-  this.errorAlert = undefined;
-}
-handleErrorMedication?() {
-  this.errorAlertMedication = undefined;
-}
-
-// getSicknessById(idSickness: number): Observable<any> {
-//   this.currentSicknessId = idSickness;
-//   return this.profileUserService
-//     .getSicknessById(this.currentSicknessId!.toString())
-//     .pipe(
-//       switchMap((sicknessById) => {
-//         this.sicknessById = sicknessById;
-//         return new Observable((observer) => {
-//           observer.next();
-//           observer.complete();
-//         });
-//       })
-//     );
-// }
-
-// deleteSickness() {
-//   this.profileUserService
-//     .deleteSickness(this.currentSicknessId!.toString())
-//     .subscribe((response) => {
-//       this.sicknesses = this.sicknesses!.filter(
-//         (sickness) =>
-//           sickness.sicknessId !== this.currentSicknessId
-//       );
-//       this.displayDeleteModal = 'none';
-//     });
-// }
-
-// addPersonalizedSickness(form: NgForm) {
-//   const sicknessData: CreateSicknessInterface = form.value;
-//   sicknessData.userId = Number(this.userId);
-//   this.profileUserService.createSickness(sicknessData).subscribe(
-//     (response) => {
-//       this.confirmAddedSickness = true;
-//       this.profileUserService
-//         .getAllSicknessByUser(this.userId!)
-//         .subscribe((sicknesses) => {
-//           this.sicknesses = sicknesses;
-//         });
-//     },
-//     (errorMessage) => {
-//       console.log(errorMessage);
-//       this.errorAlert = errorMessage;
-//     }
-//   );
-//   form.reset();
-// }
-// updateSickness: ( formData: NgForm) => void = (
-//   formData
-// ) => {
-//   if (!formData.value) {
-//     return;
-//   }
-//   const updatedData: UpdateSicknessInterface = formData.value;
-//   this.profileUserService
-//     .editSickness(updatedData, this.currentSicknessId!.toString())
-//     .subscribe((response) => {
-//       this.confirmUpdatedSickness = true;
-//       this.profileUserService
-//       .getAllSicknessByUser(this.userId!)
-//       .subscribe((sicknesses) => {
-//         this.sicknesses = sicknesses;
-//         this.profileUserService.getSicknessById(this.currentSicknessId!.toString()).subscribe((response)=>{
-//           this.currentSickness = response;
-//         });
-//       });
-//     });
-//     formData.reset();
-// };
-
-// AddMedication(sicknessId: number, formData: NgForm) {
-//   if (!formData.value) {
-//     return;
-//   }
-//   const medicationData: CreateMedicationInterface = formData.value;
-//   medicationData.sicknessId = sicknessId;
-//   medicationData.userId = Number(this.userId);
-//   this.profileUserService.createMedication(medicationData).subscribe(
-//     (response) => {
-//       this.confirmAddMedicine = true;
-//       this.profileUserService
-//         .getAllSicknessByUser(this.userId!)
-//         .subscribe((sicknesses) => {
-//           this.sicknesses = sicknesses;
-//         });
-//     },
-//     (errorMessage) => {
-//       console.log(errorMessage);
-//       this.errorAlertMedication = errorMessage;
-//     }
-//   );
-//   formData.reset();
-// }
-
-// //medication
-// goToMedications(medication: MedicationInterface) {
-//   this.currentMedication = medication
-//   this.currentMedicationId = medication.medicationId!.toString();
-//   this.displayViewModal = 'none';
-//   this.displayMedicationOptionsModal = 'block';
-// }
-
-// openMedicationEdit() {
-//   this.displayMedicationOptionsModal = 'none';
-//   this.displayMedicationEditModal = 'block';
-// }
-
-// openMedicationView() {
-//   this.displayMedicationOptionsModal = 'none';
-//   this.displayMedicationViewModal = 'block';
-// }
-
-// openMedicationDelete() {
-//   this.displayMedicationOptionsModal = 'none';
-//   this.displayMedicationDeleteModal = 'block';
-// }
-
-// closeDeleteMedicationModal() {
-//   this.displayMedicationDeleteModal = 'none';
-//   this.currentMedication = undefined;
-//   this.currentMedicationId = undefined;
-// }
-// closeViewMedicationModal() {
-//   this.displayMedicationViewModal = 'none';
-//   this.currentMedication = undefined;
-//   this.currentMedicationId = undefined;
-// }
-// closeEditMedicationModal() {
-//   this.displayMedicationEditModal = 'none';
-//   this.currentMedication = undefined;
-//   this.currentMedicationId = undefined;
-// }
-// closeOptionsMedicationModal() {
-//   this.displayMedicationOptionsModal = 'none';
-//   this.currentMedication = undefined;
-//   this.currentMedicationId = undefined;
-// }
-
-// deleteUserMedication() {
-//   this.profileUserService
-//     .deleteMedication(this.currentMedicationId!.toString())
-//     .subscribe((response) => {
-//       this.sicknessUsb = this.profileUserService.getAllSicknessByUser(this.userId!).subscribe((response) => {
-//         this.sicknesses = response;
-//       });
-//       this.displayMedicationDeleteModal = 'none';
-//     });
-// }
-
-// updateMedication: ( formData: NgForm) => void = (
-//   formData
-// ) => {
-//   if (!formData.value) {
-//     return;
-//   }
-//   const updatedData: UpdateMedicationInterface = {};
-//   if (formData.value.medicationName) {
-//     updatedData['medicationName'] = formData.value.medicationName;
-//   }
-//   if (formData.value.timeConsumption) {
-//     updatedData['timeConsumption'] = formData.value.timeConsumption;
-//   }
-
-//   this.profileUserService
-//     .updateMedication(updatedData, this.currentMedicationId!.toString())
-//     .subscribe((response) => {
-//       this.confirmEditMedicine = true;
-//       this.currentMedication = response;
-//       this.sicknessUsb = this.profileUserService.getAllSicknessByUser(this.userId!).subscribe((response) => {
-//         this.sicknesses = response;
-//       });
-//       this.displayMedicationEditModal = 'none';
-//     });
-//     formData.reset();
-// };
-
-// closeEditMedicationConfirmation() {
-//   this.confirmEditMedicine = false;
-// }
-
-// closeDeleteSicknessModal() {
-//   this.displayDeleteModal = 'none';
-// }
-// closeViewModal() {
-//   this.displayViewModal = 'none';
-// }
-// closeEditModal() {
-//   this.displayEditModal = 'none';
-// }
-// closeCreateModal() {
-//   this.displayCreateModal = 'none';
-// }
-// OpenModalCreate() {
-//   this.displayCreateModal = 'block';
-// }
-
-// openDeleteModal(idSickness: number) {
-//   this.currentSicknessId = idSickness;
-//   this.getSicknessById(idSickness).subscribe(() => {
-//     this.displayDeleteModal = 'block';
-//   });
-// }
-// openViewModal(idSickness: number) {
-//   this.currentSicknessId = idSickness;
-//   this.getSicknessById(idSickness).subscribe(() => {
-//     this.displayViewModal = 'block';
-//   });
-// }
-// openEditModal(idSickness: number) {
-//   this.currentSicknessId = idSickness;
-//   this.profileUserService.getSicknessById(idSickness.toString()).subscribe((response)=>{
-//     this.currentSickness = response;
-//     this.displayEditModal = 'block';
-//   });
-// }
-
-// closeConfirmSicknesUpdate() {
-//   this.confirmUpdatedSickness = false;
-// }
-
-// closeConfirmValueUpdate() {
-//   this.confirmUpdatedCurrentValue = false;
-// }
-
-// closeConfirmAddMedication() {
-//   this.confirmAddMedicine = false;
-// }
-
-// closeConfirmAddSickness() {
-//   this.confirmAddedSickness = false;
-// }
-
-// //Allergies
-// handleAllergyError?() {
-//   this.errorAllergyAlert = undefined;
-// }
-
-// getAllergyById(idAllergy: number): Observable<any> {
-//   this.currentAllergyId = idAllergy;
-//   return this.profileUserService
-//     .getAllergyById(this.currentAllergyId!.toString())
-//     .pipe(
-//       switchMap((allergyById) => {
-//         this.allergyById = allergyById;
-//         return new Observable((observer) => {
-//           observer.next();
-//           observer.complete();
-//         });
-//       })
-//     );
-// }
-
-// deleteAllergy() {
-//   this.profileUserService
-//     .deleteAllergy(this.currentAllergyId!.toString())
-//     .subscribe((response) => {
-//       this.allergies = this.allergies!.filter(
-//         (allergy) =>
-//         allergy.allergyId !== this.currentAllergyId
-//       );
-//       this.displayAllergyDeleteModal = 'none';
-//     });
-// }
-
-// addAllergy(form: NgForm) {
-//   const allergyData: CreateAllergyInterface = form.value;
-//   allergyData.userId = Number(this.userId);
-//   this.profileUserService.createAllergy(allergyData).subscribe(
-//     (response) => {
-//       this.confirmAddedAllergy = true;
-//       this.profileUserService
-//         .getAllergiesByUser(this.userId!)
-//         .subscribe((allergies) => {
-//           this.allergies = allergies;
-//         });
-//     },
-//     (errorMessage) => {
-//       console.log(errorMessage);
-//       this.errorAlert = errorMessage;
-//     }
-//   );
-//   form.reset();
-// }
-// updateAllergy: ( formData: NgForm) => void = (
-//   formData
-// ) => {
-//   if (!formData.value) {
-//     return;
-//   }
-//   const updatedData: UpdateAllergyInterface = {};
-//   if (formData.value.allergyName) {
-//     updatedData['allergyName'] = formData.value.allergyName;
-//   }
-//   this.profileUserService
-//     .updateAllergy(updatedData, this.currentAllergyId!.toString())
-//     .subscribe((response) => {
-//       this.confirmUpdatedAllergy = true;
-//       this.profileUserService
-//       .getAllergiesByUser(this.userId!)
-//       .subscribe((allergies) => {
-//         this.allergies = allergies;
-//         this.profileUserService.getAllergyById(this.currentAllergyId!.toString()).subscribe((response)=>{
-//           this.currentAllergy = response;
-//         });
-//       });
-//     });
-// };
-
-// closeDeleteAllergyModal() {
-//   this.displayAllergyDeleteModal = 'none';
-// }
-// closeAllergyViewModal() {
-//   this.displayAllergyViewModal = 'none';
-// }
-// closeAllergyEditModal() {
-//   this.displayAllergyEditModal = 'none';
-// }
-// closeAllergyCreateModal() {
-//   this.displayAllergyCreateModal = 'none';
-// }
-// OpenAllergyModalCreate() {
-//   this.displayAllergyCreateModal = 'block';
-// }
-
-// openAllergyDeleteModal(idAllergy: number) {
-//   this.currentAllergyId = idAllergy;
-//   this.getAllergyById(idAllergy).subscribe(() => {
-//     this.displayAllergyDeleteModal = 'block';
-//   });
-// }
-// openAllergyViewModal(idAllergy: number) {
-//   this.currentAllergyId = idAllergy;
-//   this.getAllergyById(idAllergy).subscribe(() => {
-//     this.displayAllergyViewModal = 'block';
-//   });
-// }
-// openAllergyEditModal(idAllergy: number) {
-//   this.currentAllergyId = idAllergy;
-//   this.profileUserService.getAllergyById(idAllergy.toString()).subscribe((response)=>{
-//     this.currentAllergy = response;
-//     this.displayAllergyEditModal = 'block';
-//   });
-// }
-
-// closeConfirmAllergyUpdate() {
-//   this.confirmUpdatedAllergy = false;
-// }
-
-// closeConfirmAddAllergy() {
-//   this.confirmAddedAllergy = false;
-// }
-
-ngOnDestroy(): void {
-  if(this.sicknessUsb) {
-    this.sicknessUsb.unsubscribe();
+  //Sickness
+  handleError?() {
+    this.errorAlert = undefined;
   }
-  if(this.currentValuesUsb) {
-    this.currentValuesUsb.unsubscribe();
+  handleErrorMedication?() {
+    this.errorAlertMedication = undefined;
   }
-  if(this.allergiesUsb) {
-    this.allergiesUsb.unsubscribe();
-  }
-  if(this.trackingValuesUsb) {
-    this.trackingValuesUsb.unsubscribe();
-  }
-  // this.registerDataService.updateRegisterDataAccount(this.accountId!).subscribe();
-}
 
+  getUserSicknessById(idUserSickness: number): Observable<any> {
+    console.log(idUserSickness);
+    this.currentUserSicknessId = idUserSickness;
+    return this.sharedService
+      .getUserSicknessById(this.currentUserSicknessId!.toString())
+      .pipe(
+        switchMap((userSicknessById) => {
+          this.userSicknessById = userSicknessById;
+          return new Observable((observer) => {
+            observer.next();
+            observer.complete();
+          });
+        })
+      );
+  }
+
+  deleteSickness() {
+    this.profileUserService
+      .deleteUserSickness(
+        this.currentUserSicknessId!.toString(),
+        this.accountId!
+      )
+      .subscribe((response) => {
+        this.sicknessesByUser = this.sicknessesByUser!.filter(
+          (sicknessByUser) =>
+            sicknessByUser.userSicknessId !== this.currentUserSicknessId
+        );
+        this.displayDeleteModal = 'none';
+      });
+  }
+
+  addPersonalizedSickness() {
+    const sicknessData: CreateUserSicknessInterface = {
+      accountId: Number(this.accountId),
+      sicknessId: this.currentSicknessId!,
+    };
+
+    this.sharedService.creteSicknessForUser(sicknessData).subscribe(
+      (response) => {
+        this.confirmAddedSickness = true;
+        this.profileUserService
+          .getAllUserSicknessByAccount(this.accountId!)
+          .subscribe((sicknesses) => {
+            this.sicknessesByUser = sicknesses;
+          });
+      },
+      (errorMessage) => {
+        console.log(errorMessage);
+        this.errorAlert = errorMessage;
+      }
+    );
+  }
+  setCurrentSickness(sickness: SicknessInterface) {
+    this.currentSickness = sickness;
+    this.currentSicknessId = sickness.sicknessId;
+  }
+
+  setCurrentMedicationSickness(medication: MedicationInterface) {
+    this.currentMedication = medication;
+  }
+
+  addMedication(userSicknessId: number, formData: NgForm) {
+    this.currentUserSicknessId = userSicknessId;
+    if (!formData.value) {
+      return;
+    }
+    const medicationSicknessData: CreateMedicationSicknessInterface =
+      formData.value;
+    medicationSicknessData.medicationId = this.currentMedication?.medicationId!;
+    medicationSicknessData.userSicknessId = this.currentUserSicknessId!;
+    medicationSicknessData.accountId = Number(this.accountId);
+    console.log(medicationSicknessData);
+
+    this.profileUserService
+      .createMedicationSickness(medicationSicknessData, this.accountId!)
+      .subscribe(
+        (response) => {
+          this.confirmAddMedicine = true;
+          this.profileUserService
+            .getAllUserSicknessByAccount(this.accountId!)
+            .subscribe((sicknessByUser) => {
+              this.sicknessesByUser = sicknessByUser;
+            });
+        },
+        (errorMessage) => {
+          console.log(errorMessage);
+          this.errorAlertMedication = errorMessage;
+        }
+      );
+    formData.reset();
+  }
+
+  // //medication
+  goToMedications(medication: MedicationSicknessInterface) {
+    console.log(medication);
+
+    this.currentMedicationSickness = medication;
+    this.currentMedicationSicknessId = medication.medicationSicknessId;
+    this.displayViewModal = 'none';
+    this.displayMedicationOptionsModal = 'block';
+  }
+
+  openMedicationEdit() {
+    this.confirmEditMedicine = false;
+    this.displayMedicationOptionsModal = 'none';
+    this.displayMedicationEditModal = 'block';
+  }
+
+  openMedicationView() {
+    this.displayMedicationOptionsModal = 'none';
+    this.displayMedicationViewModal = 'block';
+  }
+
+  openMedicationDelete() {
+    this.displayMedicationOptionsModal = 'none';
+    this.displayMedicationDeleteModal = 'block';
+  }
+
+  closeDeleteMedicationModal() {
+    this.displayMedicationDeleteModal = 'none';
+    this.currentMedicationSickness = undefined;
+    this.currentMedicationSicknessId = undefined;
+  }
+  closeViewMedicationModal() {
+    this.displayMedicationViewModal = 'none';
+    this.currentMedicationSickness = undefined;
+    this.currentMedicationSicknessId = undefined;
+  }
+  closeEditMedicationModal() {
+    this.displayMedicationEditModal = 'none';
+    this.currentMedicationSickness = undefined;
+    this.currentMedicationSicknessId = undefined;
+  }
+  closeOptionsMedicationModal() {
+    this.displayMedicationOptionsModal = 'none';
+    this.currentMedicationSickness = undefined;
+    this.currentMedicationSicknessId = undefined;
+  }
+
+  deleteUserMedication() {
+    this.profileUserService
+      .deleteMedicationSickness(
+        this.currentMedicationSicknessId!.toString(),
+        this.accountId!
+      )
+      .subscribe((response) => {
+        this.userSicknessesUsb = this.profileUserService
+          .getAllUserSicknessByAccount(this.accountId!)
+          .subscribe((response) => {
+            this.sicknessesByUser = response;
+          });
+        this.displayMedicationDeleteModal = 'none';
+      });
+  }
+
+  updateMedication: (formData: NgForm) => void = (formData) => {
+    if (!formData.value) {
+      return;
+    }
+    const updatedData: UpdateMedicationSicknessInterface = formData.value;
+    if (formData.value.timeConsumption) {
+      updatedData['timeConsumption'] = formData.value.timeConsumption;
+    }
+    console.log(this.currentMedicationSicknessId);
+    this.profileUserService
+      .updateMedicationSickness(
+        this.currentMedicationSicknessId!.toString(),
+        updatedData,
+        this.accountId!
+      )
+      .subscribe((response) => {
+        this.confirmEditMedicine = true;
+        this.currentMedicationSickness = response;
+        this.userSicknessesUsb = this.profileUserService
+          .getAllUserSicknessByAccount(this.accountId!)
+          .subscribe((response) => {
+            this.sicknessesByUser = response;
+          });
+        this.displayMedicationEditModal = 'none';
+      });
+    formData.reset();
+  };
+
+  closeEditMedicationConfirmation() {
+    this.confirmEditMedicine = false;
+  }
+
+  closeDeleteSicknessModal() {
+    this.displayDeleteModal = 'none';
+  }
+  closeViewModal() {
+    this.displayViewModal = 'none';
+  }
+  closeEditModal() {
+    this.displayEditModal = 'none';
+  }
+  closeCreateModal() {
+    this.displayCreateModal = 'none';
+  }
+  OpenModalCreate() {
+    this.currentSickness = undefined;
+    this.confirmAddedSickness = false;
+    this.errorAlert = undefined;
+    this.displayCreateModal = 'block';
+  }
+
+  openDeleteModal(idUserSickness: number) {
+    this.currentUserSicknessId = idUserSickness;
+    this.sharedService
+      .getUserSicknessById(idUserSickness.toString())
+      .subscribe((response) => {
+        this.userSicknessById = response;
+        this.displayDeleteModal = 'block';
+      });
+  }
+  openViewModal(idUserSickness: number) {
+    this.currentSicknessId = idUserSickness;
+    this.getUserSicknessById(idUserSickness).subscribe((response) => {
+      this.currentUserSickness = response;
+      this.displayViewModal = 'block';
+    });
+  }
+  openEditModal(idUserSickness: number) {
+    this.confirmAddMedicine = false;
+    this.errorAlertMedication = undefined;
+    this.currentMedication = undefined;
+    this.currentUserSicknessId = idUserSickness;
+    this.sharedService
+      .getUserSicknessById(idUserSickness.toString())
+      .subscribe((response) => {
+        this.userSicknessById = response;
+        this.displayEditModal = 'block';
+      });
+  }
+
+  closeConfirmAddMedication() {
+    this.confirmAddMedicine = false;
+  }
+
+  closeConfirmAddSickness() {
+    this.confirmAddedSickness = false;
+  }
+
+  // //Allergies
+  handleAllergyError?() {
+    this.errorAllergyAlert = undefined;
+  }
+
+  getUserAllergyById(idUserAllergy: number): Observable<any> {
+    this.currentUserAllergyId = idUserAllergy;
+    return this.profileUserService
+      .getUserAllergyById(
+        this.currentUserAllergyId!.toString(),
+        this.accountId!
+      )
+      .pipe(
+        switchMap((userAllergyById) => {
+          this.userAllergyById = userAllergyById;
+          console.log(this.userAllergyById);
+          return new Observable((observer) => {
+            observer.next();
+            observer.complete();
+          });
+        })
+      );
+  }
+
+  deleteAllergy() {
+    this.profileUserService
+      .deleteUserAllergy(this.currentUserAllergyId!.toString(), this.accountId!)
+      .subscribe((response) => {
+        this.userAllergies = this.userAllergies!.filter(
+          (userAllergy) =>
+            userAllergy.userAllergyId !== this.currentUserAllergyId
+        );
+        this.displayAllergyDeleteModal = 'none';
+      });
+  }
+
+  setCurrentAllergy(allergy: AllergyInterface) {
+    this.currentAllergy = allergy;
+    this.currentAllergyId = allergy.allergyId;
+  }
+  addAllergy() {
+    const userAllergyData: CreateUserAllergyInterface = {
+      accountId: Number(this.accountId),
+      allergyId: this.currentAllergyId!,
+    };
+
+    this.profileUserService
+      .createUserAllergy(userAllergyData, this.accountId!)
+      .subscribe(
+        (response) => {
+          this.confirmAddedAllergy = true;
+          this.profileUserService
+            .getUserAllergiesByAccount(this.accountId!)
+            .subscribe((userAllergies) => {
+              this.userAllergies = userAllergies;
+            });
+        },
+        (errorMessage) => {
+          console.log(errorMessage);
+          this.errorAlert = errorMessage;
+        }
+      );
+  }
+
+  closeDeleteAllergyModal() {
+    this.displayAllergyDeleteModal = 'none';
+  }
+  closeAllergyViewModal() {
+    this.displayAllergyViewModal = 'none';
+  }
+
+  closeAllergyCreateModal() {
+    this.displayAllergyCreateModal = 'none';
+  }
+  OpenAllergyModalCreate() {
+    this.confirmAddedAllergy = false;
+    this.errorAllergyAlert = undefined;
+    this.currentAllergy = undefined;
+    this.displayAllergyCreateModal = 'block';
+  }
+
+  openAllergyDeleteModal(idUserAllergy: number) {
+    this.currentUserAllergyId = idUserAllergy;
+    this.getUserAllergyById(idUserAllergy).subscribe((response) => {
+      this.displayAllergyDeleteModal = 'block';
+    });
+  }
+  openAllergyViewModal(idUserAllergy: number) {
+    this.currentUserAllergyId = idUserAllergy;
+    console.log(idUserAllergy);
+
+    this.getUserAllergyById(idUserAllergy).subscribe((response) => {
+      console.log(response);
+      console.log(this.userAllergyById);
+      this.displayAllergyViewModal = 'block';
+    });
+  }
+  openAllergyEditModal(idAllergy: number) {
+    this.currentUserAllergyId = idAllergy;
+    this.getUserAllergyById(idAllergy).subscribe((response) => {
+      this.displayAllergyEditModal = 'block';
+    });
+  }
+
+  // closeConfirmAllergyUpdate() {
+  //   this.confirmUpdatedAllergy = false;
+  // }
+
+  closeConfirmAddAllergy() {
+    this.confirmAddedAllergy = false;
+  }
+
+  // Tracking values
+
+  openTrackingValuesEditModal(idUserTrackingValue: number) {
+    this.currentUserTrackingValueId = idUserTrackingValue;
+    this.sharedService
+      .getUserTrackingValueById(this.currentUserTrackingValueId!.toString())
+      .subscribe((response) => {
+        this.currentUserTrackingValue = response;
+        this.displayTrackingValuesEditModal = 'block';
+      });
+  }
+
+  openTrackingValuesDeleteModal(idUserTrackingValue: number) {
+    this.currentUserTrackingValueId = idUserTrackingValue;
+    this.sharedService
+      .getUserTrackingValueById(this.currentUserTrackingValueId!.toString())
+      .subscribe((response) => {
+        this.currentUserTrackingValue = response;
+        this.displayTrackingValuesDeleteModal = 'block';
+      });
+  }
+
+  openTrackingValuesModalCreate() {
+    this.confirmAddedUserTrackingValue = false;
+    this.errorUserTrackingValue = undefined;
+    this.displayTrackingValuesCreateModal = 'block';
+  }
+
+  closeConfirmAddUserTrackingValue() {
+    this.confirmAddedUserTrackingValue = false;
+  }
+  closeUserTrackingValueCreateModal() {
+    this.displayTrackingValuesCreateModal = 'none';
+  }
+  setCurrentTrackingValue(trackingValue: TrackingValueInterface) {
+    this.currentTrackingValue = trackingValue;
+    this.currentTrackingValueId = trackingValue.trackingValueId;
+  }
+
+  addUserTrackingValue(formData: NgForm) {
+    const userTrackingValueData: UserTrackingValueInterface = formData.value;
+    userTrackingValueData.accountId = Number(this.accountId);
+    userTrackingValueData.trackingValueId = this.currentTrackingValueId!;
+
+    console.log(userTrackingValueData);
+    this.profileUserService
+      .createUserTrackingValue(userTrackingValueData, this.accountId!)
+      .subscribe(
+        (response) => {
+          this.confirmAddedUserTrackingValue = true;
+          this.profileUserService
+            .getUserTrackingValuesByAccount(this.accountId!)
+            .subscribe((userTrackingValues) => {
+              this.userTrackingValues = userTrackingValues;
+            });
+        },
+        (errorMessage) => {
+          console.log(errorMessage);
+          this.errorUserTrackingValue = errorMessage;
+        }
+      );
+    formData.reset();
+  }
+
+  closeDeleteUserTrackingValueModal() {
+    this.displayTrackingValuesDeleteModal = 'none';
+  }
+
+  deleteUserTrackingValue() {
+    this.profileUserService
+      .deleteUserTrackingValue(
+        this.currentUserTrackingValueId!.toString(),
+        this.accountId!
+      )
+      .subscribe((response) => {
+        this.userTrackingValues = this.userTrackingValues!.filter(
+          (userTrackingValue) =>
+            userTrackingValue.userTrackingValueId !==
+            this.currentUserTrackingValueId
+        );
+        this.displayTrackingValuesDeleteModal = 'none';
+      });
+  }
+
+  updateUserTrackingValue(formData: NgForm) {
+    if (!formData.value) {
+      return;
+    }
+    const updatedData: UserTrackingValueInterface = formData.value;
+    this.profileUserService
+      .updateUserTrackingValue(
+        this.currentUserTrackingValueId!.toString(),
+        updatedData,
+        this.accountId!
+      )
+      .subscribe((response) => {
+        this.confirmUpdatedUserTrackingValue = true;
+        this.currentUserTrackingValue = response;
+        this.profileUserService
+          .getUserTrackingValuesByAccount(this.accountId!)
+          .subscribe((response) => {
+            this.userTrackingValues = response;
+          });
+        this.displayTrackingValuesEditModal = 'none';
+      });
+    formData.reset();
+  }
+  ngOnDestroy(): void {
+    if (this.sicknessUsb) {
+      this.sicknessUsb.unsubscribe();
+    }
+    if (this.currentValuesUsb) {
+      this.currentValuesUsb.unsubscribe();
+    }
+    if (this.allergiesUsb) {
+      this.allergiesUsb.unsubscribe();
+    }
+    if (this.trackingValuesUsb) {
+      this.trackingValuesUsb.unsubscribe();
+    }
+    if (this.userSicknessesUsb) {
+      this.userSicknessesUsb.unsubscribe();
+    }
+    if (this.medicationsUsb) {
+      this.medicationsUsb.unsubscribe();
+    }
+    if (this.userAllergiesUsb) {
+      this.userAllergiesUsb.unsubscribe();
+    }
+    if (this.userTrackingValuesUsb) {
+      this.userTrackingValuesUsb.unsubscribe();
+    }
+
+
+    // this.registerDataService.updateRegisterDataAccount(this.accountId!).subscribe();
+  }
 }

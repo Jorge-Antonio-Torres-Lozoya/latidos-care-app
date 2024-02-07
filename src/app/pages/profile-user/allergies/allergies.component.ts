@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { UserAllergyInterface } from '../../../shared/interfaces/user-allergy.interface';
 import { SharedService } from '../../../shared/shared.service';
-import { CreateUserAllergyInterface } from '../interfaces/create-user-allergy.interface';
+import { CreateUserAllergyInterface } from '../../../shared/interfaces/create-user-allergy.interface';
 
 @Component({
   selector: 'app-allergies',
@@ -59,7 +59,7 @@ export class AllergiesComponent implements OnInit, OnDestroy {
 
   deleteAllergy() {
     this.profileUserService
-      .deleteAllergy(this.currentUserAllergy!.userAllergyId.toString(), this.getAccountId())
+      .deleteUserAllergy(this.currentUserAllergy!.userAllergyId.toString(), this.getAccountId())
       .subscribe((response) => {
         this.userAllergies! = this.userAllergies!.filter(
           (userAllergy) =>

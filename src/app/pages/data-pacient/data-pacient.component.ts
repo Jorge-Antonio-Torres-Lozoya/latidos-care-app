@@ -15,7 +15,7 @@ import { TrackingValueInterface } from '../../shared/interfaces/tracking-value.i
 import { CreateSicknessInterface } from '../profile-admin/interfaces/create-sickness.interface';
 import { UpdateSicknessInterface } from '../../shared/interfaces/update-sickness.interface';
 import { CreateMedicationInterface } from '../profile-admin/interfaces/create-medication.interface';
-import { CreateAllergiesInterface} from '../profile-admin/interfaces/create-allergies.interface';
+// import { CreateAllergiesInterface} from '../profile-admin/interfaces/create-allergies.interface';
 import { UpdateAllergyInterface } from '../../shared/interfaces/update-allergy.interface';
 import { CreateTrackingValueInterface } from '../profile-admin/interfaces/create-tracking-value.interface';
 import { UpdateTrackingValueInterface } from '../../shared/interfaces/update-tracking-value.interface';

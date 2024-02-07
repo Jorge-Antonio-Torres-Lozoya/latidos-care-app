@@ -9,8 +9,9 @@ import { UserSicknessInterface } from '../../../shared/interfaces/user-sickness.
 import { MedicationInterface } from '../../../shared/interfaces/medication.interface';
 import { SharedService } from '../../../shared/shared.service';
 import { MedicationSicknessInterface } from '../../../shared/interfaces/medication-sickness.interface';
-import { CreateUserSicknessInterface } from '../interfaces/create-user-sickness.interface';
-import { CreateMedicationSicknessInterface } from '../interfaces/create-medication-sickness.interface';
+import { CreateMedicationSicknessInterface } from '../../../shared/interfaces/create-medication-sickness.interface';
+import { CreateUserSicknessInterface } from '../../../shared/interfaces/create-user-sickness.interface';
+
 
 @Component({
   selector: 'app-tracking',

@@ -7,9 +7,9 @@ import { NgForm } from '@angular/forms';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { UserTrackingValueInterface } from '../../../shared/interfaces/user-tracking-value.interface';
 import { SharedService } from '../../../shared/shared.service';
-import { CreateUserTrackingValueInterface } from '../interfaces/create-user-tracking-value.interface';
-import { UpdateUserTrackingValueInterface } from '../interfaces/update-user-tracking-value.interface';
-import * as e from 'express';
+import { CreateUserTrackingValueInterface } from '../../../shared/interfaces/create-user-tracking-value.interface';
+import { UpdateUserTrackingValueInterface } from '../../../shared/interfaces/update-user-trackin-value.interface';
+
 
 @Component({
   selector: 'app-tracking-values',
