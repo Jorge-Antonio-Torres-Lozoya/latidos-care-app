@@ -131,12 +131,21 @@ a{
   align-items: center;
   gap: 10px;
 }
+.color-light{
+  color:#90cbee !important;
+}
+.color-light:hover{
+  color:  rgb(255, 217, 0)!important;
+}
 .navbar-nav{
-  gap: 15px;
+  gap: 10px;
 }
 .perfil{
   flex-direction: column;
   gap: 15px;
+}
+.responsive-menu{
+  align-items: end;
 }
 @media (max-width: 913px) {
   .item-space {
@@ -280,5 +289,9 @@ a{
 .perfil{
   flex-direction: row;
   gap: 20px;
+}
+.responsive-menu{
+ align-items: start;
+  flex-direction: column;
 }
 }

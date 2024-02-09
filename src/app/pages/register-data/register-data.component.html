@@ -80,7 +80,7 @@
         </div>
         <div class="modal-body py-4">
           <p class="text-center fw-bold  mb-2"> ¿Desea borrar la enfermedad
-            {{userSicknessById?.sicknessName}}?</p>
+            {{currentUserSickness?.sicknessName}}?</p>
           <p class="text-body-delete px-3">Recuerde que al borrar la enfermedad implica que usted ya concluyó su
             tratamiento, asegúrese de cumplir con su tratamiento tal y como lo indicó su médico antes de
             seleccionar esta opción. También tenga en cuenta que todos los datos sobre esta enfermedad se
@@ -112,15 +112,6 @@
               (click)="closeConfirmAddSickness()"></button>
           </div>
           <div class="alert alert-danger" (closed)="handleError?.()" *ngIf="errorAlert"> {{errorAlert}} </div>
-          <!-- <form #formData="ngForm" (ngSubmit)="addPersonalizedSickness(formData)">
-            <div class="mb-3">
-              <label for="sicknessName" class="form-label">Nombre de la enfermedad</label>
-              <input ngModel name="sicknessName" type="text" class="form-control" id="sicknessName">
-            </div>
-            <div class="container-button d-flex justify-content-center">
-              <button type="submit" class="btn btn-green w-25">Agregar</button>
-            </div>
-          </form> -->
           <div class="mb-3">
             <label for="sicknessName" class="form-label">Nombre de la enfermedad</label>
             <div class="container-column-child">
@@ -162,7 +153,7 @@
 
         <div class="modal-body py-4">
           <p class="text-center mb-2  header">Nombre:
-            <span class="fw-medium text-black">{{userSicknessById?.sicknessName}}</span>
+            <span class="fw-medium text-black">{{currentUserSickness?.sicknessName}}</span>
           </p>
           <p class="text-center" style="color: rgb(133, 220, 133);">
             Haga click en un médicamento para ver más acciones.
@@ -171,7 +162,7 @@
           </p>
           <div class="d-flex flex-column justify-content-around align-items-center">
             <a class="nav-link medication-link"
-              *ngFor="let medication of userSicknessById?.medicationSicknesses;let last = last"
+              *ngFor="let medication of currentUserSickness?.medicationSicknesses;let last = last"
               (click)="goToMedications(medication)">
               {{medication.medication.medicationName}}
             </a>
@@ -191,7 +182,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title header" id="create-material-header"> Actualización de información de la
-            Enfermedad {{userSicknessById?.sicknessName}}</h4>
+            Enfermedad {{currentUserSickness?.sicknessName}}</h4>
           <button type="button" class="btn-close" aria-label="Close" (click)=" closeEditModal()"></button>
         </div>
         <div class="modal-body py-4">
@@ -418,7 +409,7 @@
                   Este botón le permite editar una alergia
                 </span>
               </button> -->
-              <button class="btn btn-danger me-2 tooltext my-1" (click)="openDeleteModal(item.userAllergyId!
+              <button class="btn btn-danger me-2 tooltext my-1" (click)="openAllergyDeleteModal(item.userAllergyId!
                       )">
                 <i class="fa fa-trash"></i>
                 <span class="tooltiptext" style="color: red;">
@@ -443,7 +434,7 @@
         </div>
         <div class="modal-body py-4">
           <p class="text-center fw-bold  mb-2"> ¿Desea borrar la alergia
-            {{userAllergyById?.allergyName}}?</p>
+            {{currentUserAllergy?.allergyName}}?</p>
           <p class="text-body-delete px-3">Recuerde que al borrar la alergia implica que usted ya concluyó su
             tratamiento, asegúrese de cumplir con su tratamiento tal y como lo indicó su médico antes de
             seleccionar esta opción. También tenga en cuenta que todos los datos sobre esta alergia se
@@ -523,7 +514,7 @@
 
         <div class="modal-body py-4">
           <p class="text-center mb-2  header">Nombre:
-            <span class="fw-medium text-black">{{userAllergyById?.allergyName}}</span>
+            <span class="fw-medium text-black">{{currentUserAllergy?.allergyName}}</span>
           </p>
         </div>
         <div class="modal-footer">

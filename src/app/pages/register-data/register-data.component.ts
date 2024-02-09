@@ -6,7 +6,6 @@ import { SicknessInterface } from '../../shared/interfaces/sickness.interface';
 import { MedicationInterface } from '../../shared/interfaces/medication.interface';
 import { Observable, Subscription, switchMap } from 'rxjs';
 import { TrackingValueInterface } from '../../shared/interfaces/tracking-value.interface';
-// import { CurrentValues } from '../../shared/interfaces/current-values.interface';
 import { ProfileUserService } from '../profile-user/profile-user.service';
 import { RegisterDataService } from './register-data.service';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
@@ -27,28 +26,6 @@ import { UserTrackingValueInterface } from '../../shared/interfaces/user-trackin
 })
 export class RegisterDataComponent implements OnInit {
   accountId?: string;
-  errorCurrentValue?: string;
-  errorTreatment?: string;
-  displayConfirmation: string = 'none';
-  isLoadingValues: boolean = true;
-  valuesDisplays: boolean = false;
-  valuesEmpty: boolean = false;
-  treatmentsDisplay: boolean = false;
-  isLoadingTreatments: boolean = true;
-  treatmentsEmpty: boolean = false;
-  sicknessesByUser?: UserSicknessInterface[];
-  userSicknessesUsb?: Subscription;
-  sicknesses?: SicknessInterface[];
-  sicknessUsb?: Subscription;
-  allergies?: AllergyInterface[];
-  allergiesUsb?: Subscription;
-  trackingValues?: TrackingValueInterface[];
-  trackingValuesUsb?: Subscription;
-  // currentValues?:CurrentValues[];
-  currentValuesUsb?: Subscription;
-  treatments?: any[];
-  treatmentsUsb?: Subscription;
-  timeFrameOfTreatment?: string;
 
   //medications
   currentMedication?: MedicationInterface;
@@ -56,8 +33,6 @@ export class RegisterDataComponent implements OnInit {
   medications?: MedicationInterface[];
   medicationsUsb?: Subscription;
   currentMedicationSicknessId?: number;
-
-  // currentMedication?:MedicationInterface;
   currentMedicationId?: string;
   displayMedicationOptionsModal: string = 'none';
   displayMedicationViewModal: string = 'none';
@@ -66,7 +41,10 @@ export class RegisterDataComponent implements OnInit {
   confirmEditMedicine: boolean = false;
 
   //sickness
-  userSicknessById?: UserSicknessInterface;
+  sicknessesByUser?: UserSicknessInterface[];
+  userSicknessesUsb?: Subscription;
+  sicknesses?: SicknessInterface[];
+  sicknessUsb?: Subscription;
   displayDeleteModal: string = 'none';
   displayCreateModal: string = 'none';
   displayViewModal: string = 'none';
@@ -76,8 +54,6 @@ export class RegisterDataComponent implements OnInit {
   currentUserSickness?: UserSicknessInterface;
   currentUserSicknessId?: number;
   confirmAddedSickness: boolean = false;
-  confirmUpdatedSickness: boolean = false;
-  confirmUpdatedCurrentValue: boolean = false;
   confirmAddMedicine: boolean = false;
   errorAlertMedication?: string = undefined;
   errorAlert?: string = undefined;
@@ -92,22 +68,22 @@ export class RegisterDataComponent implements OnInit {
   confirmAddedAllergy: boolean = false;
   confirmUpdatedAllergy: boolean = false;
   errorAllergyAlert?: string = undefined;
-
+  allergies?: AllergyInterface[];
+  allergiesUsb?: Subscription;
   userAllergiesUsb?: Subscription;
   userAllergies?: UserAllergyInterface[];
-  userAllergyById?: UserAllergyInterface;
   currentUserAllergyId?: number;
   currentUserAllergy?: UserAllergyInterface;
 
-  //  user-Tracking-Values
+  //  Tracking-Values
   displayTrackingValuesDeleteModal: string = 'none';
   displayTrackingValuesCreateModal: string = 'none';
   displayTrackingValuesEditModal: string = 'none';
-
+  trackingValues?: TrackingValueInterface[];
+  trackingValuesUsb?: Subscription;
   confirmAddedUserTrackingValue: boolean = false;
   confirmUpdatedUserTrackingValue: boolean = false;
   errorUserTrackingValue?: string = undefined;
-  userTrackingValueById?: UserTrackingValueInterface;
   userTrackingValues?: UserTrackingValueInterface[];
   userTrackingValuesUsb?: Subscription;
   currentUserTrackingValue?: UserTrackingValueInterface;
@@ -173,13 +149,6 @@ export class RegisterDataComponent implements OnInit {
     this.router.navigateByUrl(`/perfil-paciente`);
   }
 
-  handleErrorCurrentValue() {
-    this.errorCurrentValue = undefined;
-  }
-
-  handleErrorTreatment() {
-    this.errorTreatment = undefined;
-  }
   //Sickness
   handleError?() {
     this.errorAlert = undefined;
@@ -195,7 +164,7 @@ export class RegisterDataComponent implements OnInit {
       .getUserSicknessById(this.currentUserSicknessId!.toString())
       .pipe(
         switchMap((userSicknessById) => {
-          this.userSicknessById = userSicknessById;
+          this.currentUserSickness = userSicknessById;
           return new Observable((observer) => {
             observer.next();
             observer.complete();
@@ -278,6 +247,50 @@ export class RegisterDataComponent implements OnInit {
         }
       );
     formData.reset();
+  }
+
+  closeDeleteSicknessModal() {
+    this.displayDeleteModal = 'none';
+  }
+  closeViewModal() {
+    this.displayViewModal = 'none';
+  }
+  closeEditModal() {
+    this.displayEditModal = 'none';
+  }
+  closeCreateModal() {
+    this.displayCreateModal = 'none';
+  }
+  OpenModalCreate() {
+    this.currentSickness = undefined;
+    this.confirmAddedSickness = false;
+    this.errorAlert = undefined;
+    this.displayCreateModal = 'block';
+  }
+
+  openDeleteModal(idUserSickness: number) {
+    this.currentUserSicknessId = idUserSickness;
+    this.getUserSicknessById(idUserSickness).subscribe((response) => {
+        this.displayDeleteModal = 'block';
+      });
+  }
+  openViewModal(idUserSickness: number) {
+    this.currentSicknessId = idUserSickness;
+    this.getUserSicknessById(idUserSickness).subscribe((response) => {
+      this.displayViewModal = 'block';
+    });
+  }
+  openEditModal(idUserSickness: number) {
+    this.confirmAddMedicine = false;
+    this.errorAlertMedication = undefined;
+    this.currentMedication = undefined;
+    this.currentUserSicknessId = idUserSickness;
+    this.getUserSicknessById(idUserSickness).subscribe((response) => {
+        this.displayEditModal = 'block';
+      });
+  }
+  closeConfirmAddSickness() {
+    this.confirmAddedSickness = false;
   }
 
   // //medication
@@ -375,61 +388,12 @@ export class RegisterDataComponent implements OnInit {
     this.confirmEditMedicine = false;
   }
 
-  closeDeleteSicknessModal() {
-    this.displayDeleteModal = 'none';
-  }
-  closeViewModal() {
-    this.displayViewModal = 'none';
-  }
-  closeEditModal() {
-    this.displayEditModal = 'none';
-  }
-  closeCreateModal() {
-    this.displayCreateModal = 'none';
-  }
-  OpenModalCreate() {
-    this.currentSickness = undefined;
-    this.confirmAddedSickness = false;
-    this.errorAlert = undefined;
-    this.displayCreateModal = 'block';
-  }
-
-  openDeleteModal(idUserSickness: number) {
-    this.currentUserSicknessId = idUserSickness;
-    this.sharedService
-      .getUserSicknessById(idUserSickness.toString())
-      .subscribe((response) => {
-        this.userSicknessById = response;
-        this.displayDeleteModal = 'block';
-      });
-  }
-  openViewModal(idUserSickness: number) {
-    this.currentSicknessId = idUserSickness;
-    this.getUserSicknessById(idUserSickness).subscribe((response) => {
-      this.currentUserSickness = response;
-      this.displayViewModal = 'block';
-    });
-  }
-  openEditModal(idUserSickness: number) {
-    this.confirmAddMedicine = false;
-    this.errorAlertMedication = undefined;
-    this.currentMedication = undefined;
-    this.currentUserSicknessId = idUserSickness;
-    this.sharedService
-      .getUserSicknessById(idUserSickness.toString())
-      .subscribe((response) => {
-        this.userSicknessById = response;
-        this.displayEditModal = 'block';
-      });
-  }
 
   closeConfirmAddMedication() {
     this.confirmAddMedicine = false;
   }
 
-  closeConfirmAddSickness() {
-    this.confirmAddedSickness = false;
-  }
+
 
   // //Allergies
   handleAllergyError?() {
@@ -445,8 +409,8 @@ export class RegisterDataComponent implements OnInit {
       )
       .pipe(
         switchMap((userAllergyById) => {
-          this.userAllergyById = userAllergyById;
-          console.log(this.userAllergyById);
+          this.currentUserAllergy = userAllergyById;
+          console.log(this.currentUserAllergy);
           return new Observable((observer) => {
             observer.next();
             observer.complete();
@@ -514,7 +478,7 @@ export class RegisterDataComponent implements OnInit {
 
   openAllergyDeleteModal(idUserAllergy: number) {
     this.currentUserAllergyId = idUserAllergy;
-    this.getUserAllergyById(idUserAllergy).subscribe((response) => {
+    this.getUserAllergyById(idUserAllergy).subscribe(() => {
       this.displayAllergyDeleteModal = 'block';
     });
   }
@@ -522,9 +486,7 @@ export class RegisterDataComponent implements OnInit {
     this.currentUserAllergyId = idUserAllergy;
     console.log(idUserAllergy);
 
-    this.getUserAllergyById(idUserAllergy).subscribe((response) => {
-      console.log(response);
-      console.log(this.userAllergyById);
+    this.getUserAllergyById(idUserAllergy).subscribe(() => {
       this.displayAllergyViewModal = 'block';
     });
   }
@@ -654,9 +616,6 @@ export class RegisterDataComponent implements OnInit {
     if (this.sicknessUsb) {
       this.sicknessUsb.unsubscribe();
     }
-    if (this.currentValuesUsb) {
-      this.currentValuesUsb.unsubscribe();
-    }
     if (this.allergiesUsb) {
       this.allergiesUsb.unsubscribe();
     }
@@ -676,7 +635,9 @@ export class RegisterDataComponent implements OnInit {
       this.userTrackingValuesUsb.unsubscribe();
     }
 
+    if(this.accountId){
+      this.registerDataService.updateRegisterDataAccount(this.accountId!).subscribe();
+    }
 
-    // this.registerDataService.updateRegisterDataAccount(this.accountId!).subscribe();
   }
 }

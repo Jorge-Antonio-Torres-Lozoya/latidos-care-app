@@ -27,7 +27,8 @@ export class RegisterDataService {
   constructor(private http:HttpClient, private errorHandlingService:ErrorHandlingService, private cookieService: SsrCookieService) {}
 
   updateRegisterDataAccount(accountId:string):Observable<AccountInterface>{
-    return this.http.get<any>(`${environment.apiUrl}account/register-data/${accountId}`, {headers: this.getHeaders()}).pipe(catchError(this.errorHandlingService.handleError));
+    return this.http.get<any>(`${environment.apiUrl}account/register-data/${accountId}`, {headers: this.getHeaders()})
+    // .pipe(catchError(this.errorHandlingService.handleError));
   }
 
   getSicknessById(sicknessId:string):Observable<SicknessInterface>{

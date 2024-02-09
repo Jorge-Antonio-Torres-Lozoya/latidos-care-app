@@ -1,18 +1,27 @@
-* {
-  font-family: Arial, Helvetica, sans-serif;
-}
 
-.header{
- color:rgb(133, 220, 133) ;
+.fa-solid {
+  font-family: "Font Awesome 6 Free";
 }
-
-button{
-  font-weight: 500
-}
-
 .button{
-background-color:rgb(133, 220, 133)
+  color: white;
+  font-size: medium;
+  background-color: rgb(0, 162, 255);
+  font-weight: 500;
+  padding: 10px 40px 10px 40px;
 }
+.title{
+  color:#00257A ;
+  font-weight:600;
+}
+.header{
+  color:#00257A ;
+  font-weight: 600;
+  font-style: italic;
 
-
+}
+.text{
+  color:#00257A ;
+  font-weight: 200;
+  font-style: italic;
+}
 
