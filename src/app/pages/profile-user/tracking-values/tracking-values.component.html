@@ -125,7 +125,10 @@
           <button type="button" class="btn-close text-end" aria-label="Close"
             (click)="closeConfirmAddTrackingValue()"></button>
         </div>
-        <div class="alert alert-danger" (closed)="handleError?.()" *ngIf="errorCreate"> {{errorCreate}} </div>
+        <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayErrorCreate">
+          <span>{{errorCreate}}</span>
+          <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorCreate()"></button>
+        </div>
         <form #formData="ngForm" (ngSubmit)="addTrackingValue(formData)">
           <div class="mb-3">
             <div class="container-column-child">

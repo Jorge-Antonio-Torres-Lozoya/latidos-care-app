@@ -9,7 +9,7 @@
           </div>
 
         <div class="text-center pt-3 pb-2">
-          <button type="submit" class="btn btn-sm" id="signup-button">Actualizar Información</button>
+          <button type="submit" class="btn btn-sm" id="signup-button1">Actualizar Información</button>
         </div>
       </form>
     </div>
@@ -24,13 +24,13 @@
           [type]="showPassword.value ? 'text' : 'password'">
           </div>
           <div class="col input-group mb-3 pt-3 mx-3">
-            <button (click)="newPasswordFun()" class="btn btn-outline-secondary" type="button" id="button-addon1"><i class="fa-solid fa-eye"></i></button>
+            <button (click)="newPasswordFun()" class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa-solid fa-eye"></i></button>
             <input type="password" id="newPassword" class="form-control" placeholder="Nueva Contraseña" required ngModel name="newPassword"
           [type]="newShowPassword.value ? 'text' : 'password'">
           </div>
         </div>
         <div class="text-center py-3">
-          <button type="submit" class="btn btn-sm" id="signup-button">Actualizar Contraseña</button>
+          <button type="submit" class="btn btn-sm" id="signup-button2">Actualizar Contraseña</button>
         </div>
       </form>
     </div>
@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary login-button border-0" id="signup-button" (click)="editHideModal?.()">Cerrar</button>
+        <button type="button" class="btn btn-secondary login-button border-0" id="signup-button3" (click)="editHideModal?.()">Cerrar</button>
       </div>
     </div>
   </div>

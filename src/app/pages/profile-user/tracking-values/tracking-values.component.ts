@@ -114,14 +114,17 @@ export class TrackingValuesComponent implements OnInit, OnDestroy {
     }
     trackingValueData.trackingValueId = this.currentTrackingValue!.trackingValueId
 
-
     this.profileUserService.createUserTrackingValue(trackingValueData, this.getAccountId()).subscribe(
       (response) => {
+        console.log(response);
+
         this.currentTrackingValue = response;
         this.userTrackingValues?.push(response);
         this.confirmAddedTrackingValue = true;
       },
       (errorMessage) => {
+        console.log(errorMessage);
+
         this.errorCreate = errorMessage;
         this.displayErrorCreate = true;
         this.errorCreate = errorMessage;
