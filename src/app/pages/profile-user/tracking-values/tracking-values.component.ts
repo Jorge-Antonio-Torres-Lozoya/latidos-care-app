@@ -2,14 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TrackingValueInterface } from '../../../shared/interfaces/tracking-value.interface';
 import { ProfileUserService } from '../profile-user.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { UserTrackingValueInterface } from '../../../shared/interfaces/user-tracking-value.interface';
 import { SharedService } from '../../../shared/shared.service';
-import { CreateUserTrackingValueInterface } from '../interfaces/create-user-tracking-value.interface';
-import { UpdateUserTrackingValueInterface } from '../interfaces/update-user-tracking-value.interface';
-import * as e from 'express';
+import { CreateUserTrackingValueInterface } from '../../../shared/interfaces/create-user-tracking-value.interface';
+import { UpdateUserTrackingValueInterface } from '../../../shared/interfaces/update-user-trackin-value.interface';
+import { WindowService } from '../../../shared/window.service';
+
 
 @Component({
   selector: 'app-tracking-values',
@@ -17,6 +18,9 @@ import * as e from 'express';
   styleUrls: ['./tracking-values.component.css']
 })
 export class TrackingValuesComponent implements OnInit, OnDestroy {
+  isMobile: boolean = false;
+  private windowSub?: Subscription;
+
   trackingValues?: TrackingValueInterface[];
   trackingValuesUsb?: Subscription;
   userTrackingValues?: UserTrackingValueInterface[];
@@ -25,7 +29,7 @@ export class TrackingValuesComponent implements OnInit, OnDestroy {
 
   displayCreateModal: string = 'none';
   confirmAddedTrackingValue:boolean = false;
-  errorCreate:string = '';
+  errorCreate?:string = undefined;
   displayErrorCreate:boolean = false;
 
   displayEditModal: string = 'none';
@@ -41,7 +45,9 @@ export class TrackingValuesComponent implements OnInit, OnDestroy {
     private profileUserService: ProfileUserService,
     private sharedService: SharedService,
     private router: Router,
-    private cookieService: SsrCookieService
+    private cookieService: SsrCookieService,
+    private windowService: WindowService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +59,10 @@ export class TrackingValuesComponent implements OnInit, OnDestroy {
     this.trackingValuesUsb = this.sharedService.getAllTrackingValues().subscribe(trackingValues => {
       this.trackingValues = trackingValues;
     })
+
+    this.windowSub = this.windowService.isMobile$.subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
   }
 
   getAccountId() {
@@ -85,7 +95,9 @@ export class TrackingValuesComponent implements OnInit, OnDestroy {
   }
 
   //Create
-
+  handleError?() {
+    this.errorCreate = undefined;
+  }
   setCurrentTrackingValue(trackingValue: TrackingValueInterface) {
     this.currentTrackingValue = trackingValue;
   }
@@ -97,15 +109,22 @@ export class TrackingValuesComponent implements OnInit, OnDestroy {
   addTrackingValue(form: NgForm) {
     const trackingValueData: CreateUserTrackingValueInterface = form.value;
     trackingValueData.accountId = parseInt(this.getAccountId());
+    if (!this.currentTrackingValue) {
+      return;
+    }
     trackingValueData.trackingValueId = this.currentTrackingValue!.trackingValueId
+
     this.profileUserService.createUserTrackingValue(trackingValueData, this.getAccountId()).subscribe(
       (response) => {
+        console.log(response);
+
         this.currentTrackingValue = response;
         this.userTrackingValues?.push(response);
         this.confirmAddedTrackingValue = true;
       },
       (errorMessage) => {
         console.log(errorMessage);
+
         this.errorCreate = errorMessage;
         this.displayErrorCreate = true;
         this.errorCreate = errorMessage;
@@ -139,10 +158,12 @@ export class TrackingValuesComponent implements OnInit, OnDestroy {
 
   updateTrackingValue(form: NgForm) {
     const updatedData: UpdateUserTrackingValueInterface = form.value;
+console.log(updatedData);
 
     this.profileUserService
       .updateUserTrackingValue(this.currentUserTrackingValue!.userTrackingValueId.toString(), updatedData, this.getAccountId())
       .subscribe((response) => {
+        console.log(response);
         this.confirmUpdatedTrackingValue = true;
         this.profileUserService
         this.currentUserTrackingValue = response;
@@ -185,6 +206,9 @@ export class TrackingValuesComponent implements OnInit, OnDestroy {
 
     if(this.trackingValuesUsb) {
       this.trackingValuesUsb.unsubscribe();
+    }
+    if (this.windowSub) {
+      this.windowSub.unsubscribe();
     }
   }
 

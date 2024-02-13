@@ -27,20 +27,20 @@ export class ConfirmTreatmentComponent implements OnInit, OnDestroy {
     })
   }
 
-  createTreatment() {
-    let treatmentData:CreateTreatmentInterface = {medicationId: 0, taken: false}
-    if(this.selectedRadio) {
-      treatmentData.taken = true;
-      treatmentData.medicationId = parseInt(this.medicationId!)
-    } else {
-      treatmentData.taken = false;
-      treatmentData.medicationId = parseInt(this.medicationId!)
-    }
-    this.treatmentUsb = this.confirmTreatmentService.createTreatment(treatmentData).subscribe((response) => {
-      this.confirmationModal = 'block';
-    })
+  // createTreatment() {
+  //   let treatmentData:CreateTreatmentInterface = {medicationId: 0, taken: false}
+  //   if(this.selectedRadio) {
+  //     treatmentData.taken = true;
+  //     treatmentData.medicationId = parseInt(this.medicationId!)
+  //   } else {
+  //     treatmentData.taken = false;
+  //     treatmentData.medicationId = parseInt(this.medicationId!)
+  //   }
+  //   this.treatmentUsb = this.confirmTreatmentService.createTreatment(treatmentData).subscribe((response) => {
+  //     this.confirmationModal = 'block';
+  //   })
 
-  }
+  // }
 
   confirmationHideModal() {
     this.confirmationModal = 'none';

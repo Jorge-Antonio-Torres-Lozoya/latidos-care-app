@@ -12,7 +12,7 @@ import { SharedService } from '../../shared/shared.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, OnDestroy {
   accountId?:string;
@@ -45,6 +45,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.accountId = this.cookieService.get('account_id');
         this.accountUsb = this.sharedService.getAccountById(this.getAccountId()).subscribe((account) => {
           this.account = account;
+          console.log(account);
+
         });
       }
     });

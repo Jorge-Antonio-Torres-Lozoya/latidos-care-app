@@ -1,90 +1,113 @@
-<div class="container d-flex flex-column">
-  <h1 class="header text-center mb-4 py-4">Realiza el seguimiento a tus valores</h1>
-
-</div>
 <div class="container-root-table d-flex justify-content-center">
-  <div class=" table-container  mb-5">
-    <div class="container button d-flex justify-content-end">
-      <button class="btn btn-color py-2 mb-4 me-2 tooltext" (click)="OpenModalCreate()">
-        Añadir valor
-        <span class="tooltiptext" style="color: rgb(133, 220, 133);">
-          Este botón le permite agregar un nuevo valor para realizar seguimiento
-        </span>
-      </button>
-      <button class="btn btn-color py-2 mb-4 me-2 tooltext" (click)="toAdvancedData()">
-        Ir a datos avanzados
-        <span class="tooltiptext" style="color: rgb(133, 220, 133);">
-          Este botón le redirigirá a una página donde podrá ver todos los datos sobre sus valores de manera más avanzada.
-        </span>
-      </button>
-    </div>
-      <table class="table table-hover table-bordered">
-          <thead class="">
-              <tr class="table-light">
-                  <th class="text-center " scope="col ">Nombre</th>
-                  <th class="text-center" scope="col">Valor actual</th>
-                  <th class="text-center" scope="col">Acciones</th>
+  <div class=" table-container  mb-4">
+    <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Seguimiento de Laboratorio</h1>
+    <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Seguimiento de Laboratorio</h1>
+    <hr class="mt-0" *ngIf="isMobile">
 
-              </tr>
-          </thead>
-          <tbody class="table-hover" *ngFor="let item of trackingValues">
-              <tr>
-                  <td class="text-center  pt-3" scope="row">{{item.trackingValueName}}</td>
-                  <td class="text-center  pt-3"> {{item.currentValue}} </td>
-                  <td class="text-center">
-                      <button class="btn btn-primary me-2 my-1 tooltext" (click)="openViewModal(item.trackingValueId!
-                      )">
-                      <i class="fa fa-eye"></i>
-                      <span class="tooltiptext" style="color: blue;">
-                        Este botón le permite ver todos los datos de un valor
-                      </span>
-                    </button>
-                      <button class="btn btn-secondary me-2  my-1 tooltext" (click)="openEditModal(item.trackingValueId!
-                      )">
-                      <i class="fa fa-pencil "></i>
-                      <span class="tooltiptext" style="color: grey;">
-                        Este botón le permite editar un valor
-                      </span>
-                    </button>
-                      <button class="btn btn-danger me-2 my-1 tooltext" (click)="openDeleteModal(item.trackingValueId!
-                      )">
-                      <i class="fa fa-trash"></i>
-                      <span class="tooltiptext" style="color: red;">
-                        Este botón le permite eliminar un valor
-                      </span>
-                    </button>
-                  </td>
-              </tr>
-          </tbody>
-      </table>
+    <h2 *ngIf="!isMobile">variables de lab, variables de monitoreo</h2>
+    <table class="table table-hover ">
+      <tbody class="table-hover " *ngFor="let item of userTrackingValues">
+        <tr>
+          <div class="container-flex">
+            <div class="text-center text-trackingValueName">{{item.trackingValueName}}</div>
+            <div class="datos">
+              <div class="grupo-datos text-center d-flex flex-column">
+                <span class="span-td">Mínimo</span>
+                <span class="span-text">{{item.minLimit}}</span>
+              </div>
+              <div class="grupo-datos text-center d-flex flex-column">
+                <span class="span-td">Máximo</span>
+                <span class="span-text">{{item.maxLimit}}</span>
+              </div>
+              <div class="grupo-datos text-center d-flex flex-column">
+                <span class="span-td nowrap">Último registro</span>
+                <span class="span-text-current">{{item.currentValue}}</span>
+              </div>
+              <div class="grupo-datos buttons text-center d-flex gap-3">
+                <a style="cursor: pointer;" class="me-2  tooltext color-trash" (click)="openDeleteModal(item
+                )">
+                  <i class="fa fa-trash fs-4"></i>
+                  <span class="tooltiptext px-3 py-3" style="color: red;">
+                    Este botón le permite eliminar un valor
+                  </span>
+                </a>
+                <a style="cursor: pointer;" class="color-pencil  me-2  tooltext" (click)="openEditModal(item
+                )">
+                  <i class="fa-regular fa-pen-to-square fs-4"></i>
+                  <span class="tooltiptext px-3 py-3" style="color: grey;">
+                    Este botón le permite editar un valor
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
+<div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-3 mt-1">
+  <ng-container *ngIf="isMobile">
+    <a [routerLink]="['../enfermedades']" routerLinkActive="active"  style="cursor: pointer;" class="d-flex flex-column text-decoration-none align-items-center navbar-item   tooltext" style="color:#001b71 ;">
+      <i class="fa-solid  fa-file-medical color-icons-mobile fz-icons-mobile "></i><span class="fz-text-icons">Enfermedad</span>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite navegar hacia a enfermedad
+      </span>
+    </a>
+
+    <a [routerLink]="['../alergias']" routerLinkActive="active" style="cursor: pointer;" class=" d-flex flex-column text-decoration-none align-items-center navbar-item  tooltext" style="color:#001b71 ;" >
+      <i class="fa-solid  fa-virus fz-icons-mobile color-icons-mobile"></i><span class="fz-text-icons">Alergia</span>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite navegar hacia a alergia
+      </span>
+    </a>
+    <a [routerLink]="['../valores-laboratorio']" routerLinkActive="active" style="cursor: pointer;" class=" d-flex flex-column text-decoration-none align-items-center navbar-item  tooltext" style="color:#001b71 ;" >
+      <i class="fa-solid color-icons-mobile fa-flask fz-icons-mobile "></i><span class="fz-text-icons">Laboratorio</span>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite navegar hacia a laboratorio
+      </span>
+    </a>
+    <a  [routerLink]="['../datos-avanzados']" routerLinkActive="active" style="cursor: pointer;" class=" d-flex flex-column text-decoration-none align-items-center navbar-item  tooltext" style="color:#001b71 ;" >
+      <i class="fa-solid color-icons-mobile  fa-chart-line fz-icons-mobile "></i><span class="fz-text-icons">Histórico</span>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite navegar hacia a histórico
+      </span>
+    </a>
+  </ng-container>
+  <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="openModalCreate()">
+    <i class="fa-solid fa-circle-plus fz-icon-add "></i>
+    <span class="tooltiptext px-3 py-3" style="color: grey;">
+      Este botón le permite agregar un nuevo valor para realizar seguimiento
+    </span>
+  </a>
+  <span *ngIf="!isMobile" class="span-text-current ms-2">Nuevo resultado de laboratorio</span>
+</div>
 
 <!--Delete  Modal-->
 <div class="modal" tabindex="-1" [ngStyle]="{'display':displayDeleteModal}">
   <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title header" id="create-material-header">Borrar Valor</h5>
-              <button type="button" class="btn-close" aria-label="Close"
-                  (click)="closeDeleteTrackingValueModal()"></button>
-          </div>
-          <div class="modal-body py-4">
-              <p class="text-center fw-bold  mb-2"> ¿Desea borrar el valor
-                  {{trackingValueById?.trackingValueName}}?</p>
-              <p class="text-body-delete px-3">Recuerde que al borrar el valor implica que usted ya concluyó su
-                  tratamiento, asegúrese de cumplir con su tratamiento tal y como lo indicó su médico antes de
-                  seleccionar esta opción. También tenga en cuenta que todos los datos sobre este valor se
-                  borrarán de su cuenta.</p>
-          </div>
-          <div class="modal-footer d-flex justify-content-between px-3">
-              <button type="button" class="btn btn-danger text-center " (click)="deleteTrackingValue()">Borrar
-                  valor</button>
-              <button type="button" class="btn btn-secondary close-confirmation-modal"
-                  (click)="closeDeleteTrackingValueModal()">Cerrar</button>
-          </div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title header" id="create-material-header">Borrar Valor</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteTrackingValueModal()"></button>
       </div>
+      <div class="modal-body py-4">
+        <p class="text-center fw-bold  mb-2"> ¿Desea borrar el valor
+          {{currentUserTrackingValue?.trackingValueName}}?</p>
+        <p class="text-body-delete px-3">Recuerde que al borrar el valor implica que usted ya concluyó su
+          tratamiento, asegúrese de cumplir con su tratamiento tal y como lo indicó su médico antes de
+          seleccionar esta opción. También tenga en cuenta que todos los datos sobre este valor se
+          borrarán de su cuenta.</p>
+      </div>
+      <div class="modal-footer d-flex justify-content-between px-3">
+        <button type="button" class="btn btn-danger text-center " (click)="deleteTrackingValue()">Borrar
+          valor</button>
+        <button type="button" class="btn btn-secondary close-confirmation-modal"
+          (click)="closeDeleteTrackingValueModal()">Cerrar</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -92,130 +115,121 @@
 <!--create Modal-->
 <div class="modal" tabindex="-1" [ngStyle]="{'display':displayCreateModal}">
   <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title header" id="create-material-header">Agregar Valor</h5>
-              <button type="button" class="btn-close" aria-label="Close" (click)="closeCreateModal()"></button>
-          </div>
-          <div class="modal-body py-4">
-            <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmAddedTrackingValue">
-              <span>Valor agregado satisfactoriamente!</span>
-              <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmAddTrackingValue()"></button>
-            </div>
-              <div class="alert alert-danger" (closed)="handleError?.()" *ngIf="errorAlert"> {{errorAlert}} </div>
-              <form #formData="ngForm" (ngSubmit)="addTrackingValue(formData)">
-                  <div class="mb-3">
-                      <label for="trackingValueName" class="form-label">Nombre del valor</label>
-                      <input ngModel name="trackingValueName" type="text" class="form-control" id="trackingValueName">
-                  </div>
-                  <div class="mb-3">
-                    <label for="minLimit" class="form-label">Límite mínimo del valor</label>
-                    <input ngModel name="minLimit" type="number" class="form-control" id="minLimit">
-                </div>
-                <div class="mb-3">
-                  <label for="maxLimit" class="form-label">Límite máximo del valor</label>
-                  <input ngModel name="maxLimit" type="number" class="form-control" id="maxLimit">
-              </div>
-              <div class="mb-3">
-                <label for="currentValue" class="form-label">Valor actual</label>
-                <input ngModel name="currentValue" type="number" class="form-control" id="currentValue">
-              </div>
-                  <div class="container-button d-flex justify-content-center">
-                      <button type="submit" class="btn btn-green w-25">Agregar</button>
-                  </div>
-              </form>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary close-confirmation-modal"
-                  (click)="closeCreateModal()">Cerrar</button>
-          </div>
+    <div class="modal-content">
+      <div class="modal-header justify-content-center bg-color-create">
+        <h4 class="modal-title " id="create-material-header">Nuevo resultado de laboratorio</h4>
       </div>
-  </div>
-</div>
-
-<!--Ver  Modal-->
-<div class="modal" tabindex="-1" [ngStyle]="{'display':displayViewModal}">
-  <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title header" id="create-material-header">Datos del valor</h5>
-              <button type="button" class="btn-close" aria-label="Close" (click)="closeViewModal()"></button>
-          </div>
-
-          <div class="modal-body py-4">
-              <p class="text-center mb-2  header">Nombre:
-                  <span class="fw-medium text-black">{{trackingValueById?.trackingValueName}}</span>
-              </p>
-              <p class="text-center mb-2  header">Valor mínimo:
-                <span class="fw-medium text-black">{{trackingValueById?.minLimit}}</span>
-              </p>
-              <p class="text-center mb-2  header">Valor máximo:
-                <span class="fw-medium text-black">{{trackingValueById?.maxLimit}}</span>
-              </p>
-              <p class="text-center mb-2  header">Valor actual:
-                <span class="fw-medium text-black">{{trackingValueById?.currentValue}}</span>
-              </p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary close-confirmation-modal"
-                (click)="closeViewModal()">Cerrar</button>
+      <div class="modal-body py-4">
+        <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmAddedTrackingValue">
+          <span>Valor agregado satisfactoriamente!</span>
+          <button type="button" class="btn-close text-end" aria-label="Close"
+            (click)="closeConfirmAddTrackingValue()"></button>
         </div>
+        <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayErrorCreate">
+          <span>{{errorCreate}}</span>
+          <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorCreate()"></button>
+        </div>
+        <form #formData="ngForm" (ngSubmit)="addTrackingValue(formData)">
+          <div class="mb-3">
+            <div class="container-column-child">
+              <label for="trackingValueName" class="form-label">Nombre </label>
+              <div class="dropdown w-100">
+                <button class="btn  dropdown-toggle button btn-outline-dark  w-100 " type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  {{currentTrackingValue?.trackingValueName ? currentTrackingValue?.trackingValueName : 'Seleccione un
+                  valor'}}
+                </button>
+                <ul class="dropdown-menu ">
+                  <li *ngFor="let item of trackingValues" class="" [value]="item.trackingValueName "
+                    style="cursor: pointer;" (click)="setCurrentTrackingValue(item)"><a class="dropdown-item "> {{
+                      item.trackingValueName }}</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="minLimit" class="form-label"> Valor mínimo </label>
+            <input ngModel name="minLimit" type="number" class="form-control" id="minLimit">
+          </div>
+          <div class="mb-3">
+            <label for="maxLimit" class="form-label"> Valor máximo </label>
+            <input ngModel name="maxLimit" type="number" class="form-control" id="maxLimit">
+          </div>
+          <div class="mb-3">
+            <label for="currentValue" class="form-label">Último registro</label>
+            <input ngModel name="currentValue" type="number" class="form-control" id="currentValue">
+          </div>
+          <div class="container-buttons d-flex gap-5 justify-content-center mt-5 mb-3">
+            <button type="submit" class="bg-transparent border-0"><i
+                class="fa-solid fa-circle-check color-circle-plus fs-1"></i></button>
+            <button type="button" class="bg-transparent border-0 " (click)="closeCreateModal()"><i
+                class="fa-regular color-trash fa-circle-xmark fs-1"></i></button>
+          </div>
+
+        </form>
       </div>
+    </div>
   </div>
 </div>
+
 
 <!--Edit  Modal-->
 <div class="modal" tabindex="-1" [ngStyle]="{'display':displayEditModal}">
   <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h4 class="modal-title header" id="create-material-header"> Actualización de información del valor {{trackingValueById?.trackingValueName}}</h4>
-              <button type="button" class="btn-close" aria-label="Close" (click)=" closeEditModal()"></button>
-          </div>
-          <div class="modal-body py-4">
-            <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmUpdatedTrackingValue">
-              <span class="text-start">Valor actualizado satisfactoriamente!</span>
-               <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmTrackingValueUpdate()"></button>
-              </div>
-              <form #formDataUpdateTrackingValue="ngForm"
-                  (ngSubmit)="updateTrackingValue(formDataUpdateTrackingValue)">
-                  <div class="mb-3">
-                      <label for="trackingValueName" class="form-label">Nombre del valor</label>
-                      <input type="text" class="form-control" id="trackingValueName" aria-describedby="Nombre del valor"
-                          ngModel name="trackingValueName" [placeholder]="currentTrackingValue?.trackingValueName ? currentTrackingValue?.trackingValueName : '' ">
-                  </div>
-                  <div class="mb-3">
-                    <label for="minLimit" class="form-label">Límite mínimo del valor</label>
-                    <input type="number" class="form-control" id="minLimit" aria-describedby="Límite mínimo del valor"
-                        ngModel name="minLimit" [placeholder]="currentTrackingValue?.minLimit ? currentTrackingValue?.minLimit : '' ">
-                  </div>
-                  <div class="mb-3">
-                    <label for="maxLimit" class="form-label">Límite máximo del valor</label>
-                    <input type="number" class="form-control" id="maxLimit" aria-describedby="Límite máximo del valor"
-                        ngModel name="maxLimit" [placeholder]="currentTrackingValue?.maxLimit ? currentTrackingValue?.maxLimit : '' ">
-                  </div>
-                  <button type="submit" class="btn btn-green mb-5">Actualizar enfermedad</button>
-              </form>
-              <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmUpdatedCurrentValue">
-                <span>Valor actualizado satisfactoriamente!</span>
-                <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmAddCurrentValue()"></button>
-              </div>
-              <div class="alert alert-danger" (closed)="handleErrorCurrentValue?.()" *ngIf="errorAlertCurrentValue"> {{errorAlertCurrentValue}} </div>
-              <h5 class="mb-4 header">Actualizar valor actual</h5>
-              <form #formDataAddCurrentValue="ngForm"
-                  (ngSubmit)="AddCurrentValue(currentTrackingValueId!, formDataAddCurrentValue)">
-                  <div class="mb-3">
-                    <label for="currentValue" class="form-label">Valor actual</label>
-                    <input type="number" class="form-control" id="currentValue" aria-describedby="Valor actual"
-                        ngModel name="currentValue" [placeholder]="currentTrackingValue?.currentValue ? currentTrackingValue?.currentValue : '' ">
-                  </div>
-                  <button type="submit" class="btn btn-green">Actualizar valor actual</button>
-              </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary close-confirmation-modal"
-                (click)="closeEditModal()">Cerrar</button>
-        </div>
+    <div class="modal-content">
+      <div class="modal-header justify-content-center bg-color-update">
+        <h4 class="modal-title " id="create-material-header"> Actualizar valores
+        </h4>
       </div>
+      <div class="modal-body py-4">
+        <h6 class="text-recordatory mb-4">Recuerde realizar sus monitoreos según las indicaciones de su médico</h6>
+        <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmUpdatedTrackingValue">
+          <span class="text-start">Valor actualizado satisfactoriamente!</span>
+          <button type="button" class="btn-close text-end" aria-label="Close"
+            (click)="closeConfirmTrackingValueUpdate()"></button>
+        </div>
+        <form #formDataUpdateTrackingValue="ngForm" (ngSubmit)="updateTrackingValue(formDataUpdateTrackingValue)">
+          <div class="container-body">
+            <div class="container-body-1">
+              <div class="mb-3">
+                <label for="minLimit" class="form-label">Valor mínimo</label>
+                <input type="number" class="form-control" id="minLimit" aria-describedby="Límite mínimo del valor"
+                  ngModel name="minLimit"
+                  [ngModel]="currentUserTrackingValue?.minLimit ? currentUserTrackingValue?.minLimit : ''">
+              </div>
+              <div class="mb-3">
+                <label for="maxLimit" class="form-label">Valor máximo</label>
+                <input type="number" class="form-control" id="maxLimit" aria-describedby="Límite máximo del valor"
+                  ngModel name="maxLimit"
+                  [ngModel]="currentUserTrackingValue?.maxLimit ? currentUserTrackingValue?.maxLimit : '' ">
+              </div>
+            </div>
+            <div class="container-body-2">
+              <div class="mb-3">
+                <label for="currentValue" class="form-label">Último registro</label>
+                <input type="number" class="form-control" id="currentValue" aria-describedby="Valor actual" ngModel
+                  name="currentValue"
+                  [ngModel]="currentUserTrackingValue?.currentValue ? currentUserTrackingValue?.currentValue : '' ">
+              </div>
+              <div class="container-historial mb-3">
+                <h6 class="text-historial">
+                  Registros anteriores </h6>
+                <div *ngFor=" let item of currentUserTrackingValue?.currentValues | slice:-3"
+                  class="grupo-historial d-flex gap-4">
+                  <span class="text-date text-capitalize">{{ item.createdAt | date: 'MMM/yyyy' }}</span>
+                  <span class="text-currentValue">{{item.currentNumber}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-buttons d-flex gap-5 justify-content-center mt-5 mb-3">
+            <button type="submit" class="bg-transparent border-0"><i
+                class="fa-solid fa-circle-check color-circle-plus fs-1"></i></button>
+            <button type="button" class="bg-transparent border-0 " (click)="closeEditModal()"><i
+                class="fa-regular color-trash fa-circle-xmark fs-1"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>

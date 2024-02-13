@@ -1,1 +1,59 @@
-<p>register-admin works!</p>
+
+<div class="container-root  mb-5">
+  <div class="d-flex justify-content-center ms-0 ps-0  container-child">
+    <div class="container-login d-flex  align-items-center ">
+      <div class=" w-100 py-5 px-5 card justify-content-around ">
+        <h1 class="text-d ff text-center title mb-3 mt-2 ">Crear cuenta de administrador</h1>
+        <div class="alert alert-success d-flex justify-content-between me-2" *ngIf="displayConfirmSignup">
+          <span class="text-start">Ha creado adecuadamente la cuenta de administrador</span>
+          <button type="button" class="btn-close text-end" aria-label="Close"
+            (click)="closeConfirmSignup()"></button>
+        </div>
+          <div class="alert alert-danger d-flex justify-content-between me-2" *ngIf="errorSignup">
+            <span class="text-start">{{errorSignup}}</span>
+            <button type="button" class="btn-close text-end" aria-label="Close"
+              (click)="closeErrorSignup()"></button>
+          </div>
+        <form #formData="ngForm" (ngSubmit)="onSubmit(formData)">
+          <div class="mb-3">
+            <label for="firstName" class="form-label ff ">Nombre <span
+                class="text-danger">*</span></label>
+            <input type="text" ngModel name="firstName" class="form-control " id="firstName" aria-describedby="firstName">
+          </div>
+          <div class="mb-3">
+            <label for="lastName" class="form-label ff ">Apellidos <span
+                class="text-danger">*</span></label>
+            <input type="text" ngModel name="lastName" class="form-control " id="lastName" aria-describedby="lastName">
+          </div>
+          <div class="mb-3">
+            <label for="phoneNumber" class="form-label ff ">Número de celular <span
+                class="text-danger">*</span></label>
+            <input type="text" ngModel name="phoneNumber" class="form-control " id="phoneNumber" aria-describedby="phoneNumber">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label ff ">Correo electrónico <span class="text-danger">*</span></label>
+            <input type="email" ngModel autocomplete="email" name="email" class="form-control " id="email" aria-describedby="email">
+          </div>
+
+          <div class="mb-4 d-flex gap-4 container-passwords">
+            <div class="contraseña ">
+              <label for="exampleInputPassword1" class="form-label ff">Contraseña <span class="text-danger">*</span>
+              </label>
+              <input type="password" autocomplete="new-password" ngModel name="password" class="form-control " id="exampleInputPassword1">
+            </div>
+            <div class="confirmar-contraseña">
+              <label for="confirmar-contraseña" class="form-label ff">Confirmar contraseña <span
+                  class="text-danger">*</span>
+              </label>
+              <input type="password" autocomplete="new-password" ngModel name="confirmPassword" class="form-control " id="confirmar-contraseña">
+            </div>
+          </div>
+          <div class="buttons d-flex justify-content-center my-3">
+            <button type="submit" class="btn btn-succes button ff fw-bold">Crear cuenta</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

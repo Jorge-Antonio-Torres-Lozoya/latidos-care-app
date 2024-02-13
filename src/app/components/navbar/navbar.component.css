@@ -1,7 +1,16 @@
 .offcanvas {
   background-color: #000c29;
 }
-
+.nowrap {
+  white-space: nowrap;
+}
+header{
+  background-color: #00257A;
+  /* height: 183px; */
+}
+.flecha::after{
+  content: none;
+}
 .img-perfil-user {
   position: relative;
   height: 60px;
@@ -114,7 +123,30 @@ li > a {
   font-size: 12px;
 }
 
-
+a{
+  color: white;
+}
+.responsive{
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.color-light{
+  color:#90cbee !important;
+}
+.color-light:hover{
+  color:  rgb(255, 217, 0)!important;
+}
+.navbar-nav{
+  gap: 10px;
+}
+.perfil{
+  flex-direction: column;
+  gap: 15px;
+}
+.responsive-menu{
+  align-items: end;
+}
 @media (max-width: 913px) {
   .item-space {
     margin-left: 20px;
@@ -226,13 +258,14 @@ li > a {
   }
 }
 
-@media (min-width: 991px) {
+@media (min-width: 1199px) {
   .navbar-nav > li > a {
-    color: black;
+    color: white;
     font-weight: bold;
     font-family: Barlow, sans-serif;
     font-size: 15px;
   }
+
 
   .navbar-item {
     margin-top: 20px;
@@ -241,4 +274,24 @@ li > a {
   .navbar-icon {
     fill: black !important;
   }
+
+}
+@media (max-width: 1199px) {
+.responsive{
+  flex-direction: row;
+  justify-content: start;
+  gap: 20px;
+}
+
+.navbar-nav{
+  gap: 30px;
+}
+.perfil{
+  flex-direction: row;
+  gap: 20px;
+}
+.responsive-menu{
+ align-items: start;
+  flex-direction: column;
+}
 }

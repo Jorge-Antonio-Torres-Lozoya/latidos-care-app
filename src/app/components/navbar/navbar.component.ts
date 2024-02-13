@@ -76,10 +76,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.loginService.activeRole.next('User');
           this.activeRole = account.activeRole;
           this.cookieService.set('account-role', 'User');
-          this.router.navigate([`/perfil-paciente/ajustes]`]);
+          this.router.navigate([`/perfil-paciente/ajustes`]);
         })
       } else if(this.activeRole === 'User') {
-        this.router.navigate([`/perfil-paciente/ajustes]`]);
+        this.router.navigate([`/perfil-paciente/ajustes`]);
       }
     }
 

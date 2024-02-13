@@ -1,6 +1,6 @@
 
 <div class="container d-flex flex-column">
-  <h1 class=" text-center mb-4 py-4 title">Enfermedades </h1>
+  <h1 class=" text-center mb-4 py-4 title">Medicinas </h1>
 </div>
 
 <div class="container my-5">
@@ -10,7 +10,7 @@
         class="d-flex flex-row justify-content-between">
         <div class="input-group">
           <input type="text" class="form-control border-0 rounded-1 bg-light"
-            placeholder="Escriba el nombre de la enfermedad" aria-label="Search" aria-describedby="Search" ngModel
+            placeholder="Escriba el nombre de la medicina" aria-label="Search" aria-describedby="Search" ngModel
             name="searchText">
         </div>
         <button type="submit" class="btn btn-success button  fw-bold">Buscar</button>
@@ -18,35 +18,35 @@
     </div>
 
     <div class="d-flex buttons-menu justify-content-between mb-4">
-      <button class="btn btn-success button fw-bold py-2  me-2" (click)="displayCreateSicknessModal()">
-        Crear nueva enfermedad
+      <button class="btn btn-success button fw-bold py-2  me-2" (click)="displayCreateMedicationModal()">
+        Crear nueva medicina
       </button>
-      <button class="btn btn-success button fw-bold py-2  me-2" (click)="defaultSicknesses()">
-        Obtener todas las enfermedades
+      <button class="btn btn-success button fw-bold py-2  me-2" (click)="defaultMedications()">
+        Obtener todas las medicinas
       </button>
     </div>
   </div>
-  <div *ngIf="noSickness">
-    <p>No se encontró ninguna enfermedad</p>
+  <div *ngIf="noMedication">
+    <p>No se encontró ninguna medicina</p>
   </div>
-  <div *ngIf="!noSickness" class="container-table table-responsive">
+  <div *ngIf="!noMedication" class="container-table table-responsive">
     <table class="table table-hover table-bordered py-5">
       <thead>
         <tr class="table-light">
-          <th class="text-center">Nombre de la enfermedad</th>
+          <th class="text-center">Nombre de la medicina</th>
           <th class="text-center">Fecha de creación</th>
           <th class="text-center">Acciones</th>
         </tr>
       </thead>
       <tbody class="table-hover">
         <tr *ngFor="let  item of paginatedItems">
-          <td style="vertical-align: middle;" class="table-bordered text-center">{{ item.sicknessName }}</td>
+          <td style="vertical-align: middle;" class="table-bordered text-center">{{ item.medicationName }}</td>
           <td style="vertical-align: middle;" class="table-bordered text-center">{{ item.createdAt | date:'dd/MM/yyyy'
             }}</td>
           <td class="d-flex justify-content-center gap-2">
-            <button class="btn btn-secondary me-2" (click)="displayEditSickness(item)"><i
+            <button class="btn btn-secondary me-2" (click)="displayEditMedication(item)"><i
                 class="fa fa-pencil "></i></button>
-            <button class="btn btn-danger" (click)="displayDeleteSicknessModal(item)"><i
+            <button class="btn btn-danger" (click)="displayDeleteMedicationModal(item)"><i
                 class="fa fa-trash "></i></button>
           </td>
         </tr>
@@ -55,7 +55,7 @@
   </div>
 </div>
 
-<nav *ngIf="!noSickness" class="mb-5 d-flex justify-content-center bg-transparent px-4" aria-label="pagination item history">
+<nav *ngIf="!noMedication" class="mb-5 d-flex justify-content-center bg-transparent px-4" aria-label="pagination item history">
   <ul class="pagination">
     <li class="page-item" [ngClass]="{'disabled': currentPage === 1 || totalPages === 1}">
       <a class="page-link" href="javascript:void(0);" (click)="currentPage > 1 && changePage(currentPage - 1, $event)">
@@ -74,32 +74,35 @@
 </nav>
 
 
-
-
 <!-- create modal -->
 <div class="modal" tabindex="-1" [ngStyle]="{'display':showCreateModal}">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title header">Crear Enfermedad</h5>
+        <h5 class="modal-title header">Crear medicina</h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="closeCreateModal()"></button>
       </div>
+      <!-- </div>
+            <div *ngIf="createSpinner" class="my-2 d-flex justify-content-center align-items-center">
+              <app-small-spinner></app-small-spinner>
+            </div> -->
+      <!-- <div *ngIf="!createSpinner" class="modal-body py-4 scrollable-modal-body"> -->
       <div class="modal-body py-4 scrollable-modal-body">
         <div class="alert alert-success d-flex justify-content-between" *ngIf="displayConfirmCreate">
-          <span>¡La enfermedad fue creada satisfactoriamente!</span>
+          <span>¡La medicina fue creada satisfactoriamente!</span>
           <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmCreate()"></button>
         </div>
         <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayErrorCreate">
           <span>{{errorCreate}}</span>
           <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorCreate()"></button>
         </div>
-        <form #formData="ngForm" (ngSubmit)="createSickness(formData)">
+        <form #formData="ngForm" (ngSubmit)="createMedication(formData)">
           <div class="mb-3">
-            <label for="sicknessName" class="form-label">Nombre de la enfermedad</label>
-            <input ngModel name="sicknessName" type="text" class="form-control" id="sicknessName">
+            <label for="medicationName" class="form-label">Nombre de la medicina</label>
+            <input ngModel name="medicationName" type="text" class="form-control" id="medicationName">
           </div>
           <div class="container-button d-flex justify-content-center">
-            <button type="submit" class="btn btn-success button fw-bold ">Crear enfermedad</button>
+            <button type="submit" class="btn btn-success button fw-bold ">Crear medicina</button>
           </div>
         </form>
       </div>
@@ -119,26 +122,31 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title header">Editar Enfermedad</h5>
+        <h5 class="modal-title header">Editar medicina</h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="closeEditModal()"></button>
       </div>
+      <!-- </div>
+          <div *ngIf="createSpinner" class="my-2 d-flex justify-content-center align-items-center">
+            <app-small-spinner></app-small-spinner>
+          </div> -->
+      <!-- <div *ngIf="!createSpinner" class="modal-body py-4 scrollable-modal-body"> -->
       <div class="modal-body py-4 scrollable-modal-body">
         <div class="alert alert-success d-flex justify-content-between" *ngIf="displayConfirmEdit">
-          <span>¡La enfermedad fue editada satisfactoriamente!</span>
+          <span>¡La medicina fue editada satisfactoriamente!</span>
           <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmEdit()"></button>
         </div>
         <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayErrorEdit">
           <span>{{errorEdit}}</span>
           <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorEdit()"></button>
         </div>
-        <form #formDataEdit="ngForm" (ngSubmit)="editSickness(formDataEdit)">
+        <form #formDataEdit="ngForm" (ngSubmit)="editMedication(formDataEdit)">
           <div class="mb-3">
-            <label for="sicknessName" class="form-label">Nombre de la enfermedad</label>
-            <input [ngModel]="currentSickness?.sicknessName" ngModel name="sicknessName" type="text" class="form-control"
-              id="sicknessName">
+            <label for="medicationName" class="form-label">Nombre de la medicina</label>
+            <input [ngModel]="currentMedication?.medicationName" ngModel name="medicationName" type="text" class="form-control"
+              id="medicationName">
           </div>
           <div class="container-button d-flex justify-content-center">
-            <button type="submit" class="btn btn-success button fw-bold ">Editar Enfermedad</button>
+            <button type="submit" class="btn btn-success button fw-bold ">Editar medicina</button>
           </div>
         </form>
       </div>
@@ -158,24 +166,24 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title header" id="create-material-header">Eliminar Enfermedad</h5>
-          <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteSickness()"></button>
+          <h5 class="modal-title header" id="create-material-header">Eliminar medicina</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteMedication()"></button>
         </div>
         <div class="modal-body py-4 scrollable-modal-body">
           <div class="alert alert-danger d-flex justify-content-between " *ngIf="displayErrorDelete">
             <span>{{errorDelete}}</span>
             <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorDelete()"></button>
           </div>
-          <p class="text-center fw-bold  mb-2"> ¿Estás seguro que deseas borrar la enfermedad
-            {{currentSickness?.sicknessName}}?</p>
+          <p class="text-center fw-bold  mb-2"> ¿Estás seguro que deseas borrar la medicina
+            {{currentMedication?.medicationName}}?</p>
           <p class="text-body-delete px-3">
-            La enfermedad junto con sus datos serán borrados
+            La medicina junto con sus datos serán borrados
           </p>
         </div>
         <div class="modal-footer d-flex justify-content-between px-3">
-          <button type="button" class="btn btn-danger fw-bold" (click)="deleteSickness()">Eliminar Enfermedad</button>
+          <button type="button" class="btn btn-danger fw-bold" (click)="deleteMedication()">Eliminar medicina</button>
           <button type="button" class="btn btn-secondary close-confirmation-modal"
-            (click)="closeDeleteSickness()">Cerrar</button>
+            (click)="closeDeleteMedication()">Cerrar</button>
         </div>
       </div>
     </div>
@@ -187,11 +195,11 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title header" id="create-material-header">¡Enfermedad borrada satisfactoriamente!</h5>
+          <h5 class="modal-title header" id="create-material-header">¡Medicina borrada satisfactoriamente!</h5>
           <button type="button" class="btn-close" aria-label="Close" (click)="closeConfirmDelete()"></button>
         </div>
         <div class="modal-body py-4 scrollable-modal-body">
-          <p class="text-body-delete px-3">La enfermedad <span class="fw-bold"> {{currentSickness?.sicknessName}} </span> fue borrada satisfactoriamente
+          <p class="text-body-delete px-3">La medicina <span class="fw-bold"> {{currentMedication?.medicationName}} </span> fue borrada satisfactoriamente
             </p>
             <p class="px-3">Puede cerrar esta ventana.</p>
         </div>

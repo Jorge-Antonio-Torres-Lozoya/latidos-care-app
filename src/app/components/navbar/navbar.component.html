@@ -1,120 +1,115 @@
 <header>
-  <nav class="navbar navbar-expand-lg bg-white py-3 px-3 fixed-top">
-      <!-- NAV CONTAINER START -->
-      <div class="container-fluid ">
-          <img class="logo" style="cursor: pointer;" src="../../../assets/images/logo-color-svg.svg" alt="logo-navbar" (click)="navigateToHome()">
+  <nav class="navbar navbar-expand-xl  py-3 px-3 sticky-top">
+    <!-- NAV CONTAINER START -->
+    <div class="container-fluid ">
+      <img class="logo" style="cursor: pointer;" src="../../../assets/images/Logo-colores-originales.svg"
+        alt="logo-navbar" (click)="navigateToHome()">
 
-          <!-- NAV BUTTON  -->
-          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <!-- OFFCANVAS MAIN CONTAINER START -->
-          <section class="offcanvas offcanvas-end " id="menuLateral" tabindex="-1">
-              <div class="offcanvas-header" data-bs-theme="dark">
-                  <img class="logo" style="cursor: pointer;" src="../../../assets/images/logo-color-svg.svg" alt="logo-sidebar" (click)="navigateToHome()">
-                  <button class="btn-close text-white button-close" type="button" aria-label="Close"
-                      data-bs-dismiss="offcanvas"></button>
-              </div>
-              <!-- OFF CANVAS MENU LINKS  START-->
-              <div class="offcanvas-body d-flex flex-column justify-content-between px-0  ">
-                  <ul class="navbar-nav fs-6 justify-content-center gap-4 ps-1">
-                      <li *ngIf="accountConnected && activeRole === 'User' " class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/valores-laboratorio"
-                            class="links-nav">Seguimiento</a>
-                      </li>
-                      <li *ngIf="accountConnected && activeRole === 'User' " class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/enfermedades"
-                            class="links-nav">Enfermedades</a>
-                      </li>
-                      <li *ngIf="accountConnected && activeRole === 'User' " class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/alergias"
-                            class="links-nav">Alergias</a>
-                      </li>
-                      <li *ngIf="accountConnected && activeRole === 'User' " class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/mi-qr"
-                            class="links-nav">Mi Código QR</a>
-                      </li>
-                      <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/registro-administrador"
-                            class="links-nav">Crear Administrador</a>
-                      </li>
-                      <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/panel-cuentas"
-                            class="links-nav">Cuentas</a>
-                      </li>
-                      <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/panel-valores-laboratorio"
-                            class="links-nav">Valores Laboratorio</a>
-                      </li>
-                      <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/panel-enfermedades"
-                            class="links-nav">Enfermedades</a>
-                      </li>
-                      <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/panel-alergias"
-                            class="links-nav">Alergias</a>
-                      </li>
-                      <li *ngIf="!accountConnected" class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/#nosotros" (click)="forceNavigate('nosotros')"
-                            class="links-nav"> Nosotros</a>
-                      </li>
-                      <li *ngIf="!accountConnected" class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/#servicios" (click)="forceNavigate('servicios')"
-                            class="links-nav"> Nuestro Servicios</a>
-                      </li>
-                      <li *ngIf="!accountConnected" class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/#preguntas-frecuentes" (click)="forceNavigate('preguntas-frecuentes')"
-                            class="links-nav"> Preguntas frecuentes</a>
-                      </li>
-                      <li *ngIf="!accountConnected" class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/login"
-                            class="links-nav"> Login</a>
-                      </li>
-                      <li *ngIf="!accountConnected" class="navbar-item nav-item p-3 py-md-1">
-                        <a data-bs-dismiss="offcanvas" routerLink="/registro-paciente"
-                            class="links-nav"> Registrarme</a>
-                      </li>
+      <!-- NAV BUTTON  -->
+      <button class="navbar-toggler bg-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- OFFCANVAS MAIN CONTAINER START -->
+      <section class="offcanvas offcanvas-end " id="menuLateral" tabindex="-1">
+        <div class="offcanvas-header" data-bs-theme="dark">
+          <img class="logo" style="cursor: pointer;" src="../../../assets/images/Logo-colores-originales.svg" alt="logo-sidebar"
+            (click)="navigateToHome()">
+          <button class="btn-close text-white button-close" type="button" aria-label="Close"
+            data-bs-dismiss="offcanvas"></button>
+        </div>
+        <!-- OFF CANVAS MENU LINKS  START-->
+        <div class="offcanvas-body d-flex flex-column justify-content-between px-2  ">
+          <ul class="navbar-nav fs-6 justify-content-end  ps-1">
+            <li *ngIf="accountConnected && activeRole === 'User' " class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="enfermedades" class="links-nav nowrap d-flex  responsive"><i class="fa-solid fa-file-medical fs-3"></i>Enfermedad</a>
+            </li>
+            <li *ngIf="accountConnected && activeRole === 'User' " class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="alergias" class="links-nav nowrap d-flex  responsive"><i class="fa-solid fa-virus fs-3"></i>Alergia</a>
+            </li>
+            <li *ngIf="accountConnected && activeRole === 'User' " class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="valores-laboratorio" class="links-nav nowrap d-flex  responsive"><i class="fa-solid fa-flask fs-3"></i>Laboratorio</a>
+            </li>
+            <li *ngIf="accountConnected && activeRole === 'User' " class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="datos-avanzados" class="links-nav nowrap d-flex  responsive"><i class="fa-solid fa-chart-line fs-3"></i>Histórico</a>
+            </li>
+            <li *ngIf="accountConnected && activeRole === 'User' " class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="mi-qr" class="links-nav nowrap d-flex  responsive color-light "><i class="fa-solid fa-qrcode fs-3"></i>MiQR</a>
+            </li>
+            <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="registro-administrador"
+                class="links-nav nowrap d-flex  responsive "><i class="fa-solid fa-user-plus fs-3"></i>Crear
+                Administrador</a>
+            </li>
+            <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="panel-cuentas" class="links-nav d-flex  responsive "><i
+                  class="fa-solid fa-users fs-3"></i>Cuentas</a>
+            </li>
 
-                      <li *ngIf="accountConnected && activeRole && account" style="cursor: pointer;" class="nav-item p-3 py-md-1 dropdown">
-                        <a data-bs-toggle="dropdown" aria-expanded="false"
-                            class="links-nav dropdown-toggle">
-                            <svg class="img-icon-user" xmlns="http://www.w3.org/2000/svg" height="20" width="18" viewBox="0 0 448 512">
-                              <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg>
-                        </a>
-                        <ul class="dropdown-menu scrollable-dropdown-menu">
-                            <li class="d-flex flex-row justify-content-start" *ngIf="accountConnected && activeRole && activeRole !== 'Admin' && adminRole ">
-                              <svg class="list-icon" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
-                                <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
-                              </svg>
-                              <a data-bs-dismiss="offcanvas" class="dropdown-item navbar-item-list" style="cursor: pointer;" (click)="toAdmin()">
-                                Ir a Administrador
-                              </a>
-                            </li>
-                            <li class="d-flex flex-row justify-content-start">
-                              <svg class="list-icon" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
-                                <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
-                              </svg>
-                              <a data-bs-dismiss="offcanvas" class="dropdown-item navbar-item-list" style="cursor: pointer;" (click)="toProfile()">Ajustes Cuenta</a>
-                            </li>
-                            <li class="d-flex flex-row justify-content-start">
-                              <svg class="list-icon" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
-                                <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
-                              </svg>
-                              <a data-bs-dismiss="offcanvas" class="dropdown-item navbar-item-list" style="cursor: pointer;" (click)="logoutDisplayModal()">Cerrar Sessión</a>
-                            </li>
-                        </ul>
-                      </li>
-                  </ul>
+            <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="panel-enfermedades" class="links-nav d-flex  responsive "><i
+                  class="fa-solid fa-file-medical fs-3"></i> Enfermedades</a>
+            </li>
+            <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="panel-alergias" class="links-nav d-flex  responsive "><i
+                  class="fa-solid fa-virus fs-3 "></i>Alergias</a>
+            </li>
+            <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="panel-medicinas" class="links-nav nowrap d-flex  responsive  ">
+                <i class="fa-solid fa-pills fs-3"></i>Medicinas</a>
+            </li>
+            <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="panel-valores-laboratorio"
+                class="links-nav nowrap d-flex  responsive "><i class="fa-solid fa-flask fs-3"></i>
+                Laboratorio</a>
+            </li>
+            <li *ngIf="!accountConnected" class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="/#nosotros" (click)="forceNavigate('nosotros')"
+                class="links-nav"> Nosotros</a>
+            </li>
+            <li *ngIf="!accountConnected" class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="/#servicios" (click)="forceNavigate('servicios')"
+                class="links-nav nowrap"> Nuestro Servicios</a>
+            </li>
+            <li *ngIf="!accountConnected" class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="/#preguntas-frecuentes"
+                (click)="forceNavigate('preguntas-frecuentes')" class="links-nav nowrap"> Preguntas frecuentes</a>
+            </li>
+            <li *ngIf="!accountConnected" class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="/login" class="links-nav"> Login</a>
+            </li>
+            <li *ngIf="!accountConnected" class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="/registro-paciente" class="links-nav"> Registrarme</a>
+            </li>
 
-              </div>
-          </section>
-          <!-- OFFCANVAS MAIN CONTAINER END  -->
-      </div>
+            <li *ngIf="accountConnected && activeRole && account" style="cursor: pointer;"
+              class="navbar-item nav-item p-2 py-md-1">
+              <a (click)="toProfile()" data-bs-dismiss="offcanvas" class="links-nav d-flex  responsive color-light "> <i
+                  class="fa-solid fa-user fs-3"></i>Mi perfil</a>
+            </li>
+            <li class="navbar-item nav-item p-2 py-md-1"
+              *ngIf="accountConnected && activeRole && activeRole !== 'Admin' && adminRole ">
+              <a data-bs-dismiss="offcanvas" class= " color-light dropdown-item navbar-item-list  d-flex  responsive" style="cursor: pointer;"
+                (click)="toAdmin()">
+                <i class="fa-solid fa-user-tie fs-3"></i>
+                Ir a Administrador
+              </a>
+            </li>
+
+            <li *ngIf="accountConnected && activeRole && account" class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" class="links-nav d-flex color-light  responsive" style="cursor: pointer;"
+                (click)="logoutDisplayModal()"> <i class="fa-solid fa-sign-out fs-3"></i>Salir</a>
+            </li>
+          </ul>
+
+        </div>
+      </section>
+      <!-- OFFCANVAS MAIN CONTAINER END  -->
+    </div>
   </nav>
 </header>
 
- <!--Logout Modal-->
- <div class="modal" tabindex="-1" [ngStyle]="{'display':logoutModal}">
+<!--Logout Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':logoutModal}">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -127,13 +122,9 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary login-button border-0" (click)="logoutHideModal()">Cerrar</button>
+        <button type="button" class="btn btn-secondary login-button border-0"
+          (click)="logoutHideModal()">Cerrar</button>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-

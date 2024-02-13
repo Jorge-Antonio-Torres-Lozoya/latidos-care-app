@@ -1,3 +1,5 @@
+import { MedicationInterface } from "./medication.interface";
+
 export interface MedicationSicknessInterface {
   medicationSicknessId: number;
   createdAt: Date;
@@ -14,4 +16,5 @@ export interface MedicationSicknessInterface {
   medicationId: number;
   medicationName: string;
   medicationCreatedAt: Date;
+  medication:MedicationInterface;
 }

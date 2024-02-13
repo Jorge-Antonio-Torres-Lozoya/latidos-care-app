@@ -1,6 +1,6 @@
 export interface CreateMedicationInterface {
-    accountId: number;
-    sicknessId: number;
+    // accountId: number;
+    // sicknessId: number;
     medicationName: string;
-    timeConsumption: number;
+    // timeConsumption: number;
 }
