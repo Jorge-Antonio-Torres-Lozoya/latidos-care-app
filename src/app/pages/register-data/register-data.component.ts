@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AllergyInterface } from '../../shared/interfaces/allergy.interface';
@@ -24,7 +24,7 @@ import { UserTrackingValueInterface } from '../../shared/interfaces/user-trackin
   templateUrl: './register-data.component.html',
   styleUrls: ['./register-data.component.css'],
 })
-export class RegisterDataComponent implements OnInit {
+export class RegisterDataComponent implements OnInit , OnDestroy {
   accountId?: string;
 
   //medications

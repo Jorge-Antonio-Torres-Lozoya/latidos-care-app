@@ -11,6 +11,7 @@ import { SicknessInterface } from '../../../shared/interfaces/sickness.interface
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { CurrentValueInterface } from '../../../shared/interfaces/current-value.interface';
 import { TreatmentInterface } from '../../../shared/interfaces/treatment.interface';
+import { SharedService } from '../../../shared/shared.service';
 @Component({
   selector: 'app-advanced-data-sickness',
   templateUrl: './advanced-data-sickness.component.html',
@@ -27,7 +28,7 @@ export class AdvancedDataSicknessComponent implements OnInit, OnDestroy {
   isLoadingTreatments:boolean = true;
   treatmentsEmpty:boolean = false;
   //id = this.route.snapshot.paramMap.get('id');
-  id:string = this.cookieService.get('user_id')!
+  id:string = this.cookieService.get('account_id')!
   sickness?: SicknessInterface[];
   sicknessUsb?: Subscription;
   currentValues?:CurrentValueInterface[];
@@ -64,10 +65,10 @@ export class AdvancedDataSicknessComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private profileUserService: ProfileUserService, private cookieService: SsrCookieService) {}
 
   ngOnInit(): void {
-    /*this.sicknessUsb = this.profileUserService.getUserSicknessByUser(this.id!).subscribe((response) => {
-      this.sickness = response;
-      this.medications = response.medications;
-    })*/
+    // this.sicknessUsb = this.profileUserService.getAllUserSicknessByAccount(this.id!).subscribe((response) => {
+    //   this.sickness = response;
+    //   this.medications = response.medications;
+    // })
   }
 
   setCurrentMedication(medication:MedicationInterface) {
@@ -109,23 +110,23 @@ export class AdvancedDataSicknessComponent implements OnInit, OnDestroy {
     const startDateString:string = startDate.toISOString();
     const endDateString:string = endDate.toISOString();
     if(this.currentMedicationId) {
-      // this.treatmentsUsb = this.profileUserService.getTreatmentsByDate(this.currentMedicationId!, startDateString, endDateString)
-      // .subscribe((response) => {
-      //   if(response.length > 0) {
-      //     this.treatments = response;
-      //     this.single = this.transformDataTreatment(response);
-      //     this.timeFrameOfTreatment = `Este gráfico representa la cantidad de veces que el usuario a tomado su
-      //     medicina desde ${startDate} al ${endDate}`
-      //     this.isLoadingTreatments = false;
-      //   } else {
-      //     this.treatmentsDisplay = false;
-      //     this.isLoadingTreatments = false;
-      //     this.treatmentsEmpty = true;
-      //   }
-      // }, errorMessage => {
-      //   console.log(errorMessage);
-      //   this.errorTreatment = errorMessage;
-      // })
+      this.treatmentsUsb = this.profileUserService.getTreatmentsByDate(this.currentMedicationId!, startDateString, endDateString,this.id!)
+      .subscribe((response) => {
+        if(response.length > 0) {
+          this.treatments = response;
+          this.single = this.transformDataTreatment(response);
+          this.timeFrameOfTreatment = `Este gráfico representa la cantidad de veces que el usuario a tomado su
+          medicina desde ${startDate} al ${endDate}`
+          this.isLoadingTreatments = false;
+        } else {
+          this.treatmentsDisplay = false;
+          this.isLoadingTreatments = false;
+          this.treatmentsEmpty = true;
+        }
+      }, errorMessage => {
+        console.log(errorMessage);
+        this.errorTreatment = errorMessage;
+      })
     }
     form.reset();
   }
@@ -139,10 +140,12 @@ export class AdvancedDataSicknessComponent implements OnInit, OnDestroy {
   }
 
   transformDataValues(data: any[]): any[] {
+    console.log(data);
+
     // Group data by sicknessName
     const groupedData: { [key: string]: any[] } = {};
     data.forEach(item => {
-      const trackingValueName = item.trackingValue.trackingValueName;
+      const trackingValueName = item.trackingValueName;
       if (!groupedData[trackingValueName]) {
         groupedData[trackingValueName] = [];
       }
