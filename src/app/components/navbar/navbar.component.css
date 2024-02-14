@@ -277,21 +277,21 @@ a{
 
 }
 @media (max-width: 1199px) {
-.responsive{
-  flex-direction: row;
-  justify-content: start;
-  gap: 20px;
-}
+  .responsive{
+    flex-direction: row;
+    justify-content: start;
+    gap: 20px;
+  }
 
-.navbar-nav{
-  gap: 30px;
-}
-.perfil{
-  flex-direction: row;
-  gap: 20px;
-}
-.responsive-menu{
- align-items: start;
-  flex-direction: column;
-}
+  .navbar-nav{
+    gap: 30px;
+  }
+  .perfil{
+    flex-direction: row;
+    gap: 20px;
+  }
+  .responsive-menu{
+    align-items: start;
+    flex-direction: column;
+  }
 }

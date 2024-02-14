@@ -15,7 +15,7 @@
                 )">
                   <i class="fa-solid fa-pills fs-4"></i>
                   <span class="tooltiptext px-3 py-3" style="color: grey;">
-                    Este botón le permite agregat o editar los medicamentos
+                    Este botón le permite agregar o editar los medicamentos
                   </span>
                 </a>
                 <a style="cursor: pointer;" class="me-2  tooltext color-trash" (click)="openDeleteModal(item
@@ -41,7 +41,7 @@
       <i class="fa-solid  fa-file-medical color-icons-mobile fz-icons-mobile "></i><span
         class="fz-text-icons">Enfermedad</span>
       <span class="tooltiptext px-3 py-3" style="color: grey;">
-        Este botón le permite navegar hacia a enfermedad
+        Este botón le permite navegar hacia la pantalla de enfermedades
       </span>
     </a>
 
@@ -49,7 +49,7 @@
       class=" d-flex flex-column text-decoration-none align-items-center navbar-item  tooltext" style="color:#001b71 ;">
       <i class="fa-solid  fa-virus fz-icons-mobile color-icons-mobile"></i><span class="fz-text-icons">Alergia</span>
       <span class="tooltiptext px-3 py-3" style="color: grey;">
-        Este botón le permite navegar hacia a alergia
+        Este botón le permite navegar hacia la pantalla de alergias
       </span>
     </a>
     <a [routerLink]="['../valores-laboratorio']" routerLinkActive="active" style="cursor: pointer;"
@@ -57,7 +57,7 @@
       <i class="fa-solid color-icons-mobile fa-flask fz-icons-mobile "></i><span
         class="fz-text-icons">Laboratorio</span>
       <span class="tooltiptext px-3 py-3" style="color: grey;">
-        Este botón le permite navegar hacia a laboratorio
+        Este botón le permite navegar hacia la pantalla de valores de laboratorio
       </span>
     </a>
     <a [routerLink]="['../datos-avanzados']" routerLinkActive="active" style="cursor: pointer;"
@@ -65,14 +65,14 @@
       <i class="fa-solid color-icons-mobile  fa-chart-line fz-icons-mobile "></i><span
         class="fz-text-icons">Histórico</span>
       <span class="tooltiptext px-3 py-3" style="color: grey;">
-        Este botón le permite navegar hacia a histórico
+        Este botón le permite navegar hacia la pantalla de histórico de valores de laboratorio
       </span>
     </a>
   </ng-container>
   <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="openCreateModal()">
     <i class="fa-solid fa-circle-plus fz-icon-add "></i>
     <span class="tooltiptext px-3 py-3" style="color: grey;">
-      Este botón le permite agregar una nuevo enfermedad
+      Este botón le permite agregar una nueva enfermedad
     </span>
   </a>
   <span *ngIf="!isMobile" class="span-text-current ms-2">Nueva enfermedad</span>
@@ -88,7 +88,7 @@
       </div>
       <div class="modal-body py-4">
         <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmAddedSickness">
-          <span>Valor agregado satisfactoriamente!</span>
+          <span>Enfermedad agregada satisfactoriamente!</span>
           <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmCreate()"></button>
         </div>
         <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayErrorCreate">

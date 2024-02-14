@@ -1,0 +1,403 @@
+.tooltext {
+  position: relative;
+  display: inline-block;
+}
+
+
+
+.color-trash {
+  color: #e87eae;
+}
+
+h1 {
+  color: #00a0df;
+  font-weight: 100;
+
+}
+
+h2 {
+  color: #6863a4;
+  font-weight: 200;
+  font-size: 24px;
+}
+
+.text-name {
+  color: #001b71;
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.button-icon-custom {
+  fill: #001b71;
+  color: #001b71;
+}
+
+.button-icon-custom:hover {
+  fill: white;
+  color: white;
+  background-color: #001b71;
+}
+
+.text-name-medication {
+  justify-content: center;
+  color: #001b71;
+  font-weight: 900;
+  font-size: 26px;
+}
+
+.span-td {
+  color: #001b71;
+  font-weight: 700;
+}
+
+.span-text {
+  color: #6863a4;
+  font-weight: 200;
+  font-size: 26px;
+}
+
+.span-text-current {
+  color: #001b71;
+  font-size: 26px;
+  font-weight: normal;
+}
+
+.color-circle-plus {
+  color: #3bd4ae;
+}
+
+.container-flex {
+  align-items: end;
+}
+
+.color-pencil {
+  color: #001b71;
+}
+
+tr {
+  border-bottom: 1px solid black;
+}
+
+/* Tooltip text */
+.tooltext .tooltiptext {
+  visibility: hidden;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  /* Position the tooltip above the text */
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Show tooltip text when hovering */
+.tooltext:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.header {
+  color: #00257A;
+  font-weight: 600;
+  font-style: italic;
+
+}
+
+.text-body-delete {
+  text-align: justify;
+
+}
+
+
+button {
+  font-weight: 500
+}
+
+.table-container {
+  width: 90%;
+  padding: 20px 20px;
+}
+
+.fz-icon-add {
+  font-size: 60px;
+
+}
+
+.color-icons-mobile {
+  color: #57b6e7;
+  font-size: 40px;
+
+}
+
+.bg-medicine {
+  background-color: #00257A;
+  color: white;
+}
+
+.bg-color-create {
+  background-color: #3bd4ae;
+  color: white;
+
+}
+
+.bg-color-create .bg-color-update h5 {
+  font-size: 25px;
+}
+
+td {
+  vertical-align: middle;
+}
+
+.datos {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  gap: 120px;
+}
+
+.container-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.bg-color-update {
+  background-color: #00a0df;
+  color: white;
+}
+
+.text-date {
+  color: #8882b7;
+}
+
+.text-currentValue {
+  color: #41418d;
+}
+
+.text-historial {
+  color: #716ca9;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+label {
+  color: #001b71;
+  font-weight: 200;
+  font-size: 20px;
+}
+
+.text-recordatory {
+  color: #001b71;
+  font-weight: 400;
+  text-align: center;
+}
+
+.modal-dialog {
+  max-width: 700px !important;
+}
+
+.container-body {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.add-tracking-value-button {
+  justify-content: center;
+}
+
+.form-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.form-control::placeholder {
+  color: #001b71;
+  opacity: 1;
+}
+
+.form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #001b71;
+  opacity: 1;
+}
+
+.form-control::-moz-placeholder { /* Firefox 19+ */
+  color: #001b71;
+  opacity: 1;
+}
+
+.form-control:-ms-input-placeholder { /* IE 10+ */
+  color: #001b71;
+  opacity: 1;
+}
+
+.form-control:-moz-placeholder { /* Firefox 18- */
+  color: #001b71;
+  opacity: 1;
+}
+
+
+.form-flex > div {
+  flex: 1;
+  padding-right: 5px;
+}
+
+@media (min-width: 912px) {
+  .form-control {
+    max-width: 400px !important;
+  }
+}
+
+
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 870px) {
+  .container-flex {
+    flex-direction: row;
+    align-items: end;
+    gap: 0px;
+  }
+
+  .container-flex>div {
+    flex-basis: 100%;
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  .datos {
+    margin-top: 10px;
+    width: 100%;
+    align-items: end;
+    justify-content: end;
+  }
+
+  .buttons {
+    justify-content: end;
+  }
+
+
+
+  .text-name {
+    font-size: 24px;
+    padding-left: 30px;
+
+  }
+
+  .form-flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    width: 95%;
+  }
+
+  .add-tracking-value-button {
+    justify-content: space-around;
+  }
+
+  .tooltext {
+    position: static;
+
+  }
+
+  .title-mobile {
+    width: 100%;
+  }
+
+
+  .datos {
+    gap: 20px;
+  }
+}
+
+
+@media (max-width: 520px) {
+  .table-container {
+    padding: 10px 0px;
+  }
+
+  .text-name {
+    padding-left: 15px;
+
+  }
+
+  .container-body {
+    flex-direction: column;
+  }
+
+  .add-tracking-value-button {
+    gap: 10px;
+  }
+
+  .color-icons-mobile {
+    font-size: 30px;
+  }
+
+  .fz-text-icons {
+    font-size: 14px;
+  }
+
+  .buttons {
+    width: 30%;
+  }
+
+  .grupo-datos-text {
+    width: 70%;
+  }
+
+  .text-name,
+  .text-name-medication {
+    font-size: 20px;
+  }
+
+  .datos {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 460px) {
+  .fz-icon-add {
+    font-size: 50px;
+
+  }
+
+  .span-td {
+    font-size: 14px;
+
+  }
+  .text-name,
+  .text-name-medication {
+    font-size: 18px;
+  }
+
+}
+
+
+
+@media (max-width: 400px) {
+  .nowrap {
+    white-space: wrap;
+  }
+
+  .fz-text-icons {
+    font-size: 13px;
+  }
+
+  .fz-icon-add {
+    font-size: 45px;
+
+  }
+
+}

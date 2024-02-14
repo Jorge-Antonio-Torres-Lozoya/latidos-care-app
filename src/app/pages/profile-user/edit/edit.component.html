@@ -1,15 +1,141 @@
-<app-profile-edit
-[handleErrorEdit]="userHandleErrorEdit.bind(this)"
-[errorEdit]="userErrorEdit"
-[editFun]=" userEditFun.bind(this)"
-[handleErrorPassword]="userHandleErrorPassword.bind(this)"
-[errorPassword]="userErrorPassword"
-[passwordEditFun]="userPasswordEditFun.bind(this)"
-[passwordFun]="userPasswordFun.bind(this)"
-[showPassword]="userShowPassword"
-[newPasswordFun]="userNewPasswordFun.bind(this)"
-[newShowPassword]="userNewShowPassword"
-[editHideModal]="hideModal.bind(this)"
-[editModal]="confirmationModal"
-[inputForm]="userInputForm"
-> </app-profile-edit>
+<div class="container-root-table d-flex justify-content-center">
+  <div class=" table-container  mb-4">
+    <form *ngIf="account" class="mb-2 px-5" #formData="ngForm" (ngSubmit)="editAccount(formData)">
+      <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Actualizar datos de perfil</h1>
+      <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Actualizar datos de perfil</h1>
+      <div class="alert alert-success d-flex justify-content-between" *ngIf="displayConfirmCreate">
+        <span>¡Sus datos fueron actualizados satisfactoriamente!</span>
+        <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmCreate()"></button>
+      </div>
+      <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayErrorCreate">
+        <span>{{errorCreate}}</span>
+        <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorCreate()"></button>
+      </div>
+        <div class="form-flex">
+          <div>
+            <label class="form-label text-name" for="firstName"> Nombres </label>
+            <input id="firstName" type="text" class="form-control" required [(ngModel)]="account.firstName" name="firstName">
+          </div>
+
+          <div>
+            <label class="form-label text-name" for="lastName"> Apellidos </label>
+            <input id="lastName" type="text" class="form-control" required [(ngModel)]="account.lastName" name="lastName">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-name" for="email"> E-Mail </label>
+          <input id="email" type="email" class="form-control" required [(ngModel)]="account.email" name="email">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-name" for="phoneNumber"> Teléfono móvil </label>
+          <input id="phoneNumber" type="text" class="form-control" required [(ngModel)]="account.phoneNumber" name="phoneNumber">
+        </div>
+
+      <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Información del familiar tutor </h1>
+      <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Actualizar datos de perfil</h1>
+
+      <div class="form-flex">
+        <div>
+          <label class="form-label text-name" for="tutorFirstName"> Nombres del familiar tutor </label>
+          <input id="tutorFirstName" type="text" class="form-control" required [(ngModel)]="account.tutorFirstName" name="tutorFirstName">
+        </div>
+        <div>
+          <label class="form-label text-name" for="tutorLastName"> Apellidos del familiar tutor </label>
+          <input id="tutorLastName" type="text" class="form-control" required [(ngModel)]="account.tutorLastName" name="tutorLastName">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-name" for="tutorPhoneNumber"> Teléfono móvil </label>
+        <input id="tutorPhoneNumber" type="text" class="form-control" required [(ngModel)]="account.tutorPhoneNumber" name="tutorPhoneNumber">
+      </div>
+
+      <div class="container-button d-flex gap-1 align-items-center mb-5">
+        <span class="span-text-current fs-5 ms-2">Guardar cambios</span>
+        <button type="submit" class="bg-transparent border-0">
+          <i class="fa-solid fa-circle-check color-circle-plus fs-1"></i>
+        </button>
+      </div>
+
+    </form>
+    <hr class="mt-0">
+
+    <form class="mb-2 px-5" #formDataPassword="ngForm" (ngSubmit)="changePassword(formDataPassword)">
+      <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Actualizar contraseña</h1>
+      <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Actualizar datos de perfil</h1>
+      <div class="alert alert-success d-flex justify-content-between" *ngIf="displayConfirmPassword">
+        <span>¡Su contraseña fue actualizada satisfactoriamente!</span>
+        <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmPassword()"></button>
+      </div>
+      <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayErrorPassword">
+        <span>{{errorPassword}}</span>
+        <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorPassword()"></button>
+      </div>
+        <div class="form-flex mb-3">
+          <div class="input-group">
+            <button (click)="passwordFun()" class="btn border border-top border-bottom border-start border-1 border-end-0 button-icon-custom"
+            type="button" id="button-addon1">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+            <input id="password" type="text" class="form-control" placeholder="Actual contraseña" required ngModel name="password" [type]="showPassword ? 'text' : 'password'">
+          </div>
+
+          <div class="input-group">
+            <button (click)="newPasswordFun()" class="btn border border-top border-bottom border-start border-1 border-end-0 button-icon-custom"
+            type="button" id="button-addon2">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+            <input id="newPassword" type="text" placeholder="Nueva contraseña"  class="form-control" required ngModel name="newPassword" [type]="newShowPassword ? 'text' : 'password'">
+          </div>
+        </div>
+
+        <div class="container-button d-flex gap-1 align-items-center mb-5">
+          <span class="span-text-current fs-5 ms-2">Guardar cambios</span>
+          <button type="submit" class="bg-transparent border-0">
+            <i class="fa-solid fa-circle-check color-circle-plus fs-1"></i>
+          </button>
+        </div>
+    </form>
+  </div>
+</div>
+
+<div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-5 mt-1">
+  <ng-container *ngIf="isMobile">
+    <a [routerLink]="['../enfermedades']" routerLinkActive="active" style="cursor: pointer;"
+      class="d-flex flex-column text-decoration-none align-items-center navbar-item   tooltext" style="color:#001b71 ;">
+      <i class="fa-solid  fa-file-medical color-icons-mobile fz-icons-mobile "></i><span
+        class="fz-text-icons">Enfermedad</span>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite navegar hacia la pantalla de enfermedades
+      </span>
+    </a>
+
+    <a [routerLink]="['../alergias']" routerLinkActive="active" style="cursor: pointer;"
+      class=" d-flex flex-column text-decoration-none align-items-center navbar-item  tooltext" style="color:#001b71 ;">
+      <i class="fa-solid  fa-virus fz-icons-mobile color-icons-mobile"></i><span class="fz-text-icons">Alergia</span>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite navegar hacia la pantalla de alergias
+      </span>
+    </a>
+    <a [routerLink]="['../valores-laboratorio']" routerLinkActive="active" style="cursor: pointer;"
+      class=" d-flex flex-column text-decoration-none align-items-center navbar-item  tooltext" style="color:#001b71 ;">
+      <i class="fa-solid color-icons-mobile fa-flask fz-icons-mobile "></i><span
+        class="fz-text-icons">Laboratorio</span>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite navegar hacia la pantalla de valores de laboratorio
+      </span>
+    </a>
+    <a [routerLink]="['../datos-avanzados']" routerLinkActive="active" style="cursor: pointer;"
+      class=" d-flex flex-column text-decoration-none align-items-center navbar-item  tooltext" style="color:#001b71 ;">
+      <i class="fa-solid color-icons-mobile  fa-chart-line fz-icons-mobile "></i><span
+        class="fz-text-icons">Histórico</span>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite navegar hacia la pantalla de histórico de valores de laboratorio
+      </span>
+    </a>
+  </ng-container>
+</div>
+
+

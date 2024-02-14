@@ -7,6 +7,7 @@ import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { UserAllergyInterface } from '../../../shared/interfaces/user-allergy.interface';
 import { SharedService } from '../../../shared/shared.service';
 import { CreateUserAllergyInterface } from '../../../shared/interfaces/create-user-allergy.interface';
+import { WindowService } from '../../../shared/window.service';
 
 @Component({
   selector: 'app-allergies',
@@ -29,11 +30,15 @@ export class AllergiesComponent implements OnInit, OnDestroy {
   errorCreate:string = '';
   displayErrorCreate:boolean = false;
 
+  isMobile: boolean = false;
+  private windowSub?: Subscription;
+
   constructor(
     private profileUserService: ProfileUserService,
     private sharedService: SharedService,
     private router: Router,
-    private cookieService: SsrCookieService
+    private cookieService: SsrCookieService,
+    private windowService: WindowService
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +50,10 @@ export class AllergiesComponent implements OnInit, OnDestroy {
 
       this.allergiesUsb = this.sharedService.getAllAllergy().subscribe(allergies => {
         this.allergies = allergies;
+      });
+
+      this.windowSub = this.windowService.isMobile$.subscribe((isMobile) => {
+        this.isMobile = isMobile;
       });
   }
 

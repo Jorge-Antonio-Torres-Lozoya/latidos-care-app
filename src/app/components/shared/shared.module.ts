@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { SignupFormComponent } from '../forms/signup-form/signup-form.component';
 import { ProfileEditComponent } from '../profile/profile-edit/profile-edit.component';
 import { SicknessFormComponent } from '../forms/sickness-form/sickness-form.component';
+import { FooterComponent } from '../footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -13,12 +14,14 @@ import { SicknessFormComponent } from '../forms/sickness-form/sickness-form.comp
     SignupFormComponent,
     ProfileEditComponent,
     SicknessFormComponent,
+    FooterComponent
   ],
   exports: [
     NavbarComponent,
     SignupFormComponent,
     ProfileEditComponent,
     SicknessFormComponent,
+    FooterComponent
   ],
   imports: [CommonModule, RouterModule, FormsModule],
 })

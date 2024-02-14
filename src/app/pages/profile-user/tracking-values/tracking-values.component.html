@@ -136,8 +136,7 @@
               <div class="dropdown w-100">
                 <button class="btn  dropdown-toggle button btn-outline-dark  w-100 " type="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  {{currentTrackingValue?.trackingValueName ? currentTrackingValue?.trackingValueName : 'Seleccione un
-                  valor'}}
+                  {{currentTrackingValue?.trackingValueName ? currentTrackingValue?.trackingValueName : 'Seleccione un valor'}}
                 </button>
                 <ul class="dropdown-menu ">
                   <li *ngFor="let item of trackingValues" class="" [value]="item.trackingValueName "

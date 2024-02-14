@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { FooterComponent } from './pages/footer/footer.component';
 import { TermsConditionsComponent } from './pages/terms-conditions/terms-conditions.component';
 import { LibroReclamacionesComponent } from './pages/libro-reclamaciones/libro-reclamaciones.component';
 import { ServiceComponent } from './pages/home/service/service.component';
@@ -32,7 +30,6 @@ import { LoginModule } from './pages/login/login.module';
   declarations: [
     AppComponent,
     HomeComponent,
-    FooterComponent,
     LibroReclamacionesComponent,
     TermsConditionsComponent,
     ServiceComponent,
