@@ -1,3 +1,11 @@
+<header>
+  <nav class="navbar navbar-expand-xl  py-3 px-3 sticky-top">
+    <div class="container-fluid">
+      <img class="logo" style="cursor: pointer;" src="../../../assets/images/Logo-colores-originales.svg"
+      alt="logo-navbar">
+    </div>
+  </nav>
+</header>
 <div class="container-root-table d-flex justify-content-center">
   <div class=" table-container  mb-4">
     <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Seguimiento de Laboratorio</h1>
@@ -101,6 +109,52 @@
   </a>
   <span *ngIf="!isMobile" class="span-text-current ms-2">Nueva enfermedad</span>
 </div>
+
+<div class="container-root-table d-flex justify-content-center">
+  <div class=" table-container  mb-4">
+    <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Alergia</h1>
+    <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Alergia</h1>
+    <hr class="mt-0" *ngIf="isMobile">
+    <h2 *ngIf="!isMobile">aclaraciones varias</h2>
+    <table class="table table-hover ">
+      <tbody class="table-hover " *ngFor="let item of  userAllergies">
+        <tr>
+          <div class="container-flex">
+            <div class="text-center text-name">{{item.allergyName}}</div>
+            <div class="datos">
+              <div class="grupo-datos buttons text-center d-flex gap-3">
+                <a style="cursor: pointer;" class="me-2  tooltext color-trash" (click)="openAllergyDeleteModal(item.userAllergyId)">
+                  <i class="fa fa-trash fs-4"></i>
+                  <span class="tooltiptext px-3 py-3" style="color: red;">
+                    Este botón le permite eliminar una alergia
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-5 mt-1">
+  <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="openAllergyModalCreate()">
+    <i class="fa-solid fa-circle-plus fz-icon-add "></i>
+    <span class="tooltiptext px-3 py-3" style="color: grey;">
+      Este botón le permite agregar una nueva alergia
+    </span>
+  </a>
+  <span *ngIf="!isMobile" class="span-text-current ms-2">Nueva alergia</span>
+</div>
+
+<div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-3 mt-1">
+  <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="toDashboard()">
+    <i class="fa-solid fa-circle-check color-circle-plus fs-1 "></i>
+  </a>
+  <span *ngIf="!isMobile" class="span-text-current ms-2">Ir a su perfil</span>
+</div>
+
 
 <!--Delete  Modal-->
 <div class="modal" tabindex="-1" [ngStyle]="{'display':displayTrackingValuesDeleteModal}">
@@ -438,6 +492,81 @@
         </form>
       </div>
 
+    </div>
+  </div>
+</div>
+
+<!-- create -->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayAllergyCreateModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center bg-color-create">
+        <h4 class="modal-title " id="create-material-header">Nueva alergia</h4>
+      </div>
+      <div class="modal-body py-4">
+        <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmAddedAllergy">
+          <span>Alergia agregada satisfactoriamente!</span>
+          <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmAddAllergy()"></button>
+        </div>
+        <div class="alert alert-danger d-flex justify-content-between" *ngIf="showErrorCreateAllergy">
+          <span>{{errorAllergy}}</span>
+          <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorCreateAllergy()"></button>
+        </div>
+        <form>
+          <div class="mb-3">
+            <div class="container-column-child">
+              <label for="trackingValueName" class="form-label">Nombre </label>
+              <div class="dropdown w-100">
+                <button class="btn  dropdown-toggle button btn-outline-dark  w-100 " type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  {{currentAllergy?.allergyName ? currentAllergy?.allergyName : 'Seleccione una alergia'}}
+                </button>
+                <ul class="dropdown-menu ">
+                  <li *ngFor="let item of allergies" class="" [value]="item.allergyName " style="cursor: pointer;"
+                    (click)="setCurrentAllergy(item)"><a class="dropdown-item "> {{
+                      item.allergyName }}</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="container-buttons d-flex gap-5 justify-content-center mt-5 mb-3">
+            <button type="button" class="bg-transparent border-0" (click)="addAllergy()"><i
+                class="fa-solid fa-circle-check color-circle-plus fs-1"></i></button>
+            <button type="button" class="bg-transparent border-0 " (click)="closeAllergyCreateModal()"><i
+                class="fa-regular color-trash fa-circle-xmark fs-1"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!--Delete  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayAllergyDeleteModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title header" id="create-material-header">Borrar Alergia</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteAllergyModal()"></button>
+      </div>
+      <div class="modal-body py-4">
+        <p class="text-center fw-bold  mb-2"> ¿Desea borrar la alergia
+          {{currentUserAllergy?.allergyName}}?</p>
+        <p class="text-body-delete px-3">Recuerde que al borrar la alergia implica que usted ya concluyó su
+          tratamiento, asegúrese de cumplir con su tratamiento tal y como lo indicó su médico antes de
+          seleccionar esta opción. También tenga en cuenta que todos los datos sobre esta alergia se
+          borrarán de su cuenta.</p>
+      </div>
+      <div class="modal-footer d-flex justify-content-between px-3">
+        <button type="button" class="btn btn-danger text-center " (click)="deleteAllergy()">Borrar
+          alergia</button>
+        <button type="button" class="btn btn-secondary close-confirmation-modal"
+          (click)="closeDeleteAllergyModal()">Cerrar</button>
+      </div>
     </div>
   </div>
 </div>

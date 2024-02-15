@@ -70,6 +70,7 @@ export class RegisterDataComponent implements OnInit , OnDestroy {
   currentUserAllergyId?: number;
   currentUserAllergy?: UserAllergyInterface;
   errorAllergy: string = '';
+  showErrorCreateAllergy: boolean = false;
 
   //  Tracking-Values
   displayTrackingValuesDeleteModal: string = 'none';
@@ -324,10 +325,9 @@ export class RegisterDataComponent implements OnInit , OnDestroy {
   closeViewMedicationModal() {
     this.displayViewMedicationModal = 'none';
   }
+
   //Allergies
-  handleAllergyError?() {
-    this.errorAllergyAlert = undefined;
-  }
+
 
   getUserAllergyById(idUserAllergy: number): Observable<any> {
     this.currentUserAllergyId = idUserAllergy;
@@ -348,17 +348,6 @@ export class RegisterDataComponent implements OnInit , OnDestroy {
       );
   }
 
-  deleteAllergy() {
-    this.profileUserService
-      .deleteUserAllergy(this.currentUserAllergyId!.toString(), this.accountId!)
-      .subscribe((response) => {
-        this.userAllergies = this.userAllergies!.filter(
-          (userAllergy) =>
-            userAllergy.userAllergyId !== this.currentUserAllergyId
-        );
-        this.displayAllergyDeleteModal = 'none';
-      });
-  }
 
   setCurrentAllergy(allergy: AllergyInterface) {
     this.currentAllergy = allergy;
@@ -385,25 +374,45 @@ export class RegisterDataComponent implements OnInit , OnDestroy {
         (errorMessage) => {
           console.log(errorMessage);
           this.errorAllergy = errorMessage;
+          this.showErrorCreateAllergy = true;
         }
       );
   }
 
-  closeDeleteAllergyModal() {
-    this.displayAllergyDeleteModal = 'none';
+  closeErrorCreateAllergy() {
+    this.showErrorCreateAllergy = false;
   }
+
   closeAllergyViewModal() {
     this.displayAllergyViewModal = 'none';
   }
 
   closeAllergyCreateModal() {
     this.displayAllergyCreateModal = 'none';
-  }
-  OpenAllergyModalCreate() {
     this.confirmAddedAllergy = false;
     this.errorAllergyAlert = undefined;
     this.currentAllergy = undefined;
+    this.showErrorCreateAllergy = false;
+  }
+
+  openAllergyModalCreate() {
     this.displayAllergyCreateModal = 'block';
+  }
+
+  deleteAllergy() {
+    this.profileUserService
+      .deleteUserAllergy(this.currentUserAllergyId!.toString(), this.accountId!)
+      .subscribe((response) => {
+        this.userAllergies = this.userAllergies!.filter(
+          (userAllergy) =>
+            userAllergy.userAllergyId !== this.currentUserAllergyId
+        );
+        this.displayAllergyDeleteModal = 'none';
+      });
+  }
+
+  closeDeleteAllergyModal() {
+    this.displayAllergyDeleteModal = 'none';
   }
 
   openAllergyDeleteModal(idUserAllergy: number) {

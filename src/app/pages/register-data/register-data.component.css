@@ -1,3 +1,11 @@
+header{
+  background-color: #00257A;
+}
+
+.logo {
+  max-width: 170px;
+}
+
 .tooltext {
   position: relative;
   display: inline-block;
