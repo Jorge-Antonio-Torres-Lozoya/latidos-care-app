@@ -93,6 +93,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.router.navigate([`/privado/administrador/panel-medicinas`]);
     }
 
+    toQR() {
+      this.router.navigate([`/codigo-qr`]);
+    }
+
     toProfile() {
       if(this.activeRole === 'Admin') {
         const accountData: UpdateAccountInterface = {activeRole: 'User'}

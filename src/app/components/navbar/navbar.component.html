@@ -75,7 +75,7 @@
                 (click)="forceNavigate('preguntas-frecuentes')" class="links-nav nowrap"> Preguntas frecuentes</a>
             </li>
             <li *ngIf="!accountConnected" class="navbar-item nav-item p-2 py-md-1">
-              <a data-bs-dismiss="offcanvas" routerLink="codigo-qr" class="links-nav nowrap">QR</a>
+              <a data-bs-dismiss="offcanvas" (click)="toQR()" style="cursor: pointer;" class="links-nav nowrap">QR</a>
             </li>
             <li *ngIf="!accountConnected" class="navbar-item nav-item p-2 py-md-1">
               <a data-bs-dismiss="offcanvas" routerLink="/login" class="links-nav"> Login</a>
