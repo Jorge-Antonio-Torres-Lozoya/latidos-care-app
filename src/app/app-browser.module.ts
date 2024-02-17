@@ -5,12 +5,12 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 
 //const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
-const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
+//const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
 
 @NgModule({
   imports: [
     AppModule,
-    SocketIoModule.forRoot(config),
+    //SocketIoModule.forRoot(config),
   ],
   bootstrap: [AppComponent],
 })

@@ -12,10 +12,10 @@ export class QrcodeService {
   public qrSubject = new BehaviorSubject<QrDataInterface | null>(null);
 
   constructor(
-    private socket: Socket,
-    @Inject(PLATFORM_ID) private platformId: Object
+    //private socket: Socket,
+    //@Inject(PLATFORM_ID) private platformId: Object
   ) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
+   // this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   sendQrData(qrData: QrDataInterface):void {
