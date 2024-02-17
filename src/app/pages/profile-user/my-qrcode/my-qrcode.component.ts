@@ -8,6 +8,8 @@ import { SharedService } from '../../../shared/shared.service';
 import { LoginService } from '../../login/login.service';
 import { NgxScannerQrcodeComponent, ScannerQRCodeResult } from 'ngx-scanner-qrcode';
 import { QrcodeService } from '../../qrcode/qrcode.service';
+import { QrDataInterface } from '../../../shared/interfaces/qrData.interface';
+import { CreateConsentInterface } from '../interfaces/create-consent-interface';
 
 @Component({
   selector: 'app-my-qrcode',
@@ -23,6 +25,10 @@ export class MyQrcodeComponent implements OnInit {
   private accountRoleUsb?:Subscription;
   token?:string;
   slug?:string;
+  displayConsentModal:string = 'none';
+  displayAcceptModal:string = 'none';
+  displayRejectModal:string = 'none';
+  qrData?: QrDataInterface;
 
   constructor(
     private profileUserService:ProfileUserService,
@@ -55,8 +61,38 @@ export class MyQrcodeComponent implements OnInit {
   public onEvent(e: ScannerQRCodeResult[], action?: any): void {
     if(this.action && this.action.isStart) {
       console.log('escaneando', this.action.data.value[0].value);
-      this.qrCodeService.sendQrData({slug: this.slug!, token: this.token!, uniqueToken: this.action.data.value[0].value});
+      this.qrData  = {slug: this.slug!, token: this.token!, uniqueToken: this.action.data.value[0].value}
+      this.displayConsentModal = 'block'
     }
+  }
+
+  giveConsent() {
+    const consentData: CreateConsentInterface = {accountId: parseInt(this.getAccountId()), consent: true}
+    this.qrData!.consent = true;
+    this.profileUserService.createConsent(consentData).subscribe(consent => {
+      this.qrCodeService.sendQrData({slug: this.slug!, token: this.token!, uniqueToken: this.action.data.value[0].value, consent: true});
+      this.displayConsentModal = 'none';
+      this.displayAcceptModal = 'block';
+    })
+  }
+
+  rejectConsent() {
+    const consentData: CreateConsentInterface = {accountId: parseInt(this.getAccountId()), consent: false}
+    this.qrData!.consent = false;
+    this.profileUserService.createConsent(consentData).subscribe(consent => {
+      this.qrCodeService.sendQrData({slug: this.slug!, token: this.token!, uniqueToken: this.action.data.value[0].value, consent: false});
+      this.displayConsentModal = 'none';
+      this.displayRejectModal = 'block';
+    })
+  }
+
+
+  closeRejectModal() {
+    this.displayRejectModal = 'none';
+  }
+
+  closeAcceptModal() {
+    this.displayAcceptModal = 'none';
   }
 
   getAccountId() {

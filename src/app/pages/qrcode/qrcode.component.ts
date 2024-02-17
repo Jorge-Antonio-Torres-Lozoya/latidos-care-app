@@ -15,6 +15,7 @@ export class QrcodeComponent implements OnInit {
   qrObservable?: Observable<QrDataInterface>;
   qrSubscription?: Subscription;
   uniqueToken?:string;
+  displayRejectModal:string = 'none';
 
   constructor(
     private router: Router,
@@ -29,25 +30,18 @@ export class QrcodeComponent implements OnInit {
     ).toString();
     this.qrSubscription = this.qrObservable?.subscribe(qrData => {
       if(qrData && qrData.uniqueToken === this.uniqueToken) {
-        const redirectUrl = `http://localhost:4200/paciente/${qrData.slug}?token=${qrData.token}`
-        console.log(redirectUrl);
-        this.router.navigateByUrl(`paciente/${qrData.slug}?token=${qrData.token}`);
+        if(qrData.consent! === true) {
+          this.router.navigateByUrl(`paciente/${qrData.slug}?token=${qrData.token}`);
+        } else if(qrData.consent! === false) {
+          this.displayRejectModal = 'block';
+        }
       }
     })
-    /*this.qrSubscription = this.qrCodeService.qrSubject.subscribe({
-      next: (qrData) => {
-        if (qrData !== null) {
-          const redirectUrl = `https://latidos-care-app-production.up.railway.app/paciente/${qrData.slug}?token=${qrData.token}`;
-          console.log(redirectUrl);
-          this.router.navigateByUrl(`paciente/${qrData.slug}?token=${qrData.token}`);
-        }
-      },
-      error: (err) => console.error('Error in QR subscription', err),
-    });*/
 
   }
 
-  toAdvancedData() {
-    this.router.navigateByUrl(`paciente/${this.slug}?token=${this.token}`)
+  closeRejectModal() {
+    this.displayRejectModal = 'none';
   }
+
 }

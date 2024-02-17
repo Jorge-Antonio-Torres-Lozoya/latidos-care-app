@@ -20,6 +20,8 @@ import { CreateUserAllergyInterface } from "../../shared/interfaces/create-user-
 import { CreateUserSicknessInterface } from "../../shared/interfaces/create-user-sickness.interface";
 import { CreateUserTrackingValueInterface } from "../../shared/interfaces/create-user-tracking-value.interface";
 import { UpdateUserTrackingValueInterface } from "../../shared/interfaces/update-user-trackin-value.interface";
+import { CreateConsentInterface } from "./interfaces/create-consent-interface";
+import { DataAccessConsentInterface } from "../../shared/interfaces/data-access-consent.interface";
 @Injectable({
   providedIn: 'root'
 })
@@ -315,5 +317,10 @@ getTreatmentsByDate(medicationId:string, startDate:string, endDate:string, accou
 
   generateVerificationTokenAccount(accountId:string):Observable<VerificationTokenInterface>{
     return this.http.get<any>(`${environment.apiUrl}account/generate-verification-token/${accountId}`, {headers: this.getHeaders()}).pipe(catchError(this.errorHandlingService.handleError))
+  }
+
+  //Consent
+  createConsent(consentData:CreateConsentInterface):Observable<DataAccessConsentInterface>{
+    return this.http.post<any>(`${environment.apiUrl}data-access-consent`, consentData, {headers: this.getHeaders()}).pipe(catchError(this.errorHandlingService.handleError))
   }
 }

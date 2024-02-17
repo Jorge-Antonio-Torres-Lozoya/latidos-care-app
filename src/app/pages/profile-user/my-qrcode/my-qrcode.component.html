@@ -6,6 +6,67 @@
     <p class="mb-5 text"> Escanea el QR de tu médico para que pueda acceder a tu información.</p>
     <ngx-scanner-qrcode #action="scanner" (event)="onEvent($event, action)"></ngx-scanner-qrcode>
     <p *ngIf="action.isLoading">⌛ Cargando...</p>
-    <button class="button"  (click)="action.isStart ? action.stop() : action.start()">{{action.isStart ? 'Detener' : 'Escanear'}}</button>
+    <button class="btn btn-success button fw-bold py-2  me-2"  (click)="action.isStart ? action.stop() : action.start()">{{action.isStart ? 'Detener' : 'Escanear'}}</button>
+  </div>
+</div>
+
+<!-- Consent Modal -->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayConsentModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center bg-color-create">
+        <h4 class="modal-title">¿Presta su consentimiento para compartir sus datos médicos con su médico?</h4>
+      </div>
+      <div class="modal-body py-4">
+        <p class="card-text">
+          Si presta su consentimiento, quiere decir que por un periodo de 15 minutos, su médico podrá acceder a su información sobre sus enfermedades, medicamentos, alergias y valores de laboratorio.
+          Esto también implica que su médico podrá modificar su información.
+        </p>
+          <div class="container-buttons d-flex gap-5 justify-content-center mt-5 mb-3">
+            <button type="button" class="btn btn-success button fw-bold py-2  me-2" (click)="giveConsent()">Prestar consentimiento</button>
+            <button type="button" class="btn btn-success button fw-bold py-2  me-2" (click)="rejectConsent()">Negar acceso a información</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Accept Modal -->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayAcceptModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center bg-color-create">
+        <h4 class="modal-title " id="create-material-header">Ha prestado su consentimiento</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeAcceptModal()"></button>
+      </div>
+      <div class="modal-body py-4">
+        <p class="card-text">
+          Su médico tendrá acceso a sus datos sólo por 15 minutos. <br> Puede cerrar la ventana.
+        </p>
+          <div class="d-flex gap-5 justify-content-center mt-5 mb-3">
+            <button type="button" class="btn btn-secondary"
+            (click)="closeAcceptModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Reject Modal -->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayRejectModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center bg-color-create">
+        <h4 class="modal-title">Ha negado el acceso a sus información a su médico</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeRejectModal()"></button>
+      </div>
+      <div class="modal-body py-4">
+        <p class="card-text">
+          Puede cerrar la ventana.
+        </p>
+          <div class="d-flex gap-5 justify-content-center mt-5 mb-3">
+            <button type="button" class="btn btn-secondary"
+            (click)="closeRejectModal()">Cerrar</button>
+      </div>
+    </div>
   </div>
 </div>
