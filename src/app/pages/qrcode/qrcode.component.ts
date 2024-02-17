@@ -31,7 +31,8 @@ export class QrcodeComponent implements OnInit {
     })*/
     this.qrSubscription = this.qrCodeService.qrSubject.subscribe(qrData => {
       if(qrData) {
-        const redirectUrl = `http://localhost:4200/paciente/${qrData.slug}?token=${qrData.token}`
+        const redirectUrl = `https://latidos-care-app-production.up.railway.app/paciente/${qrData.slug}?token=${qrData.token}`
+        console.log(redirectUrl);
         window.location.href = redirectUrl;
       }
     })

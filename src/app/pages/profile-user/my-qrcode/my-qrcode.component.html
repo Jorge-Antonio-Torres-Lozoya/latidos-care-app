@@ -6,8 +6,6 @@
     <p class="mb-5 text"> Escanea el QR de tu médico para que pueda acceder a tu información.</p>
     <ngx-scanner-qrcode #action="scanner" (event)="onEvent($event, action)"></ngx-scanner-qrcode>
     <p *ngIf="action.isLoading">⌛ Cargando...</p>
-    <span>{{ action.data.value | json }}</span><!-- value -->
-    <span>{{ action.data | async | json }}</span><!-- async -->
     <button class="button"  (click)="action.isStart ? action.stop() : action.start()">{{action.isStart ? 'Detener' : 'Escanear'}}</button>
   </div>
 </div>
