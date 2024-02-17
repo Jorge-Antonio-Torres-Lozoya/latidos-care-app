@@ -14,6 +14,7 @@ export class QrcodeComponent implements OnInit {
   slug?: string;
   qrObservable?: Observable<QrDataInterface>;
   qrSubscription?: Subscription;
+  uniqueToken?:string;
 
   constructor(
     private router: Router,
@@ -23,6 +24,9 @@ export class QrcodeComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.uniqueToken = Math.floor(
+      100000 + Math.random() * 900000,
+    ).toString();
     this.qrSubscription = this.qrObservable?.subscribe(qrData => {
       if(qrData) {
         const redirectUrl = `http://localhost:4200/paciente/${qrData.slug}?token=${qrData.token}`

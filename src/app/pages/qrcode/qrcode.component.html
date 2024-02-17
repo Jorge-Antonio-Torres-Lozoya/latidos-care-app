@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-center">
   <div class=" table-container  mb-5 text-center">
     <p class="mb-5 text"> Presente este código QR a su médico para que pueda observar su información y poder darle un mejor diagnóstico.</p>
-    <qrcode [qrdata]="'https://latidos-care-app-production.up.railway.app/'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    <qrcode *ngIf="uniqueToken" [qrdata]="uniqueToken" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
     <div class="mt-2 text-center">
       <button type="button" class="btn button" (click)="toAdvancedData()">Ir a Advanced Data</button>
     </div>
