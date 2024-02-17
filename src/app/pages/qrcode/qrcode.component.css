@@ -1,0 +1,72 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.header {
+  color: #00a0df;
+  font-weight: 100;
+}
+
+.text{
+  color: #6863a4;
+  font-weight: 200;
+  font-size: 24px;
+}
+
+.button{
+  color: white;
+  font-size: medium;
+  background-color: rgb(0, 162, 255);
+  font-weight: 500;
+  padding: 10px 40px 10px 40px;
+}
+
+@media (max-width: 1280px) {
+  .main-container {
+    padding-bottom: 200px;
+  }
+
+  .modal-dialog-centered {
+    padding-bottom: 150px;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .main-container {
+    padding-bottom: 700px;
+  }
+
+  .modal-dialog-centered {
+    padding-bottom: 630px;
+  }
+}
+
+@media (max-width: 870px) {
+  .main-container {
+    padding-bottom: 550px;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    padding-bottom: 400px;
+  }
+
+  .modal-dialog-centered {
+    padding-bottom: 330px;
+  }
+}
+
+
+@media (max-width: 520px) {
+  .main-container {
+    padding-bottom: 250px;
+  }
+
+  .modal-dialog-centered {
+    padding-bottom: 250px;
+  }
+}
+
+

@@ -1,4 +1,571 @@
-<section class="container-fluid d-flex flex-column align-items-center container-profile-edit">
+<div class="main-container">
+  <header>
+    <nav class="navbar navbar-expand-xl  py-3 px-3 sticky-top">
+      <div class="container-fluid">
+        <img class="logo" style="cursor: pointer;" src="../../../assets/images/Logo-colores-originales.svg"
+        alt="logo-navbar">
+      </div>
+    </nav>
+  </header>
+  <div class="container-root-table d-flex justify-content-center table-responsive">
+    <div class=" table-container  mb-4">
+      <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Seguimiento de Laboratorio</h1>
+      <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Seguimiento de Laboratorio</h1>
+      <hr class="mt-0" *ngIf="isMobile">
+
+      <h2 *ngIf="!isMobile">variables de lab, variables de monitoreo</h2>
+      <table class="table table-hover ">
+        <tbody class="table-hover " *ngFor="let item of userTrackingValues">
+          <tr>
+            <div class="container-flex">
+              <div class="text-center text-name">{{item.trackingValueName}}</div>
+              <div class="datos">
+                <div class="grupo-datos text-center d-flex flex-column">
+                  <span class="span-td">Mínimo</span>
+                  <span class="span-text">{{item.minLimit}}</span>
+                </div>
+                <div class="grupo-datos text-center d-flex flex-column">
+                  <span class="span-td">Máximo</span>
+                  <span class="span-text">{{item.maxLimit}}</span>
+                </div>
+                <div class="grupo-datos text-center d-flex flex-column">
+                  <span class="span-td nowrap">Último registro</span>
+                  <span class="span-text-current">{{item.currentValue}}</span>
+                </div>
+                <div class="grupo-datos buttons text-center d-flex gap-3">
+                  <a style="cursor: pointer;" class="me-2  tooltext color-trash" (click)="openTrackingValuesDeleteModal(item.userTrackingValueId)">
+                    <i class="fa fa-trash fs-4"></i>
+                    <span class="tooltiptext px-3 py-3" style="color: red;">
+                      Este botón le permite eliminar un valor
+                    </span>
+                  </a>
+                  <a style="cursor: pointer;" class="color-pencil  me-2  tooltext" (click)="openTrackingValuesEditModal(item.userTrackingValueId)">
+                    <i class="fa-regular fa-pen-to-square fs-4"></i>
+                    <span class="tooltiptext px-3 py-3" style="color: grey;">
+                      Este botón le permite editar un valor
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-3 mt-1">
+    <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="openTrackingValuesModalCreate()">
+      <i class="fa-solid fa-circle-plus fz-icon-add "></i>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite agregar un nuevo valor para realizar seguimiento
+      </span>
+    </a>
+    <span *ngIf="!isMobile" class="span-text-current ms-2">Nuevo resultado de laboratorio</span>
+  </div>
+
+  <div class="container-root-table d-flex justify-content-center table-responsive">
+    <div class=" table-container  mb-4">
+      <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Enfermedad</h1>
+      <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Enfermedad</h1>
+      <hr class="mt-0" *ngIf="isMobile">
+      <h2 *ngIf="!isMobile">aclaraciones varias</h2>
+      <table class="table table-hover ">
+        <tbody class="table-hover " *ngFor="let item of userSicknesses">
+          <tr>
+            <div class="container-flex">
+              <div class="text-center text-name">{{item.sicknessName}}</div>
+              <div class="datos">
+                <div class="grupo-datos buttons text-center d-flex gap-3">
+                  <a style="cursor: pointer; color:#57b6e7 ; " class="me-2  tooltext" (click)="openViewMedicineModal(item
+                  )">
+                    <i class="fa-solid fa-pills fs-4"></i>
+                    <span class="tooltiptext px-3 py-3" style="color: grey;">
+                      Este botón le permite agregar o editar los medicamentos
+                    </span>
+                  </a>
+                  <a style="cursor: pointer;" class="me-2  tooltext color-trash" (click)="openDeleteModal(item
+                  )">
+                    <i class="fa fa-trash fs-4"></i>
+                    <span class="tooltiptext px-3 py-3" style="color: red;">
+                      Este botón le permite eliminar una enfermedad
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-5 mt-1">
+    <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="openCreateModal()">
+      <i class="fa-solid fa-circle-plus fz-icon-add "></i>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite agregar una nueva enfermedad
+      </span>
+    </a>
+    <span *ngIf="!isMobile" class="span-text-current ms-2">Nueva enfermedad</span>
+  </div>
+
+  <div class="container-root-table d-flex justify-content-center table-responsive">
+    <div class=" table-container  mb-4">
+      <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Alergia</h1>
+      <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Alergia</h1>
+      <hr class="mt-0" *ngIf="isMobile">
+      <h2 *ngIf="!isMobile">aclaraciones varias</h2>
+      <table class="table table-hover ">
+        <tbody class="table-hover " *ngFor="let item of  userAllergies">
+          <tr>
+            <div class="container-flex">
+              <div class="text-center text-name">{{item.allergyName}}</div>
+              <div class="datos">
+                <div class="grupo-datos buttons text-center d-flex gap-3">
+                  <a style="cursor: pointer;" class="me-2  tooltext color-trash" (click)="openAllergyDeleteModal(item.userAllergyId)">
+                    <i class="fa fa-trash fs-4"></i>
+                    <span class="tooltiptext px-3 py-3" style="color: red;">
+                      Este botón le permite eliminar una alergia
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-5 mt-1">
+    <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="openAllergyModalCreate()">
+      <i class="fa-solid fa-circle-plus fz-icon-add "></i>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite agregar una nueva alergia
+      </span>
+    </a>
+    <span *ngIf="!isMobile" class="span-text-current ms-2">Nueva alergia</span>
+  </div>
+</div>
+
+
+
+<!--Delete  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayTrackingValuesDeleteModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title header" id="create-material-header">Borrar Valor</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteUserTrackingValueModal()"></button>
+      </div>
+      <div class="modal-body py-4">
+        <p class="text-center fw-bold  mb-2"> ¿Desea borrar el valor
+          {{currentUserTrackingValue?.trackingValueName}}?</p>
+        <p class="text-body-delete px-3">Recuerde que al borrar el valor implica que usted ya concluyó su
+          tratamiento, asegúrese de cumplir con su tratamiento tal y como lo indicó su médico antes de
+          seleccionar esta opción. También tenga en cuenta que todos los datos sobre este valor se
+          borrarán de su cuenta.</p>
+      </div>
+      <div class="modal-footer d-flex justify-content-between px-3">
+        <button type="button" class="btn btn-danger text-center " (click)="deleteUserTrackingValue()">Borrar
+          valor</button>
+        <button type="button" class="btn btn-secondary close-confirmation-modal"
+          (click)="closeDeleteUserTrackingValueModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--create Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayTrackingValuesCreateModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center bg-color-create">
+        <h4 class="modal-title " id="create-material-header">Nuevo resultado de laboratorio</h4>
+      </div>
+      <div class="modal-body py-4">
+        <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmAddedUserTrackingValue">
+          <span>Valor agregado satisfactoriamente!</span>
+          <button type="button" class="btn-close text-end" aria-label="Close"
+            (click)="closeConfirmAddUserTrackingValue()"></button>
+        </div>
+        <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayErrorUserTrackingValue">
+          <span>{{errorUserTrackingValue}}</span>
+          <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorUserTrackingValue()"></button>
+        </div>
+        <form #formData="ngForm" (ngSubmit)="addUserTrackingValue(formData)">
+          <div class="mb-3">
+            <div class="container-column-child">
+              <label for="trackingValueName" class="form-label">Nombre </label>
+              <div class="dropdown w-100">
+                <button class="btn  dropdown-toggle button btn-outline-dark  w-100 " type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  {{currentTrackingValue?.trackingValueName ? currentTrackingValue?.trackingValueName : 'Seleccione un valor'}}
+                </button>
+                <ul class="dropdown-menu ">
+                  <li *ngFor="let item of trackingValues" class="" [value]="item.trackingValueName "
+                    style="cursor: pointer;" (click)="setCurrentTrackingValue(item)"><a class="dropdown-item "> {{
+                      item.trackingValueName }}</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="minLimit" class="form-label"> Valor mínimo </label>
+            <input ngModel name="minLimit" type="number" class="form-control" id="minLimit">
+          </div>
+          <div class="mb-3">
+            <label for="maxLimit" class="form-label"> Valor máximo </label>
+            <input ngModel name="maxLimit" type="number" class="form-control" id="maxLimit">
+          </div>
+          <div class="mb-3">
+            <label for="currentValue" class="form-label">Último registro</label>
+            <input ngModel name="currentValue" type="number" class="form-control" id="currentValue">
+          </div>
+          <div class="container-buttons d-flex gap-5 justify-content-center mt-5 mb-3">
+            <button type="submit" class="bg-transparent border-0"><i
+                class="fa-solid fa-circle-check color-circle-plus fs-1"></i></button>
+            <button type="button" class="bg-transparent border-0 " (click)="closeUserTrackingValueCreateModal()"><i
+                class="fa-regular color-trash fa-circle-xmark fs-1"></i></button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Edit  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayTrackingValuesEditModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center bg-color-update">
+        <h4 class="modal-title " id="create-material-header"> Actualizar valores
+        </h4>
+      </div>
+      <div class="modal-body py-4">
+        <h6 class="text-recordatory mb-4">Recuerde realizar sus monitoreos según las indicaciones de su médico</h6>
+        <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmUpdateUserTrackingValue">
+          <span class="text-start">Valor actualizado satisfactoriamente!</span>
+          <button type="button" class="btn-close text-end" aria-label="Close"
+            (click)="closeConfirmUpdateUserTrackingValue()"></button>
+        </div>
+        <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayErrorUpdateUserTrackingValue">
+          <span class="text-start"> {{errorUpdateTrackingValue}} </span>
+          <button type="button" class="btn-close text-end" aria-label="Close"
+            (click)="closeErrorUpdateUserTrackingValue()"></button>
+        </div>
+        <form #formDataUpdateTrackingValue="ngForm" (ngSubmit)="updateUserTrackingValue(formDataUpdateTrackingValue)">
+          <div class="container-body">
+            <div class="container-body-1">
+              <div class="mb-3">
+                <label for="minLimit" class="form-label">Valor mínimo</label>
+                <input type="number" class="form-control" id="minLimit" aria-describedby="Límite mínimo del valor"
+                  ngModel name="minLimit"
+                  [ngModel]="currentUserTrackingValue?.minLimit ? currentUserTrackingValue?.minLimit : ''">
+              </div>
+              <div class="mb-3">
+                <label for="maxLimit" class="form-label">Valor máximo</label>
+                <input type="number" class="form-control" id="maxLimit" aria-describedby="Límite máximo del valor"
+                  ngModel name="maxLimit"
+                  [ngModel]="currentUserTrackingValue?.maxLimit ? currentUserTrackingValue?.maxLimit : '' ">
+              </div>
+            </div>
+            <div class="container-body-2">
+              <div class="mb-3">
+                <label for="currentValue" class="form-label">Último registro</label>
+                <input type="number" class="form-control" id="currentValue" aria-describedby="Valor actual" ngModel
+                  name="currentValue"
+                  [ngModel]="currentUserTrackingValue?.currentValue ? currentUserTrackingValue?.currentValue : '' ">
+              </div>
+              <div class="container-historial mb-3">
+                <h6 class="text-historial">
+                  Registros anteriores </h6>
+                <div *ngFor=" let item of currentUserTrackingValue?.currentValues | slice:-3"
+                  class="grupo-historial d-flex gap-4">
+                  <span class="text-date text-capitalize">{{ item.createdAt | date: 'MMM/yyyy' }}</span>
+                  <span class="text-currentValue">{{item.currentNumber}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-buttons d-flex gap-5 justify-content-center mt-5 mb-3">
+            <button type="submit" class="bg-transparent border-0"><i
+                class="fa-solid fa-circle-check color-circle-plus fs-1"></i></button>
+            <button type="button" class="bg-transparent border-0 " (click)="closeUpdateUserTrackingValueModal()"><i
+                class="fa-regular color-trash fa-circle-xmark fs-1"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- create -->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayCreateModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center bg-color-create">
+        <h4 class="modal-title " id="create-material-header">Nueva enfermedad</h4>
+      </div>
+      <div class="modal-body py-4">
+        <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmAddedSickness">
+          <span>Enfermedad agregada satisfactoriamente!</span>
+          <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmCreate()"></button>
+        </div>
+        <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayErrorCreate">
+          <span>{{errorCreate}}</span>
+          <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorCreate()"></button>
+        </div>
+        <form #formData="ngForm" (ngSubmit)="addSickness(formData)">
+          <div class="mb-3">
+            <div class="container-column-child">
+              <label for="trackingValueName" class="form-label">Nombre </label>
+              <div class="dropdown w-100">
+                <button class="btn  dropdown-toggle button btn-outline-dark  w-100 " type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  {{currentSickness?.sicknessName ? currentSickness?.sicknessName : 'Seleccione una enfermedad'}}
+                </button>
+                <ul class="dropdown-menu ">
+                  <li *ngFor="let item of sicknesses" class="" [value]="item.sicknessName " style="cursor: pointer;"
+                    (click)="setCurrentSickness(item)"><a class="dropdown-item "> {{
+                      item.sicknessName }}</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="container-buttons d-flex gap-5 justify-content-center mt-5 mb-3">
+            <button type="submit" class="bg-transparent border-0"><i
+                class="fa-solid fa-circle-check color-circle-plus fs-1"></i></button>
+            <button type="button" class="bg-transparent border-0 " (click)="closeCreateModal()"><i
+                class="fa-regular color-trash fa-circle-xmark fs-1"></i></button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Delete  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayDeleteModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title header" id="create-material-header">Borrar Enfermedad</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteSicknessModal()"></button>
+      </div>
+      <div class="modal-body py-4">
+        <p class="text-center fw-bold  mb-2"> ¿Desea borrar la enfermedad
+          {{currentUserSickness?.sicknessName}}?</p>
+        <p class="text-body-delete px-3">Recuerde que al borrar la enfermedad implica que usted ya concluyó su
+          tratamiento, asegúrese de cumplir con su tratamiento tal y como lo indicó su médico antes de
+          seleccionar esta opción. También tenga en cuenta que todos los datos sobre esta enfermedad se
+          borrarán de su cuenta, incluido los medicamentos.</p>
+      </div>
+      <div class="modal-footer d-flex justify-content-between px-3">
+        <button type="button" class="btn btn-danger text-center " (click)="deleteSickness()">Borrar
+          enfermedad</button>
+        <button type="button" class="btn btn-secondary close-confirmation-modal"
+          (click)="closeDeleteSicknessModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Medicine  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayViewMedicationModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body py-4">
+        <h5 *ngIf="!isMobile" class="modal-title bg-medicine mb-2 py-2 px-3" id="create-material-header">ENFERMEDAD
+          {{currentUserSickness?.sicknessName}}
+        </h5>
+        <h5 *ngIf="isMobile" class="modal-title text-center bg-medicine mb-2 py-2 px-3" id="create-material-header">
+          ENFERMEDAD
+          {{currentUserSickness?.sicknessName}}
+        </h5>
+        <div class=" bg-color-update container-title d-flex mb-4">
+          <h3 *ngIf="isMobile" class="mb-0 py-3 px-3 fs-3 text-center title-mobile">Medicamentos</h3>
+          <h3 *ngIf="!isMobile" class="mb-0 w-50 py-3 px-3 fs-3">Medicamentos</h3>
+          <h3 *ngIf="!isMobile" class="mb-0 w-50  py-3 px-5 fs-6 text-center">¿Cada cuántas horas debe tomarlo?</h3>
+        </div>
+
+        <table class="table table-hover mb-4">
+          <tbody class="table-hover " *ngFor="let item of currentMedicationSicknesses">
+            <tr>
+              <div class="container-flex">
+                <div class="text-name-medication">
+                  {{item.medicationName ||item.medication.medicationName}}</div>
+                <div class="datos">
+                  <div class="grupo-datos grupo-datos-text gap-3 text-center d-flex flex-column">
+                    <span *ngIf="isMobile" class="span-td">¿Cada cuántas horas debe tomarlo?</span>
+                    <span class="span-text pt-3">{{item.timeConsumption}}</span>
+                  </div>
+                  <div class="grupo-datos buttons mb-1 text-center d-flex gap-3">
+                    <a style="cursor: pointer;" class="me-2  tooltext color-trash" (click)="deleteMedication(item.medicationSicknessId!
+                    )">
+                      <i class="fa fa-trash fs-4"></i>
+                      <span class="tooltiptext px-3 py-3" style="color: red;">
+                        Este botón le permite eliminar una medicina
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+        <div class="container-button d-flex gap-1 align-items-center mb-5">
+          <a style="cursor: pointer;" class=" color-circle-plus" (click)="openModalCreateMedication()">
+            <i class="fa-solid fa-circle-plus fs-3"></i>
+          </a>
+          <span class="span-text-current fs-5 ms-2">Nuevo medicamento</span>
+        </div>
+        <div class="container-button close d-flex justify-content-center">
+          <button type="button" class="bg-transparent border-0 " (click)="closeViewMedicationModal()"><i
+              class="fa-regular fa-circle-xmark" style="font-size: 40px; color: black;"></i></button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Create  Medication Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayCreateMedicationModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center bg-color-create">
+        <h4 class="modal-title text-center " id="create-material-header"> Agregar Medicamento a
+          {{currentUserSickness?.sicknessName}}</h4>
+      </div>
+      <div class="modal-body py-4">
+        <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmAddMedicine">
+          <span>Medicina agregada satisfactoriamente!</span>
+          <button type="button" class="btn-close text-end" aria-label="Close"
+            (click)="closeConfirmAddMedication()"></button>
+        </div>
+        <div class="alert alert-danger d-flex justify-content-between" *ngIf="displayErrorCreateMedication">
+          <span>{{errorAddMedication}}</span>
+          <button type="button" class="btn-close text-end ms-2" aria-label="Close"
+            (click)="closeConfirmErrorMedication()"></button>
+        </div>
+        <form #formDataAddMedication="ngForm" (ngSubmit)="AddMedication( formDataAddMedication)">
+          <div class="mb-3">
+
+            <label for="sicknessName" class="form-label">Nombre de la medicina</label>
+            <div class="container-column-child">
+              <div class="dropdown w-100">
+                <button class="btn  dropdown-toggle button btn-outline-dark  w-100 " type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  {{currentMedication?.medicationName ? currentMedication?.medicationName: 'Seleccione una medicina'}}
+                </button>
+                <ul class="dropdown-menu ">
+                  <li *ngFor="let medication of medications" class="" [value]="medication.medicationName"
+                    style="cursor: pointer;" (click)="setCurrentMedication(medication)"><a class="dropdown-item "> {{
+                      medication.medicationName }}</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="timeConsumption" class="form-label">¿Cada cuantas horas debe tomar el medicamento?</label>
+            <input type="number" class="form-control" id="timeConsumption"
+              aria-describedby="Cada cuantas horas debe tomar el medicamento" ngModel name="timeConsumption">
+          </div>
+          <div class="container-buttons d-flex gap-5 justify-content-center mt-5 mb-3">
+            <button type="submit" class="bg-transparent border-0"><i
+                class="fa-solid fa-circle-check color-circle-plus fs-1"></i></button>
+            <button type="button" class="bg-transparent border-0 " (click)="closeCreateModalMedication()"><i
+                class="fa-regular color-trash fa-circle-xmark fs-1"></i></button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- create -->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayAllergyCreateModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center bg-color-create">
+        <h4 class="modal-title " id="create-material-header">Nueva alergia</h4>
+      </div>
+      <div class="modal-body py-4">
+        <div class="alert alert-success d-flex justify-content-between" *ngIf="confirmAddedAllergy">
+          <span>Alergia agregada satisfactoriamente!</span>
+          <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeConfirmAddAllergy()"></button>
+        </div>
+        <div class="alert alert-danger d-flex justify-content-between" *ngIf="showErrorCreateAllergy">
+          <span>{{errorAllergy}}</span>
+          <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorCreateAllergy()"></button>
+        </div>
+        <form>
+          <div class="mb-3">
+            <div class="container-column-child">
+              <label for="trackingValueName" class="form-label">Nombre </label>
+              <div class="dropdown w-100">
+                <button class="btn  dropdown-toggle button btn-outline-dark  w-100 " type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  {{currentAllergy?.allergyName ? currentAllergy?.allergyName : 'Seleccione una alergia'}}
+                </button>
+                <ul class="dropdown-menu ">
+                  <li *ngFor="let item of allergies" class="" [value]="item.allergyName " style="cursor: pointer;"
+                    (click)="setCurrentAllergy(item)"><a class="dropdown-item "> {{
+                      item.allergyName }}</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="container-buttons d-flex gap-5 justify-content-center mt-5 mb-3">
+            <button type="button" class="bg-transparent border-0" (click)="addAllergy()"><i
+                class="fa-solid fa-circle-check color-circle-plus fs-1"></i></button>
+            <button type="button" class="bg-transparent border-0 " (click)="closeAllergyCreateModal()"><i
+                class="fa-regular color-trash fa-circle-xmark fs-1"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!--Delete  Modal-->
+<div class="modal" tabindex="-1" [ngStyle]="{'display':displayAllergyDeleteModal}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title header" id="create-material-header">Borrar Alergia</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteAllergyModal()"></button>
+      </div>
+      <div class="modal-body py-4">
+        <p class="text-center fw-bold  mb-2"> ¿Desea borrar la alergia
+          {{currentUserAllergy?.allergyName}}?</p>
+        <p class="text-body-delete px-3">Recuerde que al borrar la alergia implica que usted ya concluyó su
+          tratamiento, asegúrese de cumplir con su tratamiento tal y como lo indicó su médico antes de
+          seleccionar esta opción. También tenga en cuenta que todos los datos sobre esta alergia se
+          borrarán de su cuenta.</p>
+      </div>
+      <div class="modal-footer d-flex justify-content-between px-3">
+        <button type="button" class="btn btn-danger text-center " (click)="deleteAllergy()">Borrar
+          alergia</button>
+        <button type="button" class="btn btn-secondary close-confirmation-modal"
+          (click)="closeDeleteAllergyModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- <div class="container d-flex flex-column">
     <h1 class="header text-center mb-4 py-4">Antecedentes médicos</h1>
@@ -896,4 +1463,3 @@
     </div>
     <p *ngIf="!isLoadingValues && treatmentsDisplay && !treatmentsEmpty" class="mt-1 ms-1"> {{timeFrameOfTreatment}} </p>
   </div>-->
-</section>

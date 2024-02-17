@@ -36,29 +36,29 @@
               <a data-bs-dismiss="offcanvas" routerLink="mi-qr" class="links-nav nowrap d-flex  responsive color-light "><i class="fa-solid fa-qrcode fs-3"></i>MiQR</a>
             </li>
             <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-2 py-md-1">
-              <a data-bs-dismiss="offcanvas" routerLink="registro-administrador"
+              <a data-bs-dismiss="offcanvas" (click)="toRegisterAdmin()" style="cursor: pointer;"
                 class="links-nav nowrap d-flex  responsive "><i class="fa-solid fa-user-plus fs-3"></i>Crear
                 Administrador</a>
             </li>
             <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-2 py-md-1">
-              <a data-bs-dismiss="offcanvas" routerLink="panel-cuentas" class="links-nav d-flex  responsive "><i
+              <a data-bs-dismiss="offcanvas" (click)="toAccount()" style="cursor: pointer;" class="links-nav d-flex  responsive "><i
                   class="fa-solid fa-users fs-3"></i>Cuentas</a>
             </li>
 
             <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-2 py-md-1">
-              <a data-bs-dismiss="offcanvas" routerLink="panel-enfermedades" class="links-nav d-flex  responsive "><i
+              <a data-bs-dismiss="offcanvas" (click)="toSickness()" style="cursor: pointer;" class="links-nav d-flex  responsive "><i
                   class="fa-solid fa-file-medical fs-3"></i> Enfermedades</a>
             </li>
             <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-2 py-md-1">
-              <a data-bs-dismiss="offcanvas" routerLink="panel-alergias" class="links-nav d-flex  responsive "><i
+              <a data-bs-dismiss="offcanvas" (click)="toAllergy()" style="cursor: pointer;" class="links-nav d-flex  responsive "><i
                   class="fa-solid fa-virus fs-3 "></i>Alergias</a>
             </li>
             <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-2 py-md-1">
-              <a data-bs-dismiss="offcanvas" routerLink="panel-medicinas" class="links-nav nowrap d-flex  responsive  ">
+              <a data-bs-dismiss="offcanvas" (click)="toMedicine()" style="cursor: pointer;" class="links-nav nowrap d-flex  responsive  ">
                 <i class="fa-solid fa-pills fs-3"></i>Medicinas</a>
             </li>
             <li *ngIf="accountConnected && activeRole === 'Admin' " class="navbar-item nav-item p-2 py-md-1">
-              <a data-bs-dismiss="offcanvas" routerLink="panel-valores-laboratorio"
+              <a data-bs-dismiss="offcanvas" (click)="toValues()" style="cursor: pointer;"
                 class="links-nav nowrap d-flex  responsive "><i class="fa-solid fa-flask fs-3"></i>
                 Laboratorio</a>
             </li>
@@ -73,6 +73,9 @@
             <li *ngIf="!accountConnected" class="navbar-item nav-item p-2 py-md-1">
               <a data-bs-dismiss="offcanvas" routerLink="/#preguntas-frecuentes"
                 (click)="forceNavigate('preguntas-frecuentes')" class="links-nav nowrap"> Preguntas frecuentes</a>
+            </li>
+            <li *ngIf="!accountConnected" class="navbar-item nav-item p-2 py-md-1">
+              <a data-bs-dismiss="offcanvas" routerLink="codigo-qr" class="links-nav nowrap">QR</a>
             </li>
             <li *ngIf="!accountConnected" class="navbar-item nav-item p-2 py-md-1">
               <a data-bs-dismiss="offcanvas" routerLink="/login" class="links-nav"> Login</a>

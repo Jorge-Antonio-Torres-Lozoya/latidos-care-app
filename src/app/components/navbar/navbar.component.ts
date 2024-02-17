@@ -69,6 +69,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
       })
     }
 
+    toRegisterAdmin() {
+      this.router.navigate([`/privado/administrador/registro-administrador`]);
+    }
+
+    toAccount() {
+      this.router.navigate([`/privado/administrador/panel-cuentas`]);
+    }
+
+    toValues() {
+      this.router.navigate([`/privado/administrador/panel-valores-laboratorio`]);
+    }
+
+    toSickness() {
+      this.router.navigate([`/privado/administrador/panel-enfermedades`]);
+    }
+
+    toAllergy() {
+      this.router.navigate([`/privado/administrador/panel-alergias`]);
+    }
+
+    toMedicine() {
+      this.router.navigate([`/privado/administrador/panel-medicinas`]);
+    }
+
     toProfile() {
       if(this.activeRole === 'Admin') {
         const accountData: UpdateAccountInterface = {activeRole: 'User'}

@@ -14,6 +14,8 @@ const routes: Routes = [
   loadChildren:() => import('./pages/data-pacient/data-pacient.module').then(m => m.DataPacientModule)},
   {path: 'registro-paciente',
   loadChildren:() => import('./pages/register-user/register-user.module').then(m => m.RegisterUserModule) },
+  {path: 'codigo-qr',
+  loadChildren:() => import('./pages/qrcode/qrcode.module').then(m => m.QrcodeModule) },
   {path: 'login',
   loadChildren:() => import('./pages/login/login.module').then(m => m.LoginModule) },
   {path: 'verificacion', loadChildren:() => import('./pages/verification-user/verification-user.module').then(m => m.VerificationUserModule)},

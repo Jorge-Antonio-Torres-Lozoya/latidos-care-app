@@ -1,6 +1,15 @@
 .offcanvas {
   background-color: #000c29;
 }
+
+.modal-body {
+  max-height: 300px !important;
+  overflow-y: auto !important;
+
+  max-width: 800px !important;
+  overflow-x: auto !important;
+}
+
 .nowrap {
   white-space: nowrap;
 }

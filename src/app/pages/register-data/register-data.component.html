@@ -1,160 +1,160 @@
-<header>
-  <nav class="navbar navbar-expand-xl  py-3 px-3 sticky-top">
-    <div class="container-fluid">
-      <img class="logo" style="cursor: pointer;" src="../../../assets/images/Logo-colores-originales.svg"
-      alt="logo-navbar">
+<div class="main-container">
+  <header>
+    <nav class="navbar navbar-expand-xl  py-3 px-3 sticky-top">
+      <div class="container-fluid">
+        <img class="logo" style="cursor: pointer;" src="../../../assets/images/Logo-colores-originales.svg"
+        alt="logo-navbar">
+      </div>
+    </nav>
+  </header>
+  <div class="container-root-table d-flex justify-content-center table-responsive">
+    <div class=" table-container  mb-4">
+      <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Seguimiento de Laboratorio</h1>
+      <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Seguimiento de Laboratorio</h1>
+      <hr class="mt-0" *ngIf="isMobile">
+
+      <h2 *ngIf="!isMobile">variables de lab, variables de monitoreo</h2>
+      <table class="table table-hover ">
+        <tbody class="table-hover " *ngFor="let item of userTrackingValues">
+          <tr>
+            <div class="container-flex">
+              <div class="text-center text-name">{{item.trackingValueName}}</div>
+              <div class="datos">
+                <div class="grupo-datos text-center d-flex flex-column">
+                  <span class="span-td">Mínimo</span>
+                  <span class="span-text">{{item.minLimit}}</span>
+                </div>
+                <div class="grupo-datos text-center d-flex flex-column">
+                  <span class="span-td">Máximo</span>
+                  <span class="span-text">{{item.maxLimit}}</span>
+                </div>
+                <div class="grupo-datos text-center d-flex flex-column">
+                  <span class="span-td nowrap">Último registro</span>
+                  <span class="span-text-current">{{item.currentValue}}</span>
+                </div>
+                <div class="grupo-datos buttons text-center d-flex gap-3">
+                  <a style="cursor: pointer;" class="me-2  tooltext color-trash" (click)="openTrackingValuesDeleteModal(item.userTrackingValueId)">
+                    <i class="fa fa-trash fs-4"></i>
+                    <span class="tooltiptext px-3 py-3" style="color: red;">
+                      Este botón le permite eliminar un valor
+                    </span>
+                  </a>
+                  <a style="cursor: pointer;" class="color-pencil  me-2  tooltext" (click)="openTrackingValuesEditModal(item.userTrackingValueId)">
+                    <i class="fa-regular fa-pen-to-square fs-4"></i>
+                    <span class="tooltiptext px-3 py-3" style="color: grey;">
+                      Este botón le permite editar un valor
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </nav>
-</header>
-<div class="container-root-table d-flex justify-content-center">
-  <div class=" table-container  mb-4">
-    <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Seguimiento de Laboratorio</h1>
-    <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Seguimiento de Laboratorio</h1>
-    <hr class="mt-0" *ngIf="isMobile">
+  </div>
 
-    <h2 *ngIf="!isMobile">variables de lab, variables de monitoreo</h2>
-    <table class="table table-hover ">
-      <tbody class="table-hover " *ngFor="let item of userTrackingValues">
-        <tr>
-          <div class="container-flex">
-            <div class="text-center text-name">{{item.trackingValueName}}</div>
-            <div class="datos">
-              <div class="grupo-datos text-center d-flex flex-column">
-                <span class="span-td">Mínimo</span>
-                <span class="span-text">{{item.minLimit}}</span>
-              </div>
-              <div class="grupo-datos text-center d-flex flex-column">
-                <span class="span-td">Máximo</span>
-                <span class="span-text">{{item.maxLimit}}</span>
-              </div>
-              <div class="grupo-datos text-center d-flex flex-column">
-                <span class="span-td nowrap">Último registro</span>
-                <span class="span-text-current">{{item.currentValue}}</span>
-              </div>
-              <div class="grupo-datos buttons text-center d-flex gap-3">
-                <a style="cursor: pointer;" class="me-2  tooltext color-trash" (click)="openTrackingValuesDeleteModal(item.userTrackingValueId)">
-                  <i class="fa fa-trash fs-4"></i>
-                  <span class="tooltiptext px-3 py-3" style="color: red;">
-                    Este botón le permite eliminar un valor
-                  </span>
-                </a>
-                <a style="cursor: pointer;" class="color-pencil  me-2  tooltext" (click)="openTrackingValuesEditModal(item.userTrackingValueId)">
-                  <i class="fa-regular fa-pen-to-square fs-4"></i>
-                  <span class="tooltiptext px-3 py-3" style="color: grey;">
-                    Este botón le permite editar un valor
-                  </span>
-                </a>
+  <div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-3 mt-1">
+    <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="openTrackingValuesModalCreate()">
+      <i class="fa-solid fa-circle-plus fz-icon-add "></i>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite agregar un nuevo valor para realizar seguimiento
+      </span>
+    </a>
+    <span *ngIf="!isMobile" class="span-text-current ms-2">Nuevo resultado de laboratorio</span>
+  </div>
+
+  <div class="container-root-table d-flex justify-content-center table-responsive">
+    <div class=" table-container  mb-4">
+      <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Enfermedad</h1>
+      <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Enfermedad</h1>
+      <hr class="mt-0" *ngIf="isMobile">
+      <h2 *ngIf="!isMobile">aclaraciones varias</h2>
+      <table class="table table-hover ">
+        <tbody class="table-hover " *ngFor="let item of userSicknesses">
+          <tr>
+            <div class="container-flex">
+              <div class="text-center text-name">{{item.sicknessName}}</div>
+              <div class="datos">
+                <div class="grupo-datos buttons text-center d-flex gap-3">
+                  <a style="cursor: pointer; color:#57b6e7 ; " class="me-2  tooltext" (click)="openViewMedicineModal(item
+                  )">
+                    <i class="fa-solid fa-pills fs-4"></i>
+                    <span class="tooltiptext px-3 py-3" style="color: grey;">
+                      Este botón le permite agregar o editar los medicamentos
+                    </span>
+                  </a>
+                  <a style="cursor: pointer;" class="me-2  tooltext color-trash" (click)="openDeleteModal(item
+                  )">
+                    <i class="fa fa-trash fs-4"></i>
+                    <span class="tooltiptext px-3 py-3" style="color: red;">
+                      Este botón le permite eliminar una enfermedad
+                    </span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-
-        </tr>
-      </tbody>
-    </table>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 
-<div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-3 mt-1">
-  <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="openTrackingValuesModalCreate()">
-    <i class="fa-solid fa-circle-plus fz-icon-add "></i>
-    <span class="tooltiptext px-3 py-3" style="color: grey;">
-      Este botón le permite agregar un nuevo valor para realizar seguimiento
-    </span>
-  </a>
-  <span *ngIf="!isMobile" class="span-text-current ms-2">Nuevo resultado de laboratorio</span>
-</div>
+  <div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-5 mt-1">
+    <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="openCreateModal()">
+      <i class="fa-solid fa-circle-plus fz-icon-add "></i>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite agregar una nueva enfermedad
+      </span>
+    </a>
+    <span *ngIf="!isMobile" class="span-text-current ms-2">Nueva enfermedad</span>
+  </div>
 
-<div class="container-root-table d-flex justify-content-center">
-  <div class=" table-container  mb-4">
-    <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Enfermedad</h1>
-    <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Enfermedad</h1>
-    <hr class="mt-0" *ngIf="isMobile">
-    <h2 *ngIf="!isMobile">aclaraciones varias</h2>
-    <table class="table table-hover ">
-      <tbody class="table-hover " *ngFor="let item of userSicknesses">
-        <tr>
-          <div class="container-flex">
-            <div class="text-center text-name">{{item.sicknessName}}</div>
-            <div class="datos">
-              <div class="grupo-datos buttons text-center d-flex gap-3">
-                <a style="cursor: pointer; color:#57b6e7 ; " class="me-2  tooltext" (click)="openViewMedicineModal(item
-                )">
-                  <i class="fa-solid fa-pills fs-4"></i>
-                  <span class="tooltiptext px-3 py-3" style="color: grey;">
-                    Este botón le permite agregar o editar los medicamentos
-                  </span>
-                </a>
-                <a style="cursor: pointer;" class="me-2  tooltext color-trash" (click)="openDeleteModal(item
-                )">
-                  <i class="fa fa-trash fs-4"></i>
-                  <span class="tooltiptext px-3 py-3" style="color: red;">
-                    Este botón le permite eliminar una enfermedad
-                  </span>
-                </a>
+  <div class="container-root-table d-flex justify-content-center table-responsive">
+    <div class=" table-container  mb-4">
+      <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Alergia</h1>
+      <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Alergia</h1>
+      <hr class="mt-0" *ngIf="isMobile">
+      <h2 *ngIf="!isMobile">aclaraciones varias</h2>
+      <table class="table table-hover ">
+        <tbody class="table-hover " *ngFor="let item of  userAllergies">
+          <tr>
+            <div class="container-flex">
+              <div class="text-center text-name">{{item.allergyName}}</div>
+              <div class="datos">
+                <div class="grupo-datos buttons text-center d-flex gap-3">
+                  <a style="cursor: pointer;" class="me-2  tooltext color-trash" (click)="openAllergyDeleteModal(item.userAllergyId)">
+                    <i class="fa fa-trash fs-4"></i>
+                    <span class="tooltiptext px-3 py-3" style="color: red;">
+                      Este botón le permite eliminar una alergia
+                    </span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        </tr>
-      </tbody>
-    </table>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 
-<div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-5 mt-1">
-  <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="openCreateModal()">
-    <i class="fa-solid fa-circle-plus fz-icon-add "></i>
-    <span class="tooltiptext px-3 py-3" style="color: grey;">
-      Este botón le permite agregar una nueva enfermedad
-    </span>
-  </a>
-  <span *ngIf="!isMobile" class="span-text-current ms-2">Nueva enfermedad</span>
-</div>
-
-<div class="container-root-table d-flex justify-content-center">
-  <div class=" table-container  mb-4">
-    <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Alergia</h1>
-    <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Alergia</h1>
-    <hr class="mt-0" *ngIf="isMobile">
-    <h2 *ngIf="!isMobile">aclaraciones varias</h2>
-    <table class="table table-hover ">
-      <tbody class="table-hover " *ngFor="let item of  userAllergies">
-        <tr>
-          <div class="container-flex">
-            <div class="text-center text-name">{{item.allergyName}}</div>
-            <div class="datos">
-              <div class="grupo-datos buttons text-center d-flex gap-3">
-                <a style="cursor: pointer;" class="me-2  tooltext color-trash" (click)="openAllergyDeleteModal(item.userAllergyId)">
-                  <i class="fa fa-trash fs-4"></i>
-                  <span class="tooltiptext px-3 py-3" style="color: red;">
-                    Este botón le permite eliminar una alergia
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </tr>
-      </tbody>
-    </table>
+  <div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-5 mt-1">
+    <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="openAllergyModalCreate()">
+      <i class="fa-solid fa-circle-plus fz-icon-add "></i>
+      <span class="tooltiptext px-3 py-3" style="color: grey;">
+        Este botón le permite agregar una nueva alergia
+      </span>
+    </a>
+    <span *ngIf="!isMobile" class="span-text-current ms-2">Nueva alergia</span>
   </div>
-</div>
 
-<div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-5 mt-1">
-  <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="openAllergyModalCreate()">
-    <i class="fa-solid fa-circle-plus fz-icon-add "></i>
-    <span class="tooltiptext px-3 py-3" style="color: grey;">
-      Este botón le permite agregar una nueva alergia
-    </span>
-  </a>
-  <span *ngIf="!isMobile" class="span-text-current ms-2">Nueva alergia</span>
-</div>
-
-<div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-3 mt-1">
-  <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="toDashboard()">
-    <i class="fa-solid fa-circle-check color-circle-plus fs-1 "></i>
-  </a>
-  <span *ngIf="!isMobile" class="span-text-current ms-2">Ir a su perfil</span>
-</div>
-
+  <div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-3 mt-1">
+    <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="toDashboard()">
+      <i class="fa-solid fa-circle-check color-circle-plus fs-1 "></i>
+    </a>
+    <span *ngIf="!isMobile" class="span-text-current ms-2">Ir a su perfil</span>
+  </div>
 
 <!--Delete  Modal-->
 <div class="modal" tabindex="-1" [ngStyle]="{'display':displayTrackingValuesDeleteModal}">
@@ -570,3 +570,7 @@
     </div>
   </div>
 </div>
+</div>
+
+
+

@@ -16,7 +16,9 @@ import { AllergiesComponent } from './allergies/allergies.component';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { LOAD_WASM, NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
 registerLocaleData(localeEs);
+//LOAD_WASM().subscribe();
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ registerLocaleData(localeEs);
     SharedModule,
     NgxChartsModule,
     QRCodeModule,
+    NgxScannerQrcodeModule,
     RouterModule.forChild([{path: '', component:ProfileUserComponent, children: [
       {path: '', redirectTo: 'valores-laboratorio', pathMatch:'full'},
       {path: 'enfermedades', component: TrackingComponent},

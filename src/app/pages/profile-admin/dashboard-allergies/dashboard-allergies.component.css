@@ -5,6 +5,16 @@
   font-weight: 500;
   padding: 10px 40px 10px 40px;
 }
+
+.modal-body {
+  max-height: 300px !important;
+  overflow-y: auto !important;
+
+  max-width: 800px !important;
+  overflow-x: auto !important;
+}
+
+
 .title{
   color:#00257A ;
   font-weight:600;
@@ -22,6 +32,38 @@
 }
 .fa-solid {
   font-family: "Font Awesome 6 Free";
+}
+
+@media (max-width: 1280px) {
+  .modal-dialog-centered {
+    padding-bottom: 150px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .modal-dialog-centered {
+    padding-bottom: 630px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-dialog-centered {
+    padding-bottom: 330px;
+  }
+}
+
+@media (max-width: 500px) {
+  .button{
+    color: white;
+    font-size: medium;
+    background-color: rgb(0, 162, 255);
+    font-weight: 500;
+    padding: 5px 5px 5px 5px;
+  }
+
+  .modal-dialog-centered {
+    padding-bottom: 230px;
+  }
 }
 
 

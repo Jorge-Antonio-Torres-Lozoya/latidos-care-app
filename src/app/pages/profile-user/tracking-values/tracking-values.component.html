@@ -1,4 +1,4 @@
-<div class="container-root-table d-flex justify-content-center">
+<div class="container-root-table d-flex justify-content-center table-responsive">
   <div class=" table-container  mb-4">
     <h1 *ngIf="!isMobile" class=" mb-0 pt-4 pb-1">Seguimiento de Laboratorio</h1>
     <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Seguimiento de Laboratorio</h1>
@@ -51,7 +51,7 @@
 <div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-3 mt-1">
   <ng-container *ngIf="isMobile">
     <a [routerLink]="['../enfermedades']" routerLinkActive="active"  style="cursor: pointer;" class="d-flex flex-column text-decoration-none align-items-center navbar-item   tooltext" style="color:#001b71 ;">
-      <i class="fa-solid  fa-file-medical color-icons-mobile fz-icons-mobile "></i><span class="fz-text-icons">Enfermedad</span>
+      <i class="fa-solid  fa-file-medical color-icons-mobile fz-icons-mobile"></i><span class="fz-text-icons">Enfermedad</span>
       <span class="tooltiptext px-3 py-3" style="color: grey;">
         Este botón le permite navegar hacia a enfermedad
       </span>

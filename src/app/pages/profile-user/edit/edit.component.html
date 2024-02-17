@@ -74,7 +74,7 @@
         <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorPassword()"></button>
       </div>
         <div class="form-flex mb-3">
-          <div class="input-group">
+          <div class="input-group mb-3">
             <button (click)="passwordFun()" class="btn border border-top border-bottom border-start border-1 border-end-0 button-icon-custom"
             type="button" id="button-addon1">
               <i class="fa-solid fa-eye"></i>
@@ -82,7 +82,7 @@
             <input id="password" type="text" class="form-control" placeholder="Actual contraseña" required ngModel name="password" [type]="showPassword ? 'text' : 'password'">
           </div>
 
-          <div class="input-group">
+          <div class="input-group mb-3">
             <button (click)="newPasswordFun()" class="btn border border-top border-bottom border-start border-1 border-end-0 button-icon-custom"
             type="button" id="button-addon2">
               <i class="fa-solid fa-eye"></i>

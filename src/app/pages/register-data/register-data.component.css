@@ -2,6 +2,14 @@ header{
   background-color: #00257A;
 }
 
+.modal-body {
+  max-height: 300px !important;
+  overflow-y: auto !important;
+
+  max-width: 800px !important;
+  overflow-x: auto !important;
+}
+
 .logo {
   max-width: 170px;
 }
@@ -205,7 +213,27 @@ label {
   justify-content: center;
 }
 
-/* Media query para pantallas pequeñas */
+@media (max-width: 1280px) {
+  .main-container {
+    padding-bottom: 200px;
+  }
+
+  .modal-dialog-centered {
+    padding-bottom: 150px;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .main-container {
+    padding-bottom: 700px;
+  }
+
+  .modal-dialog-centered {
+    padding-bottom: 630px;
+  }
+}
+
 @media (max-width: 870px) {
   .container-flex {
     flex-direction: row;
@@ -240,6 +268,10 @@ label {
 
   }
 
+  .main-container {
+    padding-bottom: 550px;
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -264,6 +296,14 @@ label {
   .datos {
     gap: 20px;
   }
+
+  .main-container {
+    padding-bottom: 400px;
+  }
+
+  .modal-dialog-centered {
+    padding-bottom: 330px;
+  }
 }
 
 
@@ -285,13 +325,6 @@ label {
     gap: 10px;
   }
 
-  .color-icons-mobile {
-    font-size: 30px;
-  }
-
-  .fz-text-icons {
-    font-size: 14px;
-  }
 
   .buttons {
     width: 30%;
@@ -303,11 +336,49 @@ label {
 
   .text-name,
   .text-name-medication {
-    font-size: 20px;
+    font-size: 12px;
   }
 
   .datos {
     gap: 20px;
+  }
+
+  .color-icons-mobile{
+    font-size: 15px;
+  }
+
+  .fz-text-icons{
+    font-size: 9px;
+  }
+
+  .text-trackingValueName {
+    font-size: 12px;
+    padding-left: 12px;
+  }
+
+  .span-text {
+    font-weight: 200;
+    font-size: 12px;
+  }
+
+  .span-text-current {
+    font-size: 12px;
+  }
+
+  .span-td {
+    font-size: 12px;
+  }
+
+  .tooltext {
+    font-size: 15px;
+  }
+
+  .main-container {
+    padding-bottom: 250px;
+  }
+
+  .modal-dialog-centered {
+    padding-bottom: 230px;
   }
 }
 
@@ -317,254 +388,118 @@ label {
 
   }
 
-  .span-td {
-    font-size: 14px;
-
-  }
   .text-name,
   .text-name-medication {
-    font-size: 18px;
+    font-size: 12px;
   }
 
+  .color-icons-mobile{
+    font-size: 15px;
+  }
+
+  .fz-text-icons{
+    font-size: 9px;
+  }
+
+  .text-trackingValueName {
+    font-size: 12px;
+    padding-left: 15px;
+  }
+
+  .span-text {
+    font-weight: 200;
+    font-size: 12px;
+  }
+
+  .span-text-current {
+    font-size: 12px;
+  }
+
+  .span-td {
+    font-size: 12px;
+  }
+
+  .tooltext {
+    font-size: 15px;
+  }
 }
 
 
 
 @media (max-width: 400px) {
+  .text-name {
+    font-size: 12px;
+  }
+
   .nowrap {
     white-space: wrap;
   }
 
-  .fz-text-icons {
-    font-size: 13px;
+  .color-icons-mobile{
+    font-size: 15px;
   }
 
-  .fz-icon-add {
-    font-size: 45px;
+  .fz-text-icons{
+    font-size: 9px;
+  }
 
+  .text-trackingValueName {
+    font-size: 12px;
+    padding-left: 15px;
+  }
+
+  .span-text {
+    font-weight: 200;
+    font-size: 12px;
+  }
+
+  .span-text-current {
+    font-size: 12px;
+  }
+
+  .span-td {
+    font-size: 12px;
+  }
+
+  .tooltext {
+    font-size: 15px;
   }
 
 }
 
-/*.container-profile-edit {
-  background-color: rgb(179, 250, 227);
-}
-
-.tooltext {
-  position: relative;
-  display: inline-block;
+@media (max-width: 280px) {
+  .text-name {
+    font-size: 12px;
   }
 
-  .tooltext .tooltiptext {
-  visibility: hidden;
-  background-color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
+  .color-icons-mobile{
+    font-size: 15px;
   }
 
-  .tooltext:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-  }
-.edit-card {
-  width: 130vh;
-}
-
-.medication-link {
-  cursor: pointer;
-}
-
-.medication-link:hover {
-  color: rgb(133, 220, 133);
-}
-
-#signup-button {
-  color: white;
-  font-size: medium;
-  background-color: rgb(133, 220, 133);
-  font-weight: 500;
-  padding: 10px 40px 10px 40px
-}
-
-#bg-signup{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 350px;
-}
-
-#text-signup {
-  color: white;
-}
-
-#signup {
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.image-service {
-  height: 50vh;
-  object-fit: contain;
-  position: relative;
-}
-
-.chart-container {
-  min-height: 300px;
-}
-
-#signup-text {
-  color: rgb(133, 220, 133);
-  font-weight: 600;
-}
-
-form.form-signup{
-  max-width: 480px;
-  width: 100%;
-  padding-bottom: 40px;
-}
-form.form-signup label {
-  font-size: 16px;
-}
-
-input.ng-invalid.ng-touched {
-  border: 1px solid red;
-}
-
-@media (max-width: 768px) {
-  .image-service {
-    height: 40vh;
+  .fz-text-icons{
+    font-size: 9px;
   }
 
-  .edit-card {
-    width: 60vh;
+  .text-trackingValueName {
+    font-size: 12px;
+    padding-left: 15px;
+  }
+
+  .span-text {
+    font-weight: 200;
+    font-size: 12px;
+  }
+
+  .span-text-current {
+    font-size: 12px;
+  }
+
+  .span-td {
+    font-size: 12px;
+  }
+
+  .tooltext {
+    font-size: 15px;
   }
 }
 
-@media (max-width: 1000px) {
-  .image-service {
-    height: 40vh;
-  }
-
-  .edit-card {
-    width: 70vh;
-  }
-}
-
-@media (max-width: 575px) {
-  .image-service {
-    height: 40vh;
-  }
-
-  .edit-card {
-    width: 50vh;
-  }
-}
-
-.loader {
-  position: relative;
-  width: 40px;
-  height: 60px;
-  animation: heartBeat 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-}
-
-.loader:before,
-.loader:after {
-  content: "";
-  background: #ff3d00 ;
-  width: 40px;
-  height: 60px;
-  border-radius: 50px 50px 0 0;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  transform: rotate(45deg);
-  transform-origin: 50% 68%;
-  box-shadow: 5px 4px 5px #0004 inset;
-}
-.loader:after {
-  transform: rotate(-45deg);
-}
-@keyframes heartBeat {
-  0% { transform: scale(0.95) }
-  5% { transform: scale(1.1) }
-  39% { transform: scale(0.85) }
-  45% { transform: scale(1) }
-  60% { transform: scale(0.95) }
-  100% { transform: scale(0.9) }
-}
-
-* {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.header {
-  color: rgb(133, 220, 133);
-}
-
-#create-material-header {
-color: rgb(133, 220, 133);
-}
-
-.text-body-delete{
-  text-align: justify;
-
-}
-
-.btn-color {
-  background-color: rgb(133, 220, 133);
-  color: white;
-}
-
-.btn-color:hover {
-  background-color: rgb(133, 220, 133);
-  opacity: 0.8;
-  color: white;
-}
-
-.btn-color:active {
-  background-color: rgb(133, 220, 133);
-  color: white;
-
-}
-
-.btn-green,.btn-green:focus {
-  border: 0;
-  color: white;
-  font-weight: 500;
-  background-color:rgb(133, 220, 133) ;
-
-}
-.btn-green:hover, .btn-green:active{
-  background-color: rgb(133, 220, 133);
-  opacity: .9;
-}
-
-td{
-  vertical-align: middle;
-}
-
-
-
-
-@media (max-width: 520px) {
-tr th, tr td {
-  font-size: 13px;
- }
-}
-
-@media (max-width: 390px) {
-  tr th, tr td {
-      font-size: 12px;
-     }
-}*/

@@ -401,3 +401,35 @@ label {
   }
 
 }
+
+@media (max-width: 280px) {
+  .color-icons-mobile{
+    font-size: 20px;
+  }
+
+  .fz-text-icons{
+    font-size: 9px;
+  }
+
+  .text-trackingValueName {
+    font-size: 15px;
+    padding-left: 15px;
+  }
+
+  .span-text {
+    font-weight: 200;
+    font-size: 15px;
+  }
+
+  .span-text-current {
+    font-size: 15px;
+  }
+
+  .span-td {
+    font-size: 15px;
+  }
+
+  .tooltext {
+    font-size: 20px;
+  }
+}

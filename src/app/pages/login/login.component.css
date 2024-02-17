@@ -2,6 +2,14 @@
   display: flex;
   }
 
+  .modal-body {
+    max-height: 300px !important;
+    overflow-y: auto !important;
+
+    max-width: 800px !important;
+    overflow-x: auto !important;
+  }
+
 
   .login-header {
     color: rgb(255, 217, 0);

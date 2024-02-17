@@ -1,6 +1,15 @@
 .container-profile-edit {
   background-color: rgb(179, 250, 227);
 }
+
+.modal-body {
+  max-height: 300px !important;
+  overflow-y: auto !important;
+
+  max-width: 800px !important;
+  overflow-x: auto !important;
+}
+
 .edit-card {
   width: 130vh;
 }

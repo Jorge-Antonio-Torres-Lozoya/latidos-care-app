@@ -3,6 +3,23 @@
   height: auto;
 }
 
+.whatsapp{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+	background-color:#25d366;
+	color:#FFF;
+  border-radius:50px;
+	text-align:center;
+  font-size:30px;
+}
+.whatsapp:hover {
+	text-decoration: none;
+	color: #25d366;
+  background-color:#fff;
+}
+
 .navbar-logo {
   max-width: 170px;
 }

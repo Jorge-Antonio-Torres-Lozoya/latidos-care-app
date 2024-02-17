@@ -1,12 +1,13 @@
 <div class="container d-flex flex-column">
-  <h1 class="header text-center mb-4 py-4">Tú  Codigo QR</h1>
+  <h1 class="header text-center mb-4 py-4">Escaner de Código QR</h1>
 </div>
-<div class="container-root-table d-flex justify-content-center">
-  <div class=" table-container  mb-5 text-center">
-    <p class="mb-5"> Presente este código QR a su médico para que pueda observar su información y poder darle un mejor diagnóstico.</p>
-    <qrcode [qrdata]="'https://latidos-care-app-production.up.railway.app/pacient/' + userId + '?token=' + token" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
-    <div class="mt-2 text-center">
-      <button type="button" class="btn btn-info" (click)="toAdvancedData()">Ir a Advanced Data</button>
-    </div>
+<div class="d-flex justify-content-center">
+  <div *ngIf="account" class=" table-container  mb-5 text-center">
+    <p class="mb-5 text"> Escanea el QR de tu médico para que pueda acceder a tu información.</p>
+    <ngx-scanner-qrcode #action="scanner" (event)="onEvent($event, action)"></ngx-scanner-qrcode>
+    <p *ngIf="action.isLoading">⌛ Cargando...</p>
+    <span>{{ action.data.value | json }}</span><!-- value -->
+    <span>{{ action.data | async | json }}</span><!-- async -->
+    <button class="button"  (click)="action.isStart ? action.stop() : action.start()">{{action.isStart ? 'Detener' : 'Escanear'}}</button>
   </div>
 </div>
