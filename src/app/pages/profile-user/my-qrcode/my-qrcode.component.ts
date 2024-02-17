@@ -54,6 +54,7 @@ export class MyQrcodeComponent implements OnInit {
 
   public onEvent(e: ScannerQRCodeResult[], action?: any): void {
     if(this.action && this.action.isStart) {
+      console.log('escaneando')
       this.qrCodeService.sendQrData({slug: this.slug!, token: this.token!});
     }
   }

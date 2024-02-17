@@ -19,6 +19,7 @@ export class QrcodeService {
   }
 
   sendQrData(qrData: QrDataInterface):void {
+    console.log(qrData);
     this.qrSubject.next(qrData)
     /*if (this.isBrowser) {
       this.socket.emit('sendQrData', qrData);
