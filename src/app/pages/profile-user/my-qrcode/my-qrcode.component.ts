@@ -82,6 +82,7 @@ export class MyQrcodeComponent implements OnInit {
     this.profileUserService.createConsent(consentData).subscribe(consent => {
       this.qrCodeService.sendQrData({slug: this.slug!, token: this.token!, uniqueToken: this.action.data.value[0].value, consent: false});
       this.displayConsentModal = 'none';
+      this.displayAcceptModal = 'none';
       this.displayRejectModal = 'block';
     })
   }
