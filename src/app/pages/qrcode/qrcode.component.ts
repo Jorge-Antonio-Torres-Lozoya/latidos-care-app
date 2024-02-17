@@ -33,7 +33,7 @@ export class QrcodeComponent implements OnInit {
       if(qrData) {
         const redirectUrl = `https://latidos-care-app-production.up.railway.app/paciente/${qrData.slug}?token=${qrData.token}`
         console.log(redirectUrl);
-        window.location.href = redirectUrl;
+        this.router.navigateByUrl(`paciente/${qrData.slug}?token=${qrData.token}`)
       }
     })
   }
