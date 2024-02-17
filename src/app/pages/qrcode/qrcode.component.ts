@@ -28,7 +28,7 @@ export class QrcodeComponent implements OnInit {
       100000 + Math.random() * 900000,
     ).toString();
     this.qrSubscription = this.qrObservable?.subscribe(qrData => {
-      if(qrData) {
+      if(qrData && qrData.uniqueToken === this.uniqueToken) {
         const redirectUrl = `http://localhost:4200/paciente/${qrData.slug}?token=${qrData.token}`
         console.log(redirectUrl);
         this.router.navigateByUrl(`paciente/${qrData.slug}?token=${qrData.token}`);
