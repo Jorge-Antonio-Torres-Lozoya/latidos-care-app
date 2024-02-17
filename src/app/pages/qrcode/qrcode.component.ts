@@ -29,13 +29,17 @@ export class QrcodeComponent implements OnInit {
         window.location.href = redirectUrl;
       }
     })*/
-    this.qrSubscription = this.qrCodeService.qrSubject.subscribe(qrData => {
-      if(qrData) {
-        const redirectUrl = `https://latidos-care-app-production.up.railway.app/paciente/${qrData.slug}?token=${qrData.token}`
-        console.log(redirectUrl);
-        this.router.navigateByUrl(`paciente/${qrData.slug}?token=${qrData.token}`)
-      }
-    })
+    this.qrSubscription = this.qrCodeService.qrSubject.subscribe({
+      next: (qrData) => {
+        if (qrData !== null) {
+          const redirectUrl = `https://latidos-care-app-production.up.railway.app/paciente/${qrData.slug}?token=${qrData.token}`;
+          console.log(redirectUrl);
+          this.router.navigateByUrl(`paciente/${qrData.slug}?token=${qrData.token}`);
+        }
+      },
+      error: (err) => console.error('Error in QR subscription', err),
+    });
+
   }
 
   toAdvancedData() {
