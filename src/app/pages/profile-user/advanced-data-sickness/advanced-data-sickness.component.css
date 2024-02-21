@@ -1,16 +1,19 @@
-.container-profile-edit {
-  background-color: rgb(179, 250, 227);
-}
-.edit-card {
-  width: 130vh;
+
+.span-date{
+  color: #001b71;
+  height: fit-content;
 }
 
-#signup-button {
+.selected {
+  background-color: #00a0df;
   color: white;
-  font-size: medium;
-  background-color: rgb(133, 220, 133);
-  font-weight: 500;
-  padding: 10px 40px 10px 40px
+}
+
+
+
+.button-search{
+background-color: #00a0df;
+color: white;
 }
 
 #bg-signup{
@@ -30,12 +33,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.image-service {
-  height: 50vh;
-  object-fit: contain;
-  position: relative;
 }
 
 .chart-container {
@@ -59,35 +56,38 @@ form.form-signup label {
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
-
-@media (max-width: 768px) {
-  .image-service {
-    height: 40vh;
-  }
-
-  .edit-card {
-    width: 60vh;
-  }
+.button-container{
+  justify-content: end;
+}
+.container-date{
+  gap: 30px;
 }
 
-@media (max-width: 1000px) {
-  .image-service {
-    height: 40vh;
+@media (max-width: 993px) {
+  .container-search{
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
   }
-
-  .edit-card {
-    width: 70vh;
+  .button-container{
+    justify-content: center;
+  }
+  h1{
+    text-align: center;
   }
 }
 
 @media (max-width: 575px) {
-  .image-service {
-    height: 40vh;
+  .container-date{
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  button{
+    font-size: 14px;
   }
 
-  .edit-card {
-    width: 50vh;
-  }
+
 }
 
 /*spinner*/

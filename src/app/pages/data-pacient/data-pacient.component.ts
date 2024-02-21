@@ -6,7 +6,7 @@ import { Color, ScaleType, LegendPosition } from '@swimlane/ngx-charts';
 import { MedicationInterface } from '../../shared/interfaces/medication.interface';
 import { ProfileUserService } from '../profile-user/profile-user.service';
 import { SearchCurrentValuesInterface } from '../../shared/interfaces/search-current-values.interface';
-import { formatDate } from '../../shared/helpers/helperFunctions';
+import { formatDateHelper } from '../../shared/helpers/helperFunctions';
 import { SicknessInterface } from '../../shared/interfaces/sickness.interface';
 import { AllergyInterface } from '../../shared/interfaces/allergy.interface';
 import { TrackingValueInterface } from '../../shared/interfaces/tracking-value.interface';
@@ -167,6 +167,7 @@ export class DataPacientComponent implements OnInit, OnDestroy {
       });
     })
   }
+
  // delete sickness
 
  openDeleteModal(userSickness: UserSicknessInterface) {
@@ -828,7 +829,7 @@ deleteUserTrackingValue() {
   //       groupedData[trackingValueName] = [];
   //     }
   //     groupedData[trackingValueName].push({
-  //       name: formatDate(item.createdAt),
+  //       name: formatDateHelper(item.createdAt),
   //       value: item.currentNumber
   //     });
   //   });
