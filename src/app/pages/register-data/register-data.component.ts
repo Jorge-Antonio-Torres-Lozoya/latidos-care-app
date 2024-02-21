@@ -241,9 +241,6 @@ export class RegisterDataComponent implements OnInit , OnDestroy {
     this.displayErrorCreate = false;
   }
 
-
-
-
 // medication
   openViewMedicineModal(userSickness: UserSicknessInterface) {
     this.currentUserSickness = userSickness;

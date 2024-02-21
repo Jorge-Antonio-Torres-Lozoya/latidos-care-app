@@ -445,9 +445,6 @@ openAllergyEditModal(idAllergy: number) {
   });
 }
 
-// closeConfirmAllergyUpdate() {
-//   this.confirmUpdatedAllergy = false;
-// }
 
 closeConfirmAddAllergy() {
   this.confirmAddedAllergy = false;
@@ -618,11 +615,6 @@ deleteUserTrackingValue() {
     if (this.accountUsb) {
       this.accountUsb.unsubscribe();
     }
-
-    /*if(this.accountId){
-      this.registerDataService.updateRegisterDataAccount(this.accountId!).subscribe();
-    }*/
-
   }
 }
 

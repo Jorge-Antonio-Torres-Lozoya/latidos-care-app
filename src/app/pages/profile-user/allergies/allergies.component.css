@@ -249,14 +249,10 @@ label {
     justify-content: end;
   }
 
-
-
   .text-name {
     font-size: 24px;
     padding-left: 30px;
-
   }
-
 }
 
 @media (max-width: 768px) {
@@ -270,7 +266,6 @@ label {
 
   .tooltext {
     position: static;
-
   }
 
   .title-mobile {
@@ -295,7 +290,6 @@ label {
 
   .text-name {
     padding-left: 15px;
-
   }
 
   .container-body {
@@ -339,7 +333,6 @@ label {
 @media (max-width: 460px) {
   .fz-icon-add {
     font-size: 50px;
-
   }
 
   .span-td {
@@ -366,7 +359,6 @@ label {
 
   .fz-icon-add {
     font-size: 45px;
-
   }
 
 }
