@@ -3,15 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { ProfileUserService } from '../profile-user.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
-import { Color, ScaleType, LegendPosition } from '@swimlane/ngx-charts';
-import { MedicationInterface } from '../../../shared/interfaces/medication.interface';
+import { Color, ScaleType } from '@swimlane/ngx-charts';
 import { SearchCurrentValuesInterface } from '../../../shared/interfaces/search-current-values.interface';
 import { formatDateHelper } from '../../../shared/helpers/helperFunctions';
-import { SicknessInterface } from '../../../shared/interfaces/sickness.interface';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { CurrentValueInterface } from '../../../shared/interfaces/current-value.interface';
-import { TreatmentInterface } from '../../../shared/interfaces/treatment.interface';
-import { SharedService } from '../../../shared/shared.service';
 import { formatDate } from '@angular/common';
 import { UserTrackingValueInterface } from '../../../shared/interfaces/user-tracking-value.interface';
 @Component({
@@ -80,10 +76,25 @@ export class AdvancedDataSicknessComponent implements OnInit, OnDestroy {
     const startDateStr = formatDate(startDate, 'yyyy-MM-dd', 'en-US');
     const endDateStr = formatDate(endDate, 'yyyy-MM-dd', 'en-US');
     this.searchCurrentValue(null!, startDateStr, endDateStr);
+    this.applyFilters();
 
-    this.startDate = startDateStr;
-    this.endDate = endDateStr;
-    this.searchCurrentValue(null!, this.startDate, this.endDate);
+  }
+
+  applyFilters() {
+    let startDateStr, endDateStr;
+
+    // Si se han seleccionado días, calcula las fechas de inicio y fin basadas en esa selección
+    if (this.selectedDays) {
+      const endDate = new Date();
+      const startDate = new Date();
+      startDate.setDate(endDate.getDate() - this.selectedDays);
+      endDate.setDate(endDate.getDate() + 2);
+      startDateStr = formatDate(startDate, 'yyyy-MM-dd', 'en-US');
+      endDateStr = formatDate(endDate, 'yyyy-MM-dd', 'en-US');
+    }
+
+    // Llama a searchCurrentValue con las fechas calculadas (si las hay) para aplicar los filtros
+    this.searchCurrentValue(null!, startDateStr, endDateStr);
   }
 
   searchCurrentValue(
@@ -100,18 +111,18 @@ export class AdvancedDataSicknessComponent implements OnInit, OnDestroy {
       endDate = endDateStr;
     } else if (form) {
       this.selectedDays = null;
-      const formValues = form.value;
+      let searchValues:SearchCurrentValuesInterface = form.value
       if (
-        !formValues.startDate ||
-        !formValues.endDate ||
-        !formValues.startDate.trim() ||
-        !formValues.endDate.trim()
+        !searchValues.startDate ||
+        !searchValues.endDate ||
+        !searchValues.startDate.trim() ||
+        !searchValues.endDate.trim()
       ) {
         return;
       }
       this.valuesDisplays = true;
-      startDate = formatDate(formValues.startDate, 'yyyy-MM-dd', 'en-US');
-      endDate = formatDate(formValues.endDate, 'yyyy-MM-dd', 'en-US');
+      startDate = formatDate(searchValues.startDate, 'yyyy-MM-dd', 'en-US');
+      endDate = formatDate(searchValues.endDate, 'yyyy-MM-dd', 'en-US');
     } else {
       return;
     }
@@ -120,22 +131,16 @@ export class AdvancedDataSicknessComponent implements OnInit, OnDestroy {
       .getCurrentValueByDate(this.id!, startDate, endDate)
       .subscribe(
         (response) => {
-          if (response.length > 0) {
-            this.currentValues = response;
-            if (this.selectedTrackingValues.length > 0) {
-              this.currentValues = response.filter((value) =>
-                this.selectedTrackingValues.includes(value.trackingValueName)
-              );
-            } else {
-              this.currentValues = response;
-            }
-            this.multi = this.transformDataValues(this.currentValues);
-            this.isLoadingValues = false;
-          } else {
-            this.valuesDisplays = false;
-            this.isLoadingValues = false;
-            this.valuesEmpty = true;
+          let filteredResponse = response;
+          if (this.selectedTrackingValues.length > 0) {
+            filteredResponse = response.filter((value) =>
+              this.selectedTrackingValues.includes(value.trackingValueName)
+            );
           }
+          this.multi = this.transformDataValues(filteredResponse);
+          this.isLoadingValues = false;
+          this.valuesDisplays = filteredResponse.length > 0;
+          this.valuesEmpty = filteredResponse.length === 0;
         },
         (errorMessage) => {
           this.errorCurrentValue = errorMessage;
@@ -153,6 +158,7 @@ export class AdvancedDataSicknessComponent implements OnInit, OnDestroy {
     if (this.startDate && this.endDate) {
       this.searchCurrentValue(null!, this.startDate, this.endDate);
     }
+    this.applyFilters();
   }
 
   handleErrorCurrentValue() {
@@ -183,22 +189,6 @@ export class AdvancedDataSicknessComponent implements OnInit, OnDestroy {
     return transformedData;
   }
 
-  transformDataTreatment(data: TreatmentInterface[]): any[] {
-    let takenCount = 0;
-    let notTakenCount = 0;
-
-    data.forEach((item) => {
-      if (item.taken) {
-        takenCount++;
-      } else {
-        notTakenCount++;
-      }
-    });
-    return [
-      { name: 'Tomó medicina', value: takenCount },
-      { name: 'No tomó medicina', value: notTakenCount },
-    ];
-  }
 
   ngOnDestroy(): void {
     if (this.currentValuesUsb) {

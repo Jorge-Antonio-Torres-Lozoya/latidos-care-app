@@ -1,4 +1,4 @@
-header{
+header {
   background-color: #00257A;
 }
 
@@ -34,7 +34,17 @@ h2 {
 .text-name {
   color: #001b71;
   font-weight: 900;
-  font-size: 26px;
+  font-size: 24px;
+}
+
+.text-name-congratulations {
+  color: #001b71;
+  font-weight: 900;
+}
+
+.text-congratulations {
+  color: #001b71;
+  font-weight: 600;
 }
 
 .text-name-medication {
@@ -66,6 +76,10 @@ h2 {
 }
 
 .container-flex {
+  align-items: end;
+}
+
+.container-flex-tracking {
   align-items: end;
 }
 
@@ -158,7 +172,8 @@ td {
   gap: 120px;
 }
 
-.container-flex {
+.container-flex,
+.container-flex-tracking {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -209,6 +224,34 @@ label {
   justify-content: center;
 }
 
+.container-name {
+  justify-content: space-between;
+}
+
+/* grafica */
+
+.chart-container {
+  min-height: 400px;
+}
+
+.selected {
+  background-color: #00a0df;
+  color: white;
+}
+
+.button-search {
+  background-color: #00a0df;
+  color: white;
+}
+
+.button-container {
+  justify-content: end;
+}
+
+.container-date {
+  gap: 30px;
+}
+
 @media (max-width: 1280px) {
   .main-container {
     padding-bottom: 200px;
@@ -216,6 +259,12 @@ label {
 
   .modal-dialog-centered {
     padding-bottom: 150px;
+  }
+
+  .container-flex-tracking {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0px;
   }
 }
 
@@ -230,16 +279,34 @@ label {
   }
 }
 
+@media (max-width: 993px) {
+  .container-search {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .button-container {
+    justify-content: center;
+  }
+
+  h1,
+  h2 {
+    text-align: center;
+  }
+}
+
+
+
 @media (max-width: 870px) {
-  .container-flex {
-    flex-direction: row;
-    align-items: end;
-    gap: 0px;
+  .container-flex-tracking>div {
+    flex-basis: 100%;
   }
 
   .container-flex>div {
     flex-basis: 100%;
   }
+
 
   .nowrap {
     white-space: nowrap;
@@ -256,12 +323,8 @@ label {
     justify-content: end;
   }
 
-
-
   .text-name {
-    font-size: 24px;
-    padding-left: 30px;
-
+    font-size: 22px;
   }
 
   .main-container {
@@ -275,9 +338,11 @@ label {
     width: 95%;
   }
 
-  .add-tracking-value-button {
-    justify-content: space-around;
+  .table-container h1,
+  .table-container h2 {
+    text-align: center;
   }
+
 
   .tooltext {
     position: static;
@@ -287,7 +352,6 @@ label {
   .title-mobile {
     width: 100%;
   }
-
 
   .datos {
     gap: 20px;
@@ -300,18 +364,60 @@ label {
   .modal-dialog-centered {
     padding-bottom: 330px;
   }
+
+  .container-fluid {
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .container-fluid h1 {
+    text-align: center;
+  }
+
+  .container-name {
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .container-name h4 {
+    text-align: center;
+
+  }
+
+  .text-name {
+    font-size: 20px;
+
+  }
 }
 
+@media (max-width: 575px) {
+  .container-date {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+
+  .text-name-congratulations {
+    font-size: 18px;
+  }
+
+  .text-congratulations {
+    font-size: 16px;
+  }
+
+}
 
 @media (max-width: 520px) {
   .table-container {
     padding: 10px 0px;
   }
 
-  .text-name {
-    padding-left: 15px;
-
-  }
 
   .container-body {
     flex-direction: column;
@@ -330,20 +436,15 @@ label {
     width: 70%;
   }
 
-  .text-name,
-  .text-name-medication {
-    font-size: 12px;
-  }
-
   .datos {
     gap: 20px;
   }
 
-  .color-icons-mobile{
+  .color-icons-mobile {
     font-size: 15px;
   }
 
-  .fz-text-icons{
+  .fz-text-icons {
     font-size: 9px;
   }
 
@@ -354,15 +455,15 @@ label {
 
   .span-text {
     font-weight: 200;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .span-text-current {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .span-td {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .tooltext {
@@ -376,6 +477,11 @@ label {
   .modal-dialog-centered {
     padding-bottom: 250px;
   }
+
+  .text-name {
+    font-size: 18px;
+
+  }
 }
 
 @media (max-width: 460px) {
@@ -384,16 +490,11 @@ label {
 
   }
 
-  .text-name,
-  .text-name-medication {
-    font-size: 12px;
-  }
-
-  .color-icons-mobile{
+  .color-icons-mobile {
     font-size: 15px;
   }
 
-  .fz-text-icons{
+  .fz-text-icons {
     font-size: 9px;
   }
 
@@ -404,15 +505,15 @@ label {
 
   .span-text {
     font-weight: 200;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .span-text-current {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .span-td {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .tooltext {
@@ -423,19 +524,16 @@ label {
 
 
 @media (max-width: 400px) {
-  .text-name {
-    font-size: 12px;
-  }
 
   .nowrap {
     white-space: wrap;
   }
 
-  .color-icons-mobile{
+  .color-icons-mobile {
     font-size: 15px;
   }
 
-  .fz-text-icons{
+  .fz-text-icons {
     font-size: 9px;
   }
 
@@ -446,15 +544,15 @@ label {
 
   .span-text {
     font-weight: 200;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .span-text-current {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .span-td {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .tooltext {
@@ -464,15 +562,12 @@ label {
 }
 
 @media (max-width: 280px) {
-  .text-name {
-    font-size: 12px;
-  }
 
-  .color-icons-mobile{
+  .color-icons-mobile {
     font-size: 15px;
   }
 
-  .fz-text-icons{
+  .fz-text-icons {
     font-size: 9px;
   }
 
@@ -500,3 +595,57 @@ label {
 }
 
 
+
+/*spinner*/
+
+.loader {
+  position: relative;
+  width: 40px;
+  height: 60px;
+  animation: heartBeat 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  background: #ff3d00;
+  width: 40px;
+  height: 60px;
+  border-radius: 50px 50px 0 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: rotate(45deg);
+  transform-origin: 50% 68%;
+  box-shadow: 5px 4px 5px #0004 inset;
+}
+
+.loader:after {
+  transform: rotate(-45deg);
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(0.95)
+  }
+
+  5% {
+    transform: scale(1.1)
+  }
+
+  39% {
+    transform: scale(0.85)
+  }
+
+  45% {
+    transform: scale(1)
+  }
+
+  60% {
+    transform: scale(0.95)
+  }
+
+  100% {
+    transform: scale(0.9)
+  }
+}

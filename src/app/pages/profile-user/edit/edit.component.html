@@ -12,12 +12,12 @@
         <button type="button" class="btn-close text-end" aria-label="Close" (click)="closeErrorCreate()"></button>
       </div>
         <div class="form-flex">
-          <div>
+          <div class="mb-3">
             <label class="form-label text-name" for="firstName"> Nombres </label>
             <input id="firstName" type="text" class="form-control" required [(ngModel)]="account.firstName" name="firstName">
           </div>
 
-          <div>
+          <div class="mb-3">
             <label class="form-label text-name" for="lastName"> Apellidos </label>
             <input id="lastName" type="text" class="form-control" required [(ngModel)]="account.lastName" name="lastName">
           </div>
@@ -37,11 +37,11 @@
       <h1 *ngIf="isMobile" class=" mb-0 pt-4 pb-3 text-center">Actualizar datos de perfil</h1>
 
       <div class="form-flex">
-        <div>
+        <div class="mb-3">
           <label class="form-label text-name" for="tutorFirstName"> Nombres del familiar tutor </label>
           <input id="tutorFirstName" type="text" class="form-control" required [(ngModel)]="account.tutorFirstName" name="tutorFirstName">
         </div>
-        <div>
+        <div class="mb-3">
           <label class="form-label text-name" for="tutorLastName"> Apellidos del familiar tutor </label>
           <input id="tutorLastName" type="text" class="form-control" required [(ngModel)]="account.tutorLastName" name="tutorLastName">
         </div>
