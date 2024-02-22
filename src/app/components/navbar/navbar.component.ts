@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router, Event as NavigationEvent } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AccountInterface } from '../../shared/interfaces/account.interface';
-import { BehaviorSubject, Subscription, filter } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { LoginService } from '../../pages/login/login.service';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { SharedService } from '../../shared/shared.service';
@@ -23,6 +23,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   adminRole: boolean = false;
   logoutModal:string = 'none';
 
+  isRootOrSection: boolean = false;
+
   constructor(
     private router: Router,
     private loginService: LoginService,
@@ -40,6 +42,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
             this.hasAdminRole();
           });
         }
+      });
+      this.router.events.subscribe(() => {
+        this.isRootOrSection = this.router.url === '/' || this.router.url.startsWith('/#');
       });
     }
 

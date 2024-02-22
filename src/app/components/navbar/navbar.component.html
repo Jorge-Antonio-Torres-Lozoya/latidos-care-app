@@ -1,13 +1,14 @@
 <header [ngClass]="{
   'logged-in': accountConnected,
-  'logged-out': !accountConnected
+  'logged-out': !accountConnected && isRootOrSection,
+  'other-background':!accountConnected && !isRootOrSection
    }">
   <nav class="navbar navbar-expand-xl  py-3 px-3 sticky-top">
     <!-- NAV CONTAINER START -->
     <div class="container-fluid ">
-      <img *ngIf="accountConnected" class="logo" style="cursor: pointer;" src="../../../assets/images/Logo-colores-originales.svg"
+      <img *ngIf="accountConnected || !accountConnected && !isRootOrSection" class="logo" style="cursor: pointer;" src="../../../assets/images/Logo-colores-originales.svg"
         alt="logo-navbar" (click)="navigateToHome()">
-        <img *ngIf="!accountConnected" class="logo" style="cursor: pointer;" src="../../../assets/images/logo-color-svg.svg"
+        <img *ngIf="!accountConnected && isRootOrSection" class="logo" style="cursor: pointer;" src="../../../assets/images/logo-color-svg.svg"
         alt="logo-navbar" (click)="navigateToHome()">
 
       <!-- NAV BUTTON  -->
@@ -69,18 +70,18 @@
             </li>
             <li *ngIf="!accountConnected" class="navbar-item  nav-item p-2 py-md-1">
               <a data-bs-dismiss="offcanvas" routerLink="/#nosotros" (click)="forceNavigate('nosotros')"
-                class="links-nav color-blue"> Nosotros</a>
+                class="links-nav color-blue" [ngStyle]="!accountConnected && !isRootOrSection ? {'color': 'white'} : {}"> Nosotros</a>
             </li>
             <li *ngIf="!accountConnected" class="navbar-item nav-item p-2 py-md-1">
               <a data-bs-dismiss="offcanvas" routerLink="/#servicios" (click)="forceNavigate('servicios')"
-                class="links-nav nowrap color-blue"> Nuestro Servicios</a>
+                class="links-nav nowrap color-blue" [ngStyle]="!accountConnected && !isRootOrSection ? {'color': 'white'} : {}" > Nuestro Servicios</a>
             </li>
             <li *ngIf="!accountConnected" class="navbar-item nav-item p-2 py-md-1">
               <a data-bs-dismiss="offcanvas" routerLink="/#preguntas-frecuentes"
-                (click)="forceNavigate('preguntas-frecuentes')" class="links-nav nowrap color-blue"> Preguntas frecuentes</a>
+                (click)="forceNavigate('preguntas-frecuentes')" class="links-nav nowrap color-blue" [ngStyle]="!accountConnected && !isRootOrSection ? {'color': 'white'} : {}"> Preguntas frecuentes </a>
             </li>
             <li *ngIf="!accountConnected" class="navbar-item nav-item p-2 py-md-1">
-              <a data-bs-dismiss="offcanvas" (click)="toQR()" style="cursor: pointer;" class="links-nav nowrap color-blue">QR</a>
+              <a data-bs-dismiss="offcanvas" (click)="toQR()" style="cursor: pointer;" class="links-nav nowrap color-blue" [ngStyle]="!accountConnected && !isRootOrSection ? {'color': 'white'} : {}">QR</a>
             </li>
             <li *ngIf="!accountConnected" class="navbar-item nav-item p-3 py-md-1 bg-button-login">
               <a data-bs-dismiss="offcanvas" routerLink="/login" class="links-nav color-blue-light"> Login</a>

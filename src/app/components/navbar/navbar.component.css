@@ -20,6 +20,10 @@
   background-color: white;
   box-shadow: 0 4px 6px -6px #222;
 }
+.other-background{
+  background-color: #00257A;
+
+}
 
 .flecha::after{
   content: none;
