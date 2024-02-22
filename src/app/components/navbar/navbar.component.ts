@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router, Event as NavigationEvent } from '@angular/router';
 import { AccountInterface } from '../../shared/interfaces/account.interface';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, filter } from 'rxjs';
 import { LoginService } from '../../pages/login/login.service';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { SharedService } from '../../shared/shared.service';

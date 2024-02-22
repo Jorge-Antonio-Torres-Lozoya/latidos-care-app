@@ -2,6 +2,9 @@
   max-width: 65%;
   height: auto;
 }
+footer{
+  background-color: #00257A;
+}
 
 .whatsapp{
   padding-top: 5px;
@@ -23,9 +26,12 @@
 .navbar-logo {
   max-width: 170px;
 }
+i{
+  color: white;
 
+}
 .footer-text {
-  color: rgb(133, 220, 133);
+  color: white;
   font-weight: 600;
 }
 
