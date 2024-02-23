@@ -37,11 +37,6 @@ h2 {
   font-size: 24px;
 }
 
-.text-name-congratulations {
-  color: #001b71;
-  font-weight: 900;
-}
-
 .text-congratulations {
   color: #001b71;
   font-weight: 600;
@@ -401,14 +396,6 @@ label {
 
   button {
     font-size: 14px;
-  }
-
-  .text-name-congratulations {
-    font-size: 18px;
-  }
-
-  .text-congratulations {
-    font-size: 16px;
   }
 
 }

@@ -745,7 +745,7 @@ export class DataPacientComponent implements OnInit, OnDestroy {
     }
 
     this.currentValuesUsb = this.profileUserService
-      .getCurrentValueByDate(this.id!, startDate, endDate)
+      .getCurrentValueByDate(this.id!, startDate, endDate,this.token!)
       .subscribe(
         (response) => {
           let filteredResponse = response;

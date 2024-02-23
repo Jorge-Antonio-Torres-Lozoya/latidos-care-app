@@ -192,6 +192,15 @@ label {
   font-weight: 400;
   text-align: center;
 }
+.text-name-congratulations {
+  color: #001b71;
+  font-weight: 900;
+}
+.text-congratulations {
+  color: #001b71;
+  font-weight: 600;
+}
+
 
 .modal-dialog {
   max-width: 700px !important;
@@ -373,6 +382,15 @@ label {
   .modal-dialog-centered {
     padding-bottom: 230px;
   }
+
+  .text-name-congratulations {
+    font-size: 18px;
+  }
+
+  .text-congratulations {
+    font-size: 16px;
+  }
+
 }
 
 @media (max-width: 460px) {

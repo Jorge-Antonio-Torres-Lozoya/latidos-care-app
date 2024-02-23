@@ -149,12 +149,26 @@
     <span *ngIf="!isMobile" class="span-text-current ms-2">Nueva alergia</span>
   </div>
 
-  <div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-3 mt-1">
-    <a style="cursor: pointer;" class=" tooltext color-circle-plus" (click)="toDashboard()">
+  <div class="container my-5">
+    <div class="container-congratulations px-2">
+      <h4 class="text-name-congratulations">!Felicitaciones¡</h4>
+      <div class="container-go-to-perfil d-flex gap-4 justify-content-between">
+        <h5 class="text-congratulations">Has configurado tu historial médico correctamente.
+          El ultimo paso es completar tus datos personales.
+        </h5>
+        <i style="cursor: pointer;" (click)="toDashboard()" class=" d-flex align-items-center fa-solid fa-arrow-right fs-2 color-circle-plus"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class=" add-tracking-value-button  mx-2 d-flex  align-items-center mb-5 pb-3 mt-1">
+    <a style="cursor: pointer;" class=" tooltext color-circle-plus" >
       <i class="fa-solid fa-circle-check color-circle-plus fs-1 "></i>
     </a>
     <span *ngIf="!isMobile" class="span-text-current ms-2">Ir a su perfil</span>
-  </div>
+  </div> -->
+
+
 
 <!--Delete  Modal-->
 <div class="modal" tabindex="-1" [ngStyle]="{'display':displayTrackingValuesDeleteModal}">
