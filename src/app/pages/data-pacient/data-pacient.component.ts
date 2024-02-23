@@ -113,7 +113,6 @@ export class DataPacientComponent implements OnInit, OnDestroy {
   isLoadingValues: boolean = true;
   valuesDisplays: boolean = false;
   valuesEmpty: boolean = false;
-  id: string = this.cookieService.get('account_id')!;
   currentValues?: CurrentValueInterface[];
   currentValuesUsb?: Subscription;
   legend: boolean = true;
@@ -153,22 +152,24 @@ export class DataPacientComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private sharedService: SharedService,
     private router: Router,
-    private registerDataService: RegisterDataService,
-    private cookieService: SsrCookieService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
-    this.profileUserService.validateVerificationTokenAccount(this.id!, this.token!).subscribe((response) => {
-      if(response.validated === false) {
-        this.router.navigate(['unauthorized']);
-      }
-    })
+
     this.accountUsb = this.sharedService
       .getAccountBySlug(this.slug)
       .subscribe((account) => {
         this.account = account;
         this.accountId = account.accountId.toString();
+        console.log(this.accountId);
+
+        // this.profileUserService.validateVerificationTokenAccount(this.accountId!, this.token!).subscribe((response) => {
+        //   if(response.validated === false) {
+        //     this.router.navigate(['unauthorized']);
+        //   }
+        // })
+
 
         this.userSicknessesUsb = this.profileUserService
           .getAllUserSicknessByAccount(this.accountId, this.token!)
@@ -745,7 +746,7 @@ export class DataPacientComponent implements OnInit, OnDestroy {
     }
 
     this.currentValuesUsb = this.profileUserService
-      .getCurrentValueByDate(this.id!, startDate, endDate,this.token!)
+      .getCurrentValueByDate(this.accountId!, startDate, endDate,this.token!)
       .subscribe(
         (response) => {
           let filteredResponse = response;
