@@ -10,7 +10,7 @@ import { RecoverPasswordGuard } from './shared/guards/recover-password.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'paciente/:slug/:token', canActivate: [QrAccessGuard],
+  {path: 'paciente/:slug', canActivate: [QrAccessGuard],
   loadChildren:() => import('./pages/data-pacient/data-pacient.module').then(m => m.DataPacientModule)},
   {path: 'registro-paciente',
   loadChildren:() => import('./pages/register-user/register-user.module').then(m => m.RegisterUserModule) },
