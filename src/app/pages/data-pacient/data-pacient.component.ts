@@ -21,8 +21,6 @@ import { MedicationSicknessInterface } from '../../shared/interfaces/medication-
 import { UserSicknessInterface } from '../../shared/interfaces/user-sickness.interface';
 import { UserAllergyInterface } from '../../shared/interfaces/user-allergy.interface';
 import { UserTrackingValueInterface } from '../../shared/interfaces/user-tracking-value.interface';
-import { RegisterDataService } from '../register-data/register-data.service';
-import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { SharedService } from '../../shared/shared.service';
 import { CreateMedicationSicknessInterface } from '../../shared/interfaces/create-medication-sickness.interface';
 import { CreateUserAllergyInterface } from '../../shared/interfaces/create-user-allergy.interface';
@@ -162,14 +160,12 @@ export class DataPacientComponent implements OnInit, OnDestroy {
       .subscribe((account) => {
         this.account = account;
         this.accountId = account.accountId.toString();
-        console.log(this.accountId);
 
-        // this.profileUserService.validateVerificationTokenAccount(this.accountId!, this.token!).subscribe((response) => {
-        //   if(response.validated === false) {
-        //     this.router.navigate(['unauthorized']);
-        //   }
-        // })
-
+        this.profileUserService.validateVerificationTokenAccount(this.accountId!, this.token!).subscribe((response) => {
+          if(response.validated === false) {
+            this.router.navigate(['unauthorized']);
+          }
+        })
 
         this.userSicknessesUsb = this.profileUserService
           .getAllUserSicknessByAccount(this.accountId, this.token!)
