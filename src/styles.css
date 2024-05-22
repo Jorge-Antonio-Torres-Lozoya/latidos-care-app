@@ -31,7 +31,8 @@ body {
 }
 
 h1 {
-  color: #00a0df !important;
+  /* color: #00a0df !important; */
+  color: #005C85 !important;
   font-weight: 100  !important;
 
 }

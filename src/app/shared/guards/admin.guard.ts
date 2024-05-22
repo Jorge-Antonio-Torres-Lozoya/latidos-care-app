@@ -14,8 +14,10 @@ export class AdminGuard  implements CanActivate  {
     return this.loginService.account!.pipe(take(1) ,map(
       admin => {
         if (admin === null) {
-          console.log('user is null', admin)
-          return true;
+          // console.log('user is null', admin)
+          // return true;
+          this.router.navigate(['unauthorized']);
+          return false;
         }
         const isAuthorized:boolean = !!admin
         if(isAuthorized){

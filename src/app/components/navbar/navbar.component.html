@@ -7,12 +7,12 @@
     <!-- NAV CONTAINER START -->
     <div class="container-fluid ">
       <img *ngIf="accountConnected || !accountConnected && !isRootOrSection" class="logo" style="cursor: pointer;" src="../../../assets/images/Logo-colores-originales.svg"
-        alt="logo-navbar" (click)="navigateToHome()">
+        alt="" (click)="navigateToHome()">
         <img *ngIf="!accountConnected && isRootOrSection" class="logo" style="cursor: pointer;" src="../../../assets/images/logo-color-svg.svg"
         alt="logo-navbar" (click)="navigateToHome()">
 
       <!-- NAV BUTTON  -->
-      <button class="navbar-toggler bg-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
+      <button aria-label="menú hamburguesa" class="navbar-toggler bg-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- OFFCANVAS MAIN CONTAINER START -->
@@ -20,7 +20,7 @@
         <div class="offcanvas-header" data-bs-theme="dark">
           <img class="logo" style="cursor: pointer;" src="../../../assets/images/Logo-colores-originales.svg" alt="logo-sidebar"
             (click)="navigateToHome()">
-          <button class="btn-close text-white button-close" type="button" aria-label="Close"
+          <button aria-label="cerrar" class="btn-close text-white button-close" type="button" aria-label="Close"
             data-bs-dismiss="offcanvas"></button>
         </div>
         <!-- OFF CANVAS MENU LINKS  START-->
