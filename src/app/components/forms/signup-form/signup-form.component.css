@@ -7,7 +7,7 @@
 #signup-button {
   color: white;
   font-size: medium;
-  background-color: rgb(133, 220, 133);
+  background-color: #00257A;
   font-weight: 500;
   padding: 10px 40px 10px 40px
 }
@@ -37,7 +37,7 @@
 }
 
 #signup-text {
-  color: rgb(133, 220, 133);
+  color: #00257A;
   font-weight: 600;
 }
 
@@ -52,6 +52,19 @@ form.form-signup label {
 
 input.ng-invalid.ng-touched {
   border: 1px solid red;
+}
+.underline{
+  text-decoration: underline;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 @media (max-width: 768px) {

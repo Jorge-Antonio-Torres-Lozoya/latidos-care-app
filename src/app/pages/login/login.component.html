@@ -12,12 +12,14 @@
     <form class="form-signin" #formData="ngForm" (ngSubmit)="loginFun(formData)">
       <div class="input-group mb-3 pt-3">
         <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+        <label for="correoUsuarioSignup" class="sr-only">Correo electrónico</label>
         <input type="text" id="correoUsuarioLogin" class="form-control" placeholder="Correo electrónico" required  aria-required="true"
           ngModel name="email">
       </div>
       <div class="input-group mb-3 pt-3">
         <button aria-label="ver contraseña" (click)="passwordFun()" class="btn btn-outline-secondary" type="button"><i
             class="fa-solid fa-eye"></i></button>
+            <label for="claveUsuarioLogin" class="sr-only">Contraseña</label>
         <input  aria-required="true" type="password" id="claveUsuarioLogin" class="form-control" placeholder="Contraseña" required ngModel
           name="password" [type]="showPassword ? 'text' : 'password'">
       </div>
@@ -35,6 +37,57 @@
     </form>
   </div>
 </div>
+
+<div class="table-container container my-5">
+
+
+<h2 class="text-center">Servicios de Salud por Año</h2>
+<table>
+  <caption class="caption-sr-only">Servicios de Salud por Año</caption>
+  <thead>
+    <tr>
+      <th scope="col">Año</th>
+      <th scope="col">Consultas Médicas</th>
+      <th scope="col">Hospitalizaciones</th>
+      <th scope="col">Cirugías</th>
+      <th scope="col">Emergencias</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">2020</th>
+      <td>1,200,000</td>
+      <td>250,000</td>
+      <td>90,000</td>
+      <td>300,000</td>
+    </tr>
+    <tr>
+      <th scope="row">2021</th>
+      <td>1,300,000</td>
+      <td>260,000</td>
+      <td>95,000</td>
+      <td>310,000</td>
+    </tr>
+    <tr>
+      <th scope="row">2022</th>
+      <td>1,350,000</td>
+      <td>270,000</td>
+      <td>100,000</td>
+      <td>320,000</td>
+    </tr>
+    <tr>
+      <th scope="row">2023</th>
+      <td>1,400,000</td>
+      <td>280,000</td>
+      <td>105,000</td>
+      <td>330,000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
 <!-- Forgot Password Modal -->
 <div class="modal" tabindex="-1" [ngStyle]="{'display':displayPasswordModal}">
   <div class=" modal-dialog modal-dialog-centered">

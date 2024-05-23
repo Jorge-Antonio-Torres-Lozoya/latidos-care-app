@@ -9,10 +9,12 @@
       <div class="row">
         <div class="col input-group mb-3">
           <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-user"></i></span>
+          <label for="nombresUsuarioSignup" class="sr-only">Nombre</label>
           <input type="text" id="nombresUsuarioSignup" class="form-control" placeholder="Nombres" required ngModel name="firstName">
         </div>
         <div class="col input-group mb-3">
           <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-user"></i></span>
+          <label for="apellidosUsuarioSignup" class="sr-only">Apellidos</label>
           <input type="text" class="form-control" id="apellidosUsuarioSignup" placeholder="Apellidos" aria-label="lastName"
           required ngModel name="lastName">
         </div>
@@ -20,16 +22,19 @@
       <div class="row">
         <div class="col input-group mb-3 pt-3">
             <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-phone"></i></span>
+            <label for="numeroUsuarioSignup" class="sr-only">Número de celular</label>
             <input type="text" id="numeroUsuarioSignup" class="form-control" placeholder="Número celular" required ngModel name="phoneNumber">
         </div>
         <div class="col input-group mb-3 pt-3">
           <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-envelope"></i></span>
+          <label for="correoUsuarioSignup" class="sr-only">Correo electrónico</label>
           <input type="email" id="correoUsuarioSignup" class="form-control" placeholder="Correo electrónico" required ngModel name="email">
        </div>
       </div>
       <div class="row">
         <div class="col input-group mb-3 pt-3">
-          <button (click)="passwordFun()" class="btn btn-outline-secondary" type="button" id="button-addon1"><i class="fa-solid fa-eye"></i></button>
+          <button aria-label="Mostrar contraseña" (click)="passwordFun()" class="btn btn-outline-secondary" type="button" id="button-addon1"><i class="fa-solid fa-eye"></i></button>
+          <label for="claveUsuarioLogin" class="sr-only">Contraseña</label>
           <input type="password" id="claveUsuarioLogin" class="form-control" placeholder="Contraseña" required ngModel name="password"
         [type]="showPassword.value ? 'text' : 'password'">
         </div>
@@ -47,7 +52,7 @@
             <p class="nav-link text-black" >¿Ya tienes cuenta?</p>
           </li>
           <li class="nav-item">
-            <a routerLink="/login" class="nav-link" id="signup-text">Iniciar Sesion</a>
+            <a routerLink="/login" class="nav-link underline" id="signup-text" >Iniciar sesión</a>
           </li>
         </ul>
       </div>
